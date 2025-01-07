@@ -10,6 +10,8 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/css/components.css') }}">
+    <!-- Toastr CSS link -->
+    <link rel="stylesheet" href="{{ asset('admin/assets/css/toastr.min.css') }}">
     @stack('admin-css')
 </head>
 
@@ -55,6 +57,18 @@
     <!-- Template JS File -->
     <script src="{{ asset('admin/assets/js/scripts.js') }}"></script>
     <script src="{{ asset('admin/assets/js/custom.js') }}"></script>
+    <!-- Toastr js Links -->
+    <script src="{{ asset('admin/assets/js/toastr.min.js') }}"></script>
+    <!-- show dynamic validation message -->
+    <script>
+        toastr.options.progressBar = true;
+
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                toastr.error("{{ $error }}")
+            @endforeach
+        @endif
+    </script>
     @stack('admin-js')
 </body>
 
