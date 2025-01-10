@@ -4,7 +4,7 @@
         <div class="fp__review_area">
             <div class="fp__comment pt-0 mt_20">
                 <div class="fp__single_comment m-0 border-0">
-                    <img src="images/menu1.png" alt="review" class="img-fluid">
+                    <img src="{{ asset('frontend/images/menu1.png') }}" alt="review" class="img-fluid">
                     <div class="fp__single_comm_text">
                         <h3><a href="#">mamun ahmed shuvo</a> <span>29 oct 2022
                             </span>
@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="fp__single_comment">
-                    <img src="images/menu2.png" alt=" review" class="img-fluid">
+                    <img src="{{ asset('frontend/images/menu2.png') }}" alt=" review" class="img-fluid">
                     <div class="fp__single_comm_text">
                         <h3><a href="#">asaduzzaman khan</a> <span>29 oct 2022
                             </span>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="fp__single_comment">
-                    <img src="images/menu3.png" alt="review" class="img-fluid">
+                    <img src="{{ asset('frontend/images/menu3.png') }}" alt="review" class="img-fluid">
                     <div class="fp__single_comm_text">
                         <h3><a href="#">ariful islam rupom</a> <span>29 oct 2022
                             </span>
@@ -64,7 +64,7 @@
                     </div>
                 </div>
                 <div class="fp__single_comment">
-                    <img src="images/menu4.png" alt="review" class="img-fluid">
+                    <img src="{{ asset('frontend/images/menu4.png') }}" alt="review" class="img-fluid">
                     <div class="fp__single_comm_text">
                         <h3><a href="#">ali ahmed jakir</a> <span>29 oct 2022 </span>
                         </h3>
