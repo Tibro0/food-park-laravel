@@ -15,9 +15,40 @@ namespace App\Models{
 /**
  * 
  *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SectionTitle newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SectionTitle newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SectionTitle query()
+ */
+	class SectionTitle extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
+ * @property string $image
+ * @property string|null $offer
+ * @property string $title
+ * @property string $sub_title
+ * @property string $short_description
+ * @property string|null $button_link
+ * @property int $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Slider newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Slider newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Slider query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Slider whereButtonLink($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Slider whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Slider whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Slider whereImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Slider whereOffer($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Slider whereShortDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Slider whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Slider whereSubTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Slider whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Slider whereUpdatedAt($value)
  */
 	class Slider extends \Eloquent {}
 }
@@ -54,5 +85,16 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
  */
 	class User extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|WhyChooseUs newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|WhyChooseUs newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|WhyChooseUs query()
+ */
+	class WhyChooseUs extends \Eloquent {}
 }
 
