@@ -86,6 +86,17 @@ namespace App\Models{
 /**
  * 
  *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductGallery newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductGallery newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductGallery query()
+ */
+	class ProductGallery extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
  * @property int $id
  * @property string|null $key
  * @property string|null $value
