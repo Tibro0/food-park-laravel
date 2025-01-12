@@ -8,7 +8,9 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li><a class="nav-link" href="index-0.html"><i class="fas fa-fire"></i><span>General Dashboard</span></a></li>
+            <li><a class="nav-link" href="{{ route('admin.dashboard') }}"><i class="fas fa-fire"></i><span>General
+                        Dashboard</span></a>
+            </li>
             <li class="menu-header">Starter</li>
             <li><a class="nav-link" href="{{ route('admin.slider.index') }}"><i class="far fa-square"></i>
                     <span>Slider</span></a></li>
@@ -20,6 +22,7 @@
                     <span>Manage Restaurant</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('admin.category.index') }}">Product Categories</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.product.index') }}">Products</a></li>
                 </ul>
             </li>
 
