@@ -22,7 +22,12 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('profile/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.avatar.update');
 });
 
+
+require __DIR__.'/auth.php';
+
+
 /** Home Route */
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 
-require __DIR__.'/auth.php';
+/** Show Product Details Page */
+Route::get('product/{slug}', [FrontendController::class, 'showProduct'])->name('product.show');
