@@ -30,6 +30,11 @@ class ProductSizeController extends Controller
             'name' => ['required', 'max:255'],
             'price' => ['required', 'numeric'],
             'product_id' => ['required', 'integer']
+        ],[
+            'name.required' => 'Product Size name is required',
+            'name.max' => 'Product Size max length is 255',
+            'price.required' => 'Product Size price is required',
+            'price.numeric' => 'Product Size price have to be a number',
         ]);
 
         $size = new ProductSize();
