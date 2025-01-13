@@ -132,13 +132,13 @@
                                         <td>{{ $option->price }}</td>
                                         <td>
                                             <a href="{{ route('admin.product-option.destroy', $option->id) }}""
-                                                class="btn btn-danger delete-item mx-2"><i class="fas fa-trash"></i></a>
+                                                class="btn btn-danger mx-2" id="delete"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
                                 @if (count($options) === 0)
                                     <tr>
-                                        <td colspan='4' class="text-center bg-primary text-white">No data found!</td>
+                                        <td colspan='4' class="text-center bg-primary text-white">No Data Found!</td>
                                     </tr>
                                 @endif
                             </tbody>
