@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @push('admin-css')
-    <title>Admin | Product</title>
+    <title>Admin | Product Gallery</title>
     <!-- dataTables css -->
     <link rel="stylesheet" href="{{ asset('admin/assets/css/dataTables-bootstrap4.css') }}">
 @endpush
