@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}">
     <!-- toastr Css Link -->
     <link rel="stylesheet" href="{{ asset('frontend/css/toastr.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('frontend/css/rtl.css') }}"> --}}
     @stack('frontend-css')
 </head>
