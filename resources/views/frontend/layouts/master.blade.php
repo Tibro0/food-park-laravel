@@ -25,6 +25,13 @@
 </head>
 
 <body>
+    <!-- loader Start -->
+    <div class="overlay-container d-none">
+        <div class="overlay">
+            <span class="loader"></span>
+        </div>
+    </div>
+    <!-- loader End -->
 
     <!--=============================TOPBAR START==============================-->
     <section class="fp__topbar">
@@ -117,6 +124,8 @@
             }
         });
     </script>
+    <!-- load global js -->
+    @include('frontend.layouts.global-scripts')
     @stack('frontend-js')
 </body>
 
