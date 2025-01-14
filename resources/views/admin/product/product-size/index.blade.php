@@ -25,15 +25,15 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="">Name</label>
-                                        <input type="text" name="name" id="" class="form-control">
+                                        <label>Name</label>
+                                        <input type="text" name="name" class="form-control">
                                         <input type="hidden" value="{{ $product->id }}" name="product_id">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="">Price</label>
-                                        <input type="text" name="price" id="" class="form-control">
+                                        <label>Price</label>
+                                        <input type="text" name="price" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -59,9 +59,9 @@
                             <tbody>
                                 @foreach ($sizes as $size)
                                     <tr>
-                                        <td>{{ ++$loop->index }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $size->name }}</td>
-                                        <td>{{ $size->price }}</td>
+                                        <td>{{ currencyPosition($size->price) }}</td>
                                         <td>
                                             <a href="{{ route('admin.product-size.destroy', $size->id) }}""
                                                 class="btn btn-danger mx-2" id="delete"><i class="fas fa-trash"></i></a>
@@ -93,14 +93,14 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="">Name</label>
+                                        <label>Name</label>
                                         <input type="text" name="name" class="form-control">
                                         <input type="hidden" value="{{ $product->id }}" name="product_id">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="">Price</label>
+                                        <label>Price</label>
                                         <input type="text" name="price" class="form-control">
                                     </div>
                                 </div>
@@ -127,9 +127,9 @@
                             <tbody>
                                 @foreach ($options as $option)
                                     <tr>
-                                        <td>{{ ++$loop->index }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $option->name }}</td>
-                                        <td>{{ $option->price }}</td>
+                                        <td>{{ currencyPosition($option->price) }}</td>
                                         <td>
                                             <a href="{{ route('admin.product-option.destroy', $option->id) }}""
                                                 class="btn btn-danger mx-2" id="delete"><i class="fas fa-trash"></i></a>

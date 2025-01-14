@@ -10,8 +10,8 @@
         return '';
     }
 
-    /** Create unique slug */
-    function generateUniqueSlug($model, $name): string{
+    /** Create Unique Slug */
+    function generateUniqueSlug($model, $name){
         $modelClass = "App\\Models\\$model";
 
         if (!class_exists($modelClass)) {
@@ -27,5 +27,14 @@
         }
 
         return $slug;
+    }
+
+    /** Currency Position */
+    function currencyPosition($price){
+        if (config('settings.site_currency_icon_position') === 'left') {
+            return config('settings.site_currency_icon') . $price;
+        } else if(config('settings.site_currency_icon_position') === 'right'){
+            return $price . config('settings.site_currency_icon');
+        }
     }
 
