@@ -144,10 +144,18 @@
                 inputField.val(currentValue + 1);
 
                 cartQtyUpdate(rowId, inputField.val(), function(response) {
-                    let productTotal = response.product_total;
-                    inputField.closest("tr").find(".produt_cart_total").text(
-                        '{{ currencyPosition(':productTotal') }}'
-                        .replace(':productTotal', productTotal));
+                    if (response.status === 'success') {
+                        inputField.val(response.qty);
+
+                        let productTotal = response.product_total;
+                        inputField.closest("tr").find(".produt_cart_total").text(
+                            '{{ currencyPosition(':productTotal') }}'
+                            .replace(':productTotal', productTotal));
+                    } else if (response.status === 'error') {
+                        inputField.val(response.qty);
+                        toastr.error(response.message);
+                    }
+
                 });
             });
 
@@ -157,14 +165,24 @@
                 let currentValue = parseInt(inputField.val());
                 let rowId = inputField.data("id");
 
+                // inputField.val(currentValue - 1);
+
                 if (inputField.val() > 1) {
+
                     inputField.val(currentValue - 1);
 
                     cartQtyUpdate(rowId, inputField.val(), function(response) {
-                        let productTotal = response.product_total;
-                        inputField.closest("tr").find(".produt_cart_total").text(
-                            '{{ currencyPosition(':productTotal') }}'
-                            .replace(':productTotal', productTotal));
+                        if (response.status === 'success') {
+                            inputField.val(response.qty);
+
+                            let productTotal = response.product_total;
+                            inputField.closest("tr").find(".produt_cart_total").text(
+                                '{{ currencyPosition(':productTotal') }}'
+                                .replace(':productTotal', productTotal));
+                        } else if (response.error === 'error') {
+                            inputField.val(response.qty);
+                            toastr.error(response.message);
+                        }
                     });
                 }
             });

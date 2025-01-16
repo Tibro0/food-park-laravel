@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class CartController extends Controller
 {
@@ -17,6 +18,9 @@ class CartController extends Controller
     public function addToCart(Request $request){
         // dd($request->all());
         $product = Product::with(['productSizes', 'productOptions'])->findOrFail($request->product_id);
+        if($product->quantity < $request->quantity){
+            throw ValidationException::withMessages(['Quantity is not Available!']);
+        }
         $productSize = $product->productSizes->where('id', $request->product_size)->first();
         $productOptions = $product->productOptions->whereIn('id', $request->product_option);
 
@@ -70,9 +74,16 @@ class CartController extends Controller
     }
 
     public function cartQtyUpdate(Request $request){
-        Cart::update($request->rowId, $request->qty);
+        $cartItem = Cart::get($request->rowId);
+        $product = Product::findOrFail($cartItem->id);
 
-        return response(['product_total' => productTotal($request->rowId),],200);
+        if($product->quantity < $request->qty){
+           return response(['status' => 'error', 'message' => 'Quantity is not Available!', 'qty' => $cartItem->qty]);
+        }
+
+        $cart = Cart::update($request->rowId, $request->qty);
+
+        return response(['product_total' => productTotal($request->rowId), 'qty' => $cart->qty],200);
     }
 
     public function cartDestroy(){
