@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductGalleryController;
 use App\Http\Controllers\Admin\ProductOptionController;
@@ -44,6 +45,9 @@ Route::resource('product-size', ProductSizeController::class);
 
 /** Product Option Routes */
 Route::resource('product-option', ProductOptionController::class);
+
+/** Coupon Routes */
+Route::resource('coupon', CouponController::class);
 
 /** Setting Routes */
 Route::get('setting', [SettingController::class, 'index'])->name('setting.index');

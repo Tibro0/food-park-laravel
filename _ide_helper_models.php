@@ -40,6 +40,17 @@ namespace App\Models{
 /**
  * 
  *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Coupon newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Coupon newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Coupon query()
+ */
+	class Coupon extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
  * @property int $id
  * @property string $name
  * @property string $slug
@@ -180,9 +191,19 @@ namespace App\Models{
 /**
  * 
  *
+ * @property int $id
+ * @property string|null $key
+ * @property string|null $value
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Setting newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Setting newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Setting query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Setting whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Setting whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Setting whereKey($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Setting whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Setting whereValue($value)
  */
 	class Setting extends \Eloquent {}
 }
