@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+    public function index(){
+        return view('frontend.pages.cart-view');
+    }
+
     /** Add to Cart */
     public function addToCart(Request $request){
         // dd($request->all());
@@ -62,6 +66,12 @@ class CartController extends Controller
             return response([
                 'status' => 'success',
                 'message' => 'Item has been removed!',
-            ], 200);
+        ], 200);
+    }
+
+    public function cartQtyUpdate(Request $request){
+        Cart::update($request->rowId, $request->qty);
+
+        return response(['status' => 'success', 'message' => 'Quantity Updated Successfully!',],200);
     }
 }
