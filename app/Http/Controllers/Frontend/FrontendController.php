@@ -70,6 +70,11 @@ class FrontendController extends Controller
 
         Session::put('coupon', ['code' => $code, 'discount' => $discount]);
 
-        return response(['message' => 'Coupon Applied Successfully.', 'discount' => $discount, 'finalTotal' => $finalTotal,]);
+        return response(['message' => 'Coupon Applied Successfully.', 'discount' => $discount, 'finalTotal' => $finalTotal, 'coupon_code' => $code]);
+    }
+
+    public function destroyCoupon(){
+        Session::forget('coupon');
+        return response(['message' => 'Coupon Removed!', 'grand_cart_total' => grandCartTotal()]);
     }
 }
