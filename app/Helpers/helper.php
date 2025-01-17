@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Session;
+
     /** set Sidebar Active */
     function setSidebarActive(array $routes){
         foreach($routes as $route){
@@ -74,3 +76,20 @@
 
         return $total;
     }
+
+    /** grand cart total */
+    function grandCartTotal($deliveryFee = 0){
+        $total = 0;
+        $cartTotal = cartTotal();
+
+        if (Session::has('coupon')) {
+            $discount = Session::get('coupon')['discount'];
+            $total = ($cartTotal + $deliveryFee) - $discount;
+
+            return $total;
+        } else {
+            $total = $cartTotal + $deliveryFee;
+            return $total;
+        }
+    }
+

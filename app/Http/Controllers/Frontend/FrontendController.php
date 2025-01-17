@@ -10,6 +10,7 @@ use App\Models\SectionTitle;
 use App\Models\Slider;
 use App\Models\WhyChooseUs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class FrontendController extends Controller
 {
@@ -66,6 +67,8 @@ class FrontendController extends Controller
         }
 
         $finalTotal = $subtotal - $discount;
+
+        Session::put('coupon', ['code' => $code, 'discount' => $discount]);
 
         return response(['message' => 'Coupon Applied Successfully.', 'discount' => $discount, 'finalTotal' => $finalTotal,]);
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 
 class CartController extends Controller
@@ -16,7 +17,6 @@ class CartController extends Controller
 
     /** Add to Cart */
     public function addToCart(Request $request){
-        // dd($request->all());
         $product = Product::with(['productSizes', 'productOptions'])->findOrFail($request->product_id);
         if($product->quantity < $request->quantity){
             throw ValidationException::withMessages(['Quantity is not Available!']);
@@ -70,6 +70,8 @@ class CartController extends Controller
             return response([
                 'status' => 'success',
                 'message' => 'Item has been removed!',
+                'cart_total' => cartTotal(),
+                'grand_cart_total' => grandCartTotal(),
         ], 200);
     }
 
@@ -83,12 +85,18 @@ class CartController extends Controller
 
         $cart = Cart::update($request->rowId, $request->qty);
 
-        return response(['product_total' => productTotal($request->rowId), 'qty' => $cart->qty],200);
+        return response([
+            'status' => 'success',
+            'product_total' => productTotal($request->rowId),
+            'qty' => $cart->qty,
+            'cart_total' => cartTotal(),
+            'grand_cart_total' => grandCartTotal(),
+        ],200);
     }
 
     public function cartDestroy(){
         Cart::destroy();
-
+        Session::forget('coupon');
         return redirect()->back();
     }
 }
