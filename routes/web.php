@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Frontend\AddressController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\FrontendController;
@@ -19,8 +20,12 @@ Route::group(['middleware' => 'auth'], function(){
     /** User Profile Update Route */
     Route::put('profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
     Route::put('profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
-
     Route::post('profile/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.avatar.update');
+
+    /** User Address Route */
+    Route::post('address', [AddressController::class, 'createAddress'])->name('address.store');
+    Route::put('address/{id}/edit', [AddressController::class, 'updateAddress'])->name('address.update');
+    Route::delete('address/{id}', [AddressController::class, 'destroyAddress'])->name('address.destroy');
 });
 
 

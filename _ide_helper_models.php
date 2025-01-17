@@ -16,6 +16,40 @@ namespace App\Models{
  * 
  *
  * @property int $id
+ * @property int $user_id
+ * @property int $delivery_area_id
+ * @property string $first_name
+ * @property string|null $last_name
+ * @property string $email
+ * @property string $phone
+ * @property string $address
+ * @property string $type
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\DeliveryArea $deliveryArea
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Address newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Address newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Address query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Address whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Address whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Address whereDeliveryAreaId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Address whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Address whereFirstName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Address whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Address whereLastName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Address wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Address whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Address whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Address whereUserId($value)
+ */
+	class Address extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
  * @property string $name
  * @property string $slug
  * @property int $show_at_home
@@ -73,9 +107,25 @@ namespace App\Models{
 /**
  * 
  *
+ * @property int $id
+ * @property string $area_name
+ * @property string $min_delivery_time
+ * @property string $max_delivery_time
+ * @property float $delivery_fee
+ * @property int $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder<static>|DeliveryArea newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|DeliveryArea newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|DeliveryArea query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|DeliveryArea whereAreaName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|DeliveryArea whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|DeliveryArea whereDeliveryFee($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|DeliveryArea whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|DeliveryArea whereMaxDeliveryTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|DeliveryArea whereMinDeliveryTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|DeliveryArea whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|DeliveryArea whereUpdatedAt($value)
  */
 	class DeliveryArea extends \Eloquent {}
 }
