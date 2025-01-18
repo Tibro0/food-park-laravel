@@ -117,7 +117,7 @@
                     <div class="fp__cart_list_footer_button">
                         <h6>total cart</h6>
                         <p>subtotal: <span id="subtotal">{{ currencyPosition(cartTotal()) }}</span></p>
-                        <p>delivery: <span>$00.00</span></p>
+                        <p>delivery: <span>{{ currencyPosition(0) }}</span></p>
                         <p>discount: <span id="discount">
                                 @if (isset(session()->get('coupon')['discount']))
                                     {{ config('settings.site_currency_icon') }}{{ session()->get('coupon')['discount'] }}
@@ -154,7 +154,7 @@
                                 </div>
                             @endif
                         </div>
-                        <a class="common_btn" href="#">checkout</a>
+                        <a class="common_btn" href="{{ route('checkout.index') }}">checkout</a>
                     </div>
                 </div>
             </div>
