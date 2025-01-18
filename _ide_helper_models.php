@@ -134,6 +134,28 @@ namespace App\Models{
 /**
  * 
  *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order query()
+ */
+	class Order extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem query()
+ */
+	class OrderItem extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
  * @property int $id
  * @property string $name
  * @property string $slug

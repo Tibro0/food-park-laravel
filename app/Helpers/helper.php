@@ -93,3 +93,15 @@ use Illuminate\Support\Facades\Session;
         }
     }
 
+    /** Generate Invoice Id */
+    function generateInvoiceId()
+    {
+        $randomNumber = rand(1, 9999);
+        $currentDateTime = now();
+
+        $invoiceId = $randomNumber . $currentDateTime->format('yd') . $currentDateTime->format('s');
+
+        return $invoiceId;
+    }
+
+
