@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DeliveryAreaController;
+use App\Http\Controllers\Admin\PaymentGatewaySettingController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductGalleryController;
 use App\Http\Controllers\Admin\ProductOptionController;
@@ -52,6 +53,10 @@ Route::resource('coupon', CouponController::class);
 
 /** Delivery Area Routes */
 Route::resource('delivery-area', DeliveryAreaController::class);
+
+/** Payment Gateway Routes */
+Route::get('payment-gateway-setting', [PaymentGatewaySettingController::class, 'index'])->name('payment-setting.index');
+Route::put('paypal-setting', [PaymentGatewaySettingController::class, 'paypalSettingUpdate'])->name('paypal-setting.update');
 
 /** Setting Routes */
 Route::get('setting', [SettingController::class, 'index'])->name('setting.index');

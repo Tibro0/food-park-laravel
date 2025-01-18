@@ -134,9 +134,47 @@ namespace App\Models{
 /**
  * 
  *
+ * @property int $id
+ * @property string $invoice_id
+ * @property int $user_id
+ * @property string $address
+ * @property float $discount
+ * @property float $delivery_charge
+ * @property float $subtotal
+ * @property float $grand_total
+ * @property int $product_qty
+ * @property string|null $payment_method
+ * @property string $payment_status
+ * @property string|null $payment_approve_date
+ * @property string|null $transaction_id
+ * @property string|null $coupon_info
+ * @property string|null $currency_name
+ * @property string $order_status
+ * @property int $address_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereAddressId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereCouponInfo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereCurrencyName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereDeliveryCharge($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereDiscount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereGrandTotal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereInvoiceId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereOrderStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order wherePaymentApproveDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order wherePaymentMethod($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order wherePaymentStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereProductQty($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereSubtotal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereTransactionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Order whereUserId($value)
  */
 	class Order extends \Eloquent {}
 }
@@ -145,11 +183,42 @@ namespace App\Models{
 /**
  * 
  *
+ * @property int $id
+ * @property int $order_id
+ * @property string $product_name
+ * @property int $product_id
+ * @property float $unit_price
+ * @property int $qty
+ * @property string|null $product_size
+ * @property string|null $product_option
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem whereOrderId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem whereProductName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem whereProductOption($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem whereProductSize($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem whereQty($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem whereUnitPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OrderItem whereUpdatedAt($value)
  */
 	class OrderItem extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentGatewaySetting newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentGatewaySetting newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentGatewaySetting query()
+ */
+	class PaymentGatewaySetting extends \Eloquent {}
 }
 
 namespace App\Models{
