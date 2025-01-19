@@ -102,14 +102,14 @@ class PaymentController extends Controller
             ]
         ]);
 
-        if (isset($response['id']) && $response['id'] != null) {
+        if (isset($response['id']) && $response['id'] != NULL) {
             foreach($response['links'] as $link){
                 if($link['rel'] === 'approve'){
                     return redirect()->away($link['href']);
-                }else {
-                    // return redirect()->route('payment.cancel')->withErrors(['error' => $response['error']['message']]);
                 }
             }
+        }else {
+            return redirect()->route('payment.cancel')->withErrors(['error' => $response['error']['message']]);
         }
     }
 
@@ -137,7 +137,7 @@ class PaymentController extends Controller
 
             return redirect()->route('payment.success');
         }else{
-            // return redirect()->route('payment.cancel')->withErrors(['error' => $response['error']['message']]);
+            return redirect()->route('payment.cancel')->withErrors(['error' => $response['error']['message']]);
         }
     }
 
