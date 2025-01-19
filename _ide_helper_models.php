@@ -153,6 +153,8 @@ namespace App\Models{
  * @property int $address_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\DeliveryArea|null $deliveryArea
+ * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Order query()
@@ -214,9 +216,19 @@ namespace App\Models{
 /**
  * 
  *
+ * @property int $id
+ * @property string $key
+ * @property string|null $value
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentGatewaySetting newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentGatewaySetting newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentGatewaySetting query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentGatewaySetting whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentGatewaySetting whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentGatewaySetting whereKey($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentGatewaySetting whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PaymentGatewaySetting whereValue($value)
  */
 	class PaymentGatewaySetting extends \Eloquent {}
 }

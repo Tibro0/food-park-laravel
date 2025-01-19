@@ -42,6 +42,23 @@ function createOrder() {
             $orderItem->save();
         }
 
+        /** Putting the Order id in session */
+        Session::put('order_id', $order->id);
+
+        /** Putting the grand total amount in session */
+        Session::put('grand_total', $order->grand_total);
+
         return true;
+    }
+
+    /** Clear Session Items  */
+    function clearSession() {
+        Cart::destroy();
+        Session::forget('coupon');
+        Session::forget('address');
+        Session::forget('delivery_fee');
+        Session::forget('address_id');
+        Session::forget('order_id');
+        Session::forget('grand_total');
     }
 }
