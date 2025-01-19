@@ -41,6 +41,9 @@
                             <!-- paypal include link start -->
                             @include('admin.payment-setting.sections.paypal')
                             <!-- paypal include link end -->
+                            <!-- stripe include link start -->
+                            @include('admin.payment-setting.sections.stripe')
+                            <!-- stripe include link end -->
                         </div>
                     </div>
                 </div>
