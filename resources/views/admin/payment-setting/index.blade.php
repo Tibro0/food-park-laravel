@@ -44,6 +44,9 @@
                             <!-- stripe include link start -->
                             @include('admin.payment-setting.sections.stripe')
                             <!-- stripe include link end -->
+                            <!-- razorpay include link start -->
+                            @include('admin.payment-setting.sections.razorpay')
+                            <!-- razorpay include link end -->
                         </div>
                     </div>
                 </div>

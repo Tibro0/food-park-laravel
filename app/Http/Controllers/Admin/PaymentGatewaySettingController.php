@@ -113,4 +113,52 @@ class PaymentGatewaySettingController extends Controller
         toastr()->success('Updated Successfully!');
         return redirect()->back();
     }
+
+    public function razorpaySettingUpdate(Request $request){
+        $validatedData = $request->validate([
+            'razorpay_status' => ['required', 'boolean'],
+            'razorpay_country' => ['required'],
+            'razorpay_currency' => ['required'],
+            'razorpay_rate' => ['required', 'numeric'],
+            'razorpay_api_key' => ['required'],
+            'razorpay_secret_key' => ['required'],
+        ]);
+
+        $oldImage = $request->old_razorpay_logo_image;
+        if($request->file('razorpay_logo')){
+            $request->validate([
+                'razorpay_logo' => ['nullable', 'image']
+            ]);
+
+            $image = $request->file('razorpay_logo');
+            $manager = new ImageManager(new Driver());
+            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $img = $manager->read($image);
+            $img = $img->resize(114,60);
+            $img->toJpeg(80)->save(base_path('public/uploads/payment_gateway_logo_image/'.$name_gen));
+            $save_url = 'uploads/payment_gateway_logo_image/'.$name_gen;
+
+            PaymentGatewaySetting::updateOrCreate(
+                ['key' => 'razorpay_logo'],
+                ['value' => $save_url]
+            );
+
+            if (file_exists($oldImage)) {
+                unlink($oldImage);
+            }
+        }
+
+        foreach($validatedData as $key => $value){
+            PaymentGatewaySetting::updateOrCreate(
+                ['key' => $key],
+                ['value' => $value]
+            );
+        }
+
+        $settingsService = app(PaymentGatewaySettingService::class);
+        $settingsService->clearCachedSettings();
+
+        toastr()->success('Updated Successfully!');
+        return redirect()->back();
+    }
 }
