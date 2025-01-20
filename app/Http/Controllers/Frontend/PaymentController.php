@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Session;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use Stripe\Stripe;
 use Stripe\Checkout\Session as StripeSession;
+use Razorpay\Api\Api as RazorpayApi ;
 
 class PaymentController extends Controller
 {
@@ -37,7 +38,7 @@ class PaymentController extends Controller
 
     public function makePayment(Request $request, OrderService $orderService){
         $request->validate([
-            'payment_gateway' => ['required', 'string', 'in:paypal,stripe']
+            'payment_gateway' => ['required', 'string', 'in:paypal,stripe,razorpay']
         ]);
 
         /** Create Order */
@@ -51,6 +52,11 @@ class PaymentController extends Controller
                     case 'stripe':
                     return response(['redirect_url' => route('stripe.payment')]);
                     break;
+
+                    case 'razorpay':
+                        return response(['redirect_url' => route('razorpay-redirect')]);
+                        break;
+
                 default:
                     break;
             }
@@ -212,6 +218,53 @@ class PaymentController extends Controller
     public function stripeCancel(){
         $this->transactionFailUpdateStatus('Stripe');
         return redirect()->route('payment.cancel');
+    }
+
+    public function razorpayRedirect(){
+        return view('frontend.pages.razorpay-redirect');
+    }
+
+    public function payWithRazorpay(Request $request, OrderService $orderService){
+        $api = new RazorpayApi(
+            config('gatewaySettings.razorpay_api_key'),
+            config('gatewaySettings.razorpay_secret_key'),
+        );
+
+        if($request->has('razorpay_payment_id') && $request->filled('razorpay_payment_id')){
+            $grandTotal = Session::get('grand_total');
+            $payableAmount = ($grandTotal * config('gatewaySettings.razorpay_rate')) * 100;
+
+            try{
+                $response = $api->payment
+                    ->fetch($request->razorpay_payment_id)
+                    ->capture(['amount' => $payableAmount]);
+            }catch(\Exception $e) {
+                logger($e);
+                $this->transactionFailUpdateStatus('Razorpay');
+                return redirect()->route('payment.cancel')->withErrors($e->getMessage());
+            }
+
+            if($response['status'] === 'captured'){
+
+                $orderId = Session::get('order_id');
+                $paymentInfo = [
+                    'transaction_id' => $response->id,
+                    'currency' => config('settings.site_default_currency'),
+                    'status' => 'COMPLETED'
+                ];
+
+                OrderPaymentUpdateEvent::dispatch($orderId, $paymentInfo, 'Razorpay');
+                OrderPlacedNotificationEvent::dispatch($orderId);
+
+                /** Clear session data */
+                $orderService->clearSession();
+
+                return redirect()->route('payment.success');
+            }else {
+                $this->transactionFailUpdateStatus('Razorpay');
+                return redirect()->route('payment.cancel');
+            }
+        }
     }
 
     public function transactionFailUpdateStatus($gatewayName){
