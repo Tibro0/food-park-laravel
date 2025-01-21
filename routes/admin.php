@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DeliveryAreaController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PaymentGatewaySettingController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductGalleryController;
@@ -53,6 +54,14 @@ Route::resource('coupon', CouponController::class);
 
 /** Delivery Area Routes */
 Route::resource('delivery-area', DeliveryAreaController::class);
+
+/** Orders Routes */
+Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+Route::get('orders/{id}', [OrderController::class, 'show'])->name('orders.show');
+Route::delete('orders/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
+
+Route::get('orders/status/{id}', [OrderController::class, 'getOrderStatus'])->name('orders.status');
+Route::put('orders/status-update/{id}', [OrderController::class, 'orderStatusUpdate'])->name('orders.status-update');
 
 /** Payment Gateway Routes */
 Route::get('payment-gateway-setting', [PaymentGatewaySettingController::class, 'index'])->name('payment-setting.index');
