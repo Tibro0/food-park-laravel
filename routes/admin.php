@@ -71,6 +71,7 @@ Route::put('orders/status-update/{id}', [OrderController::class, 'orderStatusUpd
 
 /** Daily Offer Routes */
 Route::get('daily-offer/search-product', [DailyOfferController::class, 'productSearch'])->name('daily-offer.search-product');
+Route::put('daily-offer-title-update', [DailyOfferController::class, 'updateTitle'])->name('daily-offer-title-update');
 Route::resource('daily-offer', DailyOfferController::class);
 
 /** Payment Gateway Routes */
