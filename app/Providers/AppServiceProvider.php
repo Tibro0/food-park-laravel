@@ -6,6 +6,7 @@ use App\Events\OrderPaymentUpdateEvent;
 use App\Events\OrderPlacedNotificationEvent;
 use App\Listeners\OrderPaymentUpdateListener;
 use App\Listeners\OrderPlacedNotificationListener;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Event;
 
@@ -29,6 +30,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Paginator::useBootstrap();
     }
 }
