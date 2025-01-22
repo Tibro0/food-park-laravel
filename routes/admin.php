@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\BannerSliderController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DailyOfferController;
@@ -73,6 +74,9 @@ Route::put('orders/status-update/{id}', [OrderController::class, 'orderStatusUpd
 Route::get('daily-offer/search-product', [DailyOfferController::class, 'productSearch'])->name('daily-offer.search-product');
 Route::put('daily-offer-title-update', [DailyOfferController::class, 'updateTitle'])->name('daily-offer-title-update');
 Route::resource('daily-offer', DailyOfferController::class);
+
+/** Banner Slider Routes */
+Route::resource('banner-slider', BannerSliderController::class);
 
 /** Payment Gateway Routes */
 Route::get('payment-gateway-setting', [PaymentGatewaySettingController::class, 'index'])->name('payment-setting.index');

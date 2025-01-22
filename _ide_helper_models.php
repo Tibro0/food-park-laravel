@@ -49,6 +49,17 @@ namespace App\Models{
 /**
  * 
  *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BannerSlider newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BannerSlider newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BannerSlider query()
+ */
+	class BannerSlider extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
  * @property int $id
  * @property string $name
  * @property string $slug
