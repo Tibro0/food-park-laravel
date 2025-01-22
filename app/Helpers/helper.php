@@ -104,4 +104,11 @@ use Illuminate\Support\Facades\Session;
         return $invoiceId;
     }
 
+    /** get product discount in percent */
+    function discountInPercent($originalPrice, $discountPrice){
+        $result = (($originalPrice - $discountPrice) / $originalPrice) * 100;
+        return round($result, 2);
+    }
+
+
 
