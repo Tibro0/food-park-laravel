@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\ChefDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Chef;
+use App\Models\SectionTitle;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -16,7 +17,9 @@ class ChefController extends Controller
      */
     public function index(ChefDataTable $dataTable)
     {
-        return $dataTable->render('admin.chef.index');
+        $keys = ['chef_top_title', 'chef_main_title', 'chef_sub_title'];
+        $titles = SectionTitle::whereIn('key', $keys)->pluck('value','key');
+        return $dataTable->render('admin.chef.index', compact('titles'));
     }
 
     /**
@@ -139,6 +142,24 @@ class ChefController extends Controller
             toastr()->success('Update Successfully!');
             return redirect()->route('admin.chefs.index');
         }
+    }
+
+    public function updateTitle(Request $request){
+        $validatedData = $request->validate([
+                    'chef_top_title' => ['max:100'],
+                    'chef_main_title' => ['max:200'],
+                    'chef_sub_title' => ['max:500']
+                ]);
+
+        foreach ($validatedData as $key => $value) {
+            SectionTitle::updateOrCreate(
+                ['key' => $key],
+                ['value' => $value]
+            );
+        }
+
+        toastr()->success('Updated Successfully!');
+        return redirect()->back();
     }
 
     /**
