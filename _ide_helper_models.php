@@ -49,9 +49,25 @@ namespace App\Models{
 /**
  * 
  *
+ * @property int $id
+ * @property string $banner
+ * @property string $title
+ * @property string $sub_title
+ * @property string $url
+ * @property int $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BannerSlider newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BannerSlider newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BannerSlider query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BannerSlider whereBanner($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BannerSlider whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BannerSlider whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BannerSlider whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BannerSlider whereSubTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BannerSlider whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BannerSlider whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BannerSlider whereUrl($value)
  */
 	class BannerSlider extends \Eloquent {}
 }
@@ -79,6 +95,17 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category whereUpdatedAt($value)
  */
 	class Category extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Chef newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Chef newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Chef query()
+ */
+	class Chef extends \Eloquent {}
 }
 
 namespace App\Models{

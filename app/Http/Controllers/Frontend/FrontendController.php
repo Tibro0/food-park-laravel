@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\BannerSlider;
 use App\Models\Category;
+use App\Models\Chef;
 use App\Models\Coupon;
 use App\Models\DailyOffer;
 use App\Models\Product;
@@ -23,7 +24,8 @@ class FrontendController extends Controller
         $categories = Category::where(['show_at_home' => 1 ,'status' => 1])->orderBy('id', 'DESC')->get();
         $dailyOffers = DailyOffer::with('product')->where('status', 1)->orderBy('id', 'DESC')->take(15)->get();
         $bannerSliders = BannerSlider::where('status', 1)->orderBy('id', 'DESC')->take(10)->get();
-        return view('frontend.home.index', compact('sectionTitles', 'sliders', 'whyChooseUs', 'categories', 'dailyOffers', 'bannerSliders'));
+        $chefs = Chef::where(['show_at_home' => 1, 'status' => 1])->orderBy('id', 'DESC')->take(10)->get();
+        return view('frontend.home.index', compact('sectionTitles', 'sliders', 'whyChooseUs', 'categories', 'dailyOffers', 'bannerSliders', 'chefs'));
     }
 
     public function getSectionTitles(){

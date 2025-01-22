@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\BannerSliderController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ChefController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DailyOfferController;
 use App\Http\Controllers\Admin\DeliveryAreaController;
@@ -77,6 +78,9 @@ Route::resource('daily-offer', DailyOfferController::class);
 
 /** Banner Slider Routes */
 Route::resource('banner-slider', BannerSliderController::class);
+
+/** Chef Routes */
+Route::resource('chefs', ChefController::class);
 
 /** Payment Gateway Routes */
 Route::get('payment-gateway-setting', [PaymentGatewaySettingController::class, 'index'])->name('payment-setting.index');
