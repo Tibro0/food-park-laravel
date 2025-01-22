@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\DailyOfferController;
 use App\Http\Controllers\Admin\DeliveryAreaController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PaymentGatewaySettingController;
@@ -63,11 +64,14 @@ Route::delete('orders/{id}', [OrderController::class, 'destroy'])->name('orders.
 Route::get('pending-orders', [OrderController::class, 'pendingOrderIndex'])->name('pending-orders');
 Route::get('inprocess-orders', [OrderController::class, 'inProcessOrderIndex'])->name('inprocess-orders');
 Route::get('delivered-orders', [OrderController::class, 'deliveredOrderIndex'])->name('delivered-orders');
-
 Route::get('declined-orders', [OrderController::class, 'declinedOrderIndex'])->name('declined-orders');
 
 Route::get('orders/status/{id}', [OrderController::class, 'getOrderStatus'])->name('orders.status');
 Route::put('orders/status-update/{id}', [OrderController::class, 'orderStatusUpdate'])->name('orders.status-update');
+
+/** Daily Offer Routes */
+Route::get('daily-offer/search-product', [DailyOfferController::class, 'productSearch'])->name('daily-offer.search-product');
+Route::resource('daily-offer', DailyOfferController::class);
 
 /** Payment Gateway Routes */
 Route::get('payment-gateway-setting', [PaymentGatewaySettingController::class, 'index'])->name('payment-setting.index');

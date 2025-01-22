@@ -108,6 +108,28 @@ namespace App\Models{
  * 
  *
  * @property int $id
+ * @property int $product_id
+ * @property int $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Product $product
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|DailyOffer newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|DailyOffer newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|DailyOffer query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|DailyOffer whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|DailyOffer whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|DailyOffer whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|DailyOffer whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|DailyOffer whereUpdatedAt($value)
+ */
+	class DailyOffer extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
  * @property string $area_name
  * @property string $min_delivery_time
  * @property string $max_delivery_time

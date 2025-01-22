@@ -14,6 +14,10 @@
             <li class="menu-header">Starter</li>
             <li><a class="nav-link" href="{{ route('admin.slider.index') }}"><i class="far fa-square"></i>
                     <span>Slider</span></a></li>
+
+            <li><a class="nav-link" href="{{ route('admin.daily-offer.index') }}"><i class="far fa-square"></i>
+                    <span>Daily Offer</span></a></li>
+
             <li><a class="nav-link" href="{{ route('admin.why-choose-us.index') }}"><i class="far fa-square"></i>
                     <span>Why Choose Us</span></a></li>
 
@@ -25,7 +29,6 @@
                     <li><a class="nav-link" href="{{ route('admin.pending-orders') }}">All Pending Orders</a></li>
                     <li><a class="nav-link" href="{{ route('admin.inprocess-orders') }}">All In Process Orders</a></li>
                     <li><a class="nav-link" href="{{ route('admin.delivered-orders') }}">All Delivered Orders</a></li>
-
                     <li><a class="nav-link" href="{{ route('admin.declined-orders') }}">All Declined Orders</a></li>
                 </ul>
             </li>
