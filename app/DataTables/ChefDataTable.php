@@ -34,14 +34,14 @@ class ChefDataTable extends DataTable
             ->addColumn('show_at_home', function($query){
                 if($query->show_at_home === 1){
                     return '<span class="badge badge-primary">Yes</span>';
-                }else {
+                }else if($query->show_at_home === 0){
                     return '<span class="badge badge-danger">No</span>';
                 }
             })
             ->addColumn('status', function($query){
                 if($query->status === 1){
                     return '<span class="badge badge-primary">Active</span>';
-                }else {
+                }else if($query->status === 0) {
                     return '<span class="badge badge-danger">InActive</span>';
                 }
             })

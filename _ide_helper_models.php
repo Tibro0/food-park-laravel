@@ -103,6 +103,17 @@ namespace App\Models{
 /**
  * 
  *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BlogCategory newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BlogCategory newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BlogCategory query()
+ */
+	class BlogCategory extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
  * @property int $id
  * @property string $name
  * @property string $slug
@@ -163,9 +174,41 @@ namespace App\Models{
 /**
  * 
  *
+ * @property int $id
+ * @property string|null $background
+ * @property string $counter_icon_one
+ * @property string $counter_count_one
+ * @property string $counter_name_one
+ * @property string $counter_icon_two
+ * @property string $counter_count_two
+ * @property string $counter_name_two
+ * @property string $counter_icon_three
+ * @property string $counter_count_three
+ * @property string $counter_name_three
+ * @property string $counter_icon_four
+ * @property string $counter_count_four
+ * @property string $counter_name_four
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Counter newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Counter newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Counter query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Counter whereBackground($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Counter whereCounterCountFour($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Counter whereCounterCountOne($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Counter whereCounterCountThree($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Counter whereCounterCountTwo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Counter whereCounterIconFour($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Counter whereCounterIconOne($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Counter whereCounterIconThree($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Counter whereCounterIconTwo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Counter whereCounterNameFour($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Counter whereCounterNameOne($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Counter whereCounterNameThree($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Counter whereCounterNameTwo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Counter whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Counter whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Counter whereUpdatedAt($value)
  */
 	class Counter extends \Eloquent {}
 }

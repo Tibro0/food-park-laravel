@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\BannerSlider;
+use App\Models\BlogCategory;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class BannerSliderDataTable extends DataTable
+class BlogCategoryDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -23,13 +23,10 @@ class BannerSliderDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function($query){
-                $edit = "<a href='".route('admin.banner-slider.edit', $query->id)."' class='btn btn-primary'><i class='fas fa-edit'></i></a>";
-                $delete = "<a href='".route('admin.banner-slider.destroy', $query->id)."' class='btn btn-danger ml-2' id='delete'><i class='fas fa-trash'></i></a>";
+                $edit = "<a href='".route('admin.blog-category.edit', $query->id)."' class='btn btn-primary'><i class='fas fa-edit'></i></a>";
+                $delete = "<a href='".route('admin.blog-category.destroy', $query->id)."' class='btn btn-danger ml-2' id='delete'><i class='fas fa-trash'></i></a>";
 
                 return $edit.$delete;
-            })
-            ->addColumn('banner', function($query){
-                return '<img width="50px" src="'.asset($query->banner).'">';
             })
             ->addColumn('status', function($query){
                 if($query->status === 1){
@@ -38,14 +35,14 @@ class BannerSliderDataTable extends DataTable
                     return '<span class="badge badge-danger">InActive</span>';
                 }
             })
-            ->rawColumns(['action', 'banner', 'status'])
+            ->rawColumns(['action', 'status'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(BannerSlider $model): QueryBuilder
+    public function query(BlogCategory $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -56,11 +53,11 @@ class BannerSliderDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('bannerslider-table')
+                    ->setTableId('blogcategory-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(0)
+                    ->orderBy(1)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -79,15 +76,13 @@ class BannerSliderDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('banner'),
-            Column::make('title'),
-            Column::make('url'),
+            Column::make('name'),
             Column::make('status'),
             Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(100)
-                  ->addClass('text-center'),
+            ->exportable(false)
+            ->printable(false)
+            ->width(100)
+            ->addClass('text-center'),
         ];
     }
 
@@ -96,6 +91,6 @@ class BannerSliderDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'BannerSlider_' . date('YmdHis');
+        return 'BlogCategory_' . date('YmdHis');
     }
 }
