@@ -163,6 +163,17 @@ namespace App\Models{
 /**
  * 
  *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Counter newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Counter newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Counter query()
+ */
+	class Counter extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
  * @property int $id
  * @property string $name
  * @property string $code
@@ -543,9 +554,29 @@ namespace App\Models{
 /**
  * 
  *
+ * @property int $id
+ * @property string $image
+ * @property string $name
+ * @property string $title
+ * @property string $review
+ * @property int $rating
+ * @property int $show_at_home
+ * @property int $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Testimonial newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Testimonial newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Testimonial query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Testimonial whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Testimonial whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Testimonial whereImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Testimonial whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Testimonial whereRating($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Testimonial whereReview($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Testimonial whereShowAtHome($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Testimonial whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Testimonial whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Testimonial whereUpdatedAt($value)
  */
 	class Testimonial extends \Eloquent {}
 }

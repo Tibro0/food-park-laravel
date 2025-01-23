@@ -7,6 +7,7 @@ use App\Models\AppDownloadSection;
 use App\Models\BannerSlider;
 use App\Models\Category;
 use App\Models\Chef;
+use App\Models\Counter;
 use App\Models\Coupon;
 use App\Models\DailyOffer;
 use App\Models\Product;
@@ -29,7 +30,8 @@ class FrontendController extends Controller
         $chefs = Chef::where(['show_at_home' => 1, 'status' => 1])->orderBy('id', 'DESC')->get();
         $appSection = AppDownloadSection::first();
         $testimonials = Testimonial::where(['show_at_home' => 1, 'status' => 1])->orderBy('id', 'DESC')->get();
-        return view('frontend.home.index', compact('sectionTitles', 'sliders', 'whyChooseUs', 'categories', 'dailyOffers', 'bannerSliders', 'chefs', 'appSection', 'testimonials'));
+        $counter = Counter::first();
+        return view('frontend.home.index', compact('sectionTitles', 'sliders', 'whyChooseUs', 'categories', 'dailyOffers', 'bannerSliders', 'chefs', 'appSection', 'testimonials', 'counter'));
     }
 
     public function getSectionTitles(){
