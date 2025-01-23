@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AppDownloadSectionController;
 use App\Http\Controllers\Admin\BannerSliderController;
 use App\Http\Controllers\Admin\BlogCategoryController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChefController;
 use App\Http\Controllers\Admin\CounterController;
@@ -100,7 +101,10 @@ Route::get('counter', [CounterController::class, 'index'])->name('counter.index'
 Route::put('counter', [CounterController::class, 'update'])->name('counter.update');
 
  /** Blog Category Routes */
- Route::resource('blog-category', BlogCategoryController::class);
+Route::resource('blog-category', BlogCategoryController::class);
+
+/** Blogs Routes */
+Route::resource('blogs', BlogController::class);
 
 /** Payment Gateway Routes */
 Route::get('payment-gateway-setting', [PaymentGatewaySettingController::class, 'index'])->name('payment-setting.index');

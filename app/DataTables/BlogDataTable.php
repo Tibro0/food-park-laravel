@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\BlogCategory;
+use App\Models\Blog;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class BlogCategoryDataTable extends DataTable
+class BlogDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -23,26 +23,35 @@ class BlogCategoryDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function($query){
-                $edit = "<a href='".route('admin.blog-category.edit', $query->id)."' class='btn btn-primary'><i class='fas fa-edit'></i></a>";
-                $delete = "<a href='".route('admin.blog-category.destroy', $query->id)."' class='btn btn-danger ml-2' id='delete'><i class='fas fa-trash'></i></a>";
+                $edit = "<a href='".route('admin.blogs.edit', $query->id)."' class='btn btn-primary'><i class='fas fa-edit'></i></a>";
+                $delete = "<a href='".route('admin.blogs.destroy', $query->id)."' class='btn btn-danger ml-2' id='delete'><i class='fas fa-trash'></i></a>";
 
                 return $edit.$delete;
+            })
+            ->addColumn('image', function($query){
+                return '<img width="50px" src="'.asset($query->image).'">';
+            })
+            ->addColumn('category', function($query){
+                return $query->category->name;
+            })
+            ->addColumn('author', function($query){
+                return $query->user->name;
             })
             ->addColumn('status', function($query){
                 if($query->status === 1){
                     return '<span class="badge badge-primary">Active</span>';
-                }else if($query->status === 0) {
+                }else if($query->status === 0){
                     return '<span class="badge badge-danger">InActive</span>';
                 }
             })
-            ->rawColumns(['action', 'status'])
+            ->rawColumns(['action', 'image', 'category', 'author', 'status'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(BlogCategory $model): QueryBuilder
+    public function query(Blog $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -53,11 +62,11 @@ class BlogCategoryDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('blogcategory-table')
+                    ->setTableId('blog-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(0)
+                    ->orderBy(1)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -76,13 +85,16 @@ class BlogCategoryDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('name'),
+            Column::make('image'),
+            Column::make('title'),
+            Column::make('category'),
+            Column::make('author'),
             Column::make('status'),
             Column::computed('action')
             ->exportable(false)
             ->printable(false)
             ->width(100)
-            ->addClass('text-center'),
+            ->addClass('text-center')
         ];
     }
 
@@ -91,6 +103,6 @@ class BlogCategoryDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'BlogCategory_' . date('YmdHis');
+        return 'Blog_' . date('YmdHis');
     }
 }
