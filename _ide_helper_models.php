@@ -49,9 +49,25 @@ namespace App\Models{
 /**
  * 
  *
+ * @property int $id
+ * @property string $image
+ * @property string $title
+ * @property string $short_description
+ * @property string|null $play_store_link
+ * @property string|null $apple_store_link
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder<static>|AppDownloadSection newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|AppDownloadSection newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|AppDownloadSection query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppDownloadSection whereAppleStoreLink($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppDownloadSection whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppDownloadSection whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppDownloadSection whereImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppDownloadSection wherePlayStoreLink($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppDownloadSection whereShortDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppDownloadSection whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppDownloadSection whereUpdatedAt($value)
  */
 	class AppDownloadSection extends \Eloquent {}
 }
@@ -521,6 +537,17 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Slider whereUpdatedAt($value)
  */
 	class Slider extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Testimonial newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Testimonial newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Testimonial query()
+ */
+	class Testimonial extends \Eloquent {}
 }
 
 namespace App\Models{
