@@ -49,6 +49,17 @@ namespace App\Models{
 /**
  * 
  *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppDownloadSection newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppDownloadSection newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppDownloadSection query()
+ */
+	class AppDownloadSection extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
  * @property int $id
  * @property string $banner
  * @property string $title
@@ -101,9 +112,33 @@ namespace App\Models{
 /**
  * 
  *
+ * @property int $id
+ * @property string $image
+ * @property string $name
+ * @property string $title
+ * @property string|null $fb
+ * @property string|null $in
+ * @property string|null $x
+ * @property string|null $web
+ * @property int $show_at_home
+ * @property int $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Chef newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Chef newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Chef query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Chef whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Chef whereFb($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Chef whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Chef whereImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Chef whereIn($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Chef whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Chef whereShowAtHome($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Chef whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Chef whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Chef whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Chef whereWeb($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Chef whereX($value)
  */
 	class Chef extends \Eloquent {}
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AppDownloadSectionController;
 use App\Http\Controllers\Admin\BannerSliderController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChefController;
@@ -82,6 +83,10 @@ Route::resource('banner-slider', BannerSliderController::class);
 /** Chefs Routes */
 Route::put('chefs-title-update', [ChefController::class, 'updateTitle'])->name('chefs-title-update');
 Route::resource('chefs', ChefController::class);
+
+/** App Download Routes */
+Route::get('app-download', [AppDownloadSectionController::class, 'index'])->name('app-download.index');
+Route::post('app-download', [AppDownloadSectionController::class, 'store'])->name('app-download.store');
 
 /** Payment Gateway Routes */
 Route::get('payment-gateway-setting', [PaymentGatewaySettingController::class, 'index'])->name('payment-setting.index');
