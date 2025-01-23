@@ -66,6 +66,9 @@ Route::get('/', [FrontendController::class, 'index'])->name('home');
 /** Chef Route */
 Route::get('chef', [FrontendController::class, 'chef'])->name('chef');
 
+/** Testimonial Route */
+Route::get('testimonials', [FrontendController::class, 'testimonial'])->name('testimonial');
+
 /** Show Product Details Page */
 Route::get('product/{slug}', [FrontendController::class, 'showProduct'])->name('product.show');
 
