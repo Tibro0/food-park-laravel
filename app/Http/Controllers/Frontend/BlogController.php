@@ -18,6 +18,7 @@ class BlogController extends Controller
 
     public function blogDetails(string $slug){
         $blog = Blog::with(['user'])->where(['slug' => $slug, 'status' => 1])->firstOrFail();
+        $comments = $blog->comments()->where(['status' => 1])->orderBy('id', 'DESC')->paginate(15);
         $latestBlogs = Blog::select('id', 'title', 'slug', 'created_at', 'image')->where('status', 1)->where('id', '!=', $blog->id)->orderBy('id', 'DESC')->take(3)->get();
         $categories = BlogCategory::withCount(['blogs' => function($query){
             $query->where('status', 1);
@@ -25,7 +26,7 @@ class BlogController extends Controller
 
         $nextBlog = Blog::select('id', 'title', 'slug', 'image')->where('id', '>', $blog->id)->orderBy('id', 'ASC')->first();
         $previousBlog = Blog::select('id', 'title', 'slug', 'image')->where('id', '<', $blog->id)->orderBy('id', 'DESC')->first();
-        return view('frontend.pages.blog-details', compact('blog', 'latestBlogs', 'categories', 'nextBlog', 'previousBlog'));
+        return view('frontend.pages.blog-details', compact('blog', 'comments', 'latestBlogs', 'categories', 'nextBlog', 'previousBlog'));
     }
 
     public function blogCommentStore(Request $request, string $blog_id){
