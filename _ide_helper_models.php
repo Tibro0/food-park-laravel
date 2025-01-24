@@ -146,6 +146,8 @@ namespace App\Models{
  * @property int $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Blog> $blogs
+ * @property-read int|null $blogs_count
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BlogCategory newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BlogCategory newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BlogCategory query()
@@ -157,6 +159,17 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BlogCategory whereUpdatedAt($value)
  */
 	class BlogCategory extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BlogComment newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BlogComment newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BlogComment query()
+ */
+	class BlogComment extends \Eloquent {}
 }
 
 namespace App\Models{

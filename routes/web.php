@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Frontend\AddressController;
+use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\DashboardController;
@@ -68,6 +69,11 @@ Route::get('chef', [FrontendController::class, 'chef'])->name('chef');
 
 /** Testimonial Route */
 Route::get('testimonials', [FrontendController::class, 'testimonial'])->name('testimonial');
+
+/** Blogs Route */
+Route::get('blogs', [BlogController::class, 'blog'])->name('blogs.index');
+Route::get('blogs/{slug}', [BlogController::class, 'blogDetails'])->name('blogs.details');
+Route::post('blogs/comment/{blog_id}', [BlogController::class, 'blogCommentStore'])->name('blogs.comment.store');
 
 /** Show Product Details Page */
 Route::get('product/{slug}', [FrontendController::class, 'showProduct'])->name('product.show');

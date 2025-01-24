@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
     /** set Sidebar Active */
     function setSidebarActive(array $routes){
@@ -109,6 +110,11 @@ use Illuminate\Support\Facades\Session;
         $result = (($originalPrice - $discountPrice) / $originalPrice) * 100;
         return round($result, 2);
     }
+
+    /** lemit text */
+    function limitText($text, $limit = 20){
+    return Str::limit($text, $limit);
+}
 
 
 
