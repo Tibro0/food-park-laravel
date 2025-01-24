@@ -56,6 +56,7 @@
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('admin.blog-category.index') }}">Categories</a></li>
                     <li><a class="nav-link" href="{{ route('admin.blogs.index') }}">Blogs</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.blogs.comments.index') }}">Comments</a></li>
                 </ul>
             </li>
 

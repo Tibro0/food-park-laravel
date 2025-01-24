@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\BlogCommentDataTable;
 use App\DataTables\BlogDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\BlogCategory;
+use App\Models\BlogComment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
@@ -148,6 +150,27 @@ class BlogController extends Controller
         $blog = Blog::findOrFail($id);
         unlink($blog->image);
         $blog->delete();
+
+        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
+    }
+
+    public function blogComment(BlogCommentDataTable $dataTable){
+        return $dataTable->render('admin.blog.blog-comment.index');
+    }
+
+    public function commentStatusUpdate(string $id){
+        $comment = BlogComment::findOrFail($id);
+
+        $comment->status = !$comment->status;
+        $comment->save();
+
+        toastr()->success('Updated Successfully');
+        return redirect()->back();
+    }
+
+    public function commentDestroy(string $id){
+        $comment = BlogComment::findOrFail($id);
+        $comment->delete();
 
         return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }

@@ -103,6 +103,11 @@ Route::put('counter', [CounterController::class, 'update'])->name('counter.updat
  /** Blog Category Routes */
 Route::resource('blog-category', BlogCategoryController::class);
 
+/** Blog Comment */
+Route::get('blogs/comments', [BlogController::class, 'blogComment'])->name('blogs.comments.index');
+Route::get('blogs/comments/{id}', [BlogController::class, 'commentStatusUpdate'])->name('blogs.comments.update');
+Route::delete('blogs/comments/{id}', [BlogController::class, 'commentDestroy'])->name('blogs.comments.destroy');
+
 /** Blogs Routes */
 Route::resource('blogs', BlogController::class);
 
