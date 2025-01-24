@@ -25,19 +25,18 @@
     <!--=============================BLOG PAGE START==============================-->
     <section class="fp__blog_page fp__blog2 mt_120 xs_mt_65 mb_100 xs_mb_70">
         <div class="container">
-            <form class="fp__search_menu_form mb-5">
+            <form action="{{ route('blogs') }}" method="GET" class="fp__search_menu_form mb-5">
                 <div class="row">
                     <div class="col-xl-6 col-md-5">
-                        <input type="text" placeholder="Search...">
+                        <input type="text" name="search" value="{{ @request()->search }}" placeholder="Search...">
                     </div>
                     <div class="col-xl-4 col-md-4">
-                        <select class="nice-select">
-                            <option value="">select country</option>
-                            <option value="">bangladesh</option>
-                            <option value="">nepal</option>
-                            <option value="">japan</option>
-                            <option value="">korea</option>
-                            <option value="">thailand</option>
+                        <select name="category" class="nice-select">
+                            <option value="">All</option>
+                            @foreach ($categories as $category)
+                                <option @selected(@request()->category == $category->slug) value="{{ $category->slug }}">{{ $category->name }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-xl-2 col-md-3">
@@ -58,7 +57,7 @@
                                     <li><i class="fas fa-user"></i>{{ @$blog->user->name }}</li>
                                     <li><i class="fas fa-calendar-alt"></i>
                                         {{ date('d M Y', strtotime($blog->created_at)) }}</li>
-                                    <li><i class="fas fa-comments"></i> 25 comment</li>
+                                    <li><i class="fas fa-comments"></i> {{ $blog->comments_count }} comment</li>
                                 </ul>
                                 <a class="title"
                                     href="{{ route('blogs.details', $blog->slug) }}">{{ limitText($blog->title, 30) }}</a>
@@ -66,6 +65,10 @@
                         </div>
                     </div>
                 @endforeach
+
+                @if ($blogs->isEmpty())
+                    <h5 class="text-center bg-warning text-white py-3">No Blog Found!</h5>
+                @endif
             </div>
 
             @if ($blogs->hasPages())

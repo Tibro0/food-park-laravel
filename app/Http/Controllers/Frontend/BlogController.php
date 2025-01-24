@@ -11,9 +11,28 @@ use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
-    public function blog(){
-        $blogs = Blog::with(['category', 'user'])->where('status', 1)->orderBy('id', 'DESC')->paginate(9);
-        return view('frontend.pages.blog', compact('blogs'));
+    public function blog(Request $request){
+        $blogs = Blog::withCount(['comments'=> function($query){
+            $query->where('status', 1);
+        }])->with(['category', 'user'])->where('status', 1);
+
+        if ($request->has('search') && $request->filled('search')) {
+            $blogs->where(function($query) use ($request){
+                $query->where('title', 'like', '%'. $request->search. '%')
+                ->orWhere('description', 'like', '%'. $request->search . '%');
+            });
+        }
+
+        if($request->has('category') && $request->filled('category')) {
+            $blogs->whereHas('category', function($query) use ($request){
+                $query->where('slug', $request->category);
+            });
+        }
+
+        $blogs = $blogs->latest()->paginate(9);
+
+        $categories = BlogCategory::where(['status' => 1])->orderBy('id', 'DESC')->get();
+        return view('frontend.pages.blog', compact('blogs', 'categories'));
     }
 
     public function blogDetails(string $slug){

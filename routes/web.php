@@ -71,7 +71,7 @@ Route::get('chef', [FrontendController::class, 'chef'])->name('chef');
 Route::get('testimonials', [FrontendController::class, 'testimonial'])->name('testimonial');
 
 /** Blogs Route */
-Route::get('blogs', [BlogController::class, 'blog'])->name('blogs.index');
+Route::get('blogs', [BlogController::class, 'blog'])->name('blogs');
 Route::get('blogs/{slug}', [BlogController::class, 'blogDetails'])->name('blogs.details');
 Route::post('blogs/comment/{blog_id}', [BlogController::class, 'blogCommentStore'])->name('blogs.comment.store');
 

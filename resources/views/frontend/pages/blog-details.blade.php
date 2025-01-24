@@ -43,7 +43,7 @@
                         <div class="fp__blog_details_text wow fadeInUp" data-wow-duration="1s">
                             <ul class="details_bloger d-flex flex-wrap">
                                 <li><i class="far fa-user"></i> {{ @$blog->user->name }}</li>
-                                <li><i class="far fa-comment-alt-lines"></i> 12 Comments</li>
+                                <li><i class="far fa-comment-alt-lines"></i> {{ count($comments) }} Comments</li>
                                 <li><i class="far fa-calendar-alt"></i> {{ date('d F Y', strtotime($blog->created_at)) }}
                                 </li>
                             </ul>
@@ -141,8 +141,8 @@
                     <div id="sticky_sidebar">
                         <div class="fp__blog_search blog_sidebar m-0 wow fadeInUp" data-wow-duration="1s">
                             <h3>Search</h3>
-                            <form>
-                                <input type="text" placeholder="Search">
+                            <form action="{{ route('blogs') }}">
+                                <input type="text" name="search" placeholder="Search">
                                 <button type="submit"><i class="fas fa-search"></i></button>
                             </form>
                         </div>
@@ -167,7 +167,7 @@
                             <h3>Categories</h3>
                             <ul>
                                 @foreach ($categories as $category)
-                                    <li><a href="#">{{ $category->name }}
+                                    <li><a href="{{ route('blogs', ['category' => $category->slug]) }}">{{ $category->name }}
                                             <span>{{ $category->blogs_count }}</span></a></li>
                                 @endforeach
                             </ul>

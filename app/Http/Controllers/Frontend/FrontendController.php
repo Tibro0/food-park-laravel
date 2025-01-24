@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\AppDownloadSection;
 use App\Models\BannerSlider;
+use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Chef;
 use App\Models\Counter;
@@ -31,7 +32,10 @@ class FrontendController extends Controller
         $appSection = AppDownloadSection::first();
         $testimonials = Testimonial::where(['show_at_home' => 1, 'status' => 1])->orderBy('id', 'DESC')->get();
         $counter = Counter::first();
-        return view('frontend.home.index', compact('sectionTitles', 'sliders', 'whyChooseUs', 'categories', 'dailyOffers', 'bannerSliders', 'chefs', 'appSection', 'testimonials', 'counter'));
+        $latestBlogs = Blog::withCount(['comments' => function($query){
+            $query->where('status', 1);
+        }])->with(['category', 'user'])->where('status', 1)->orderby('id', 'DESC')->take(3)->get();
+        return view('frontend.home.index', compact('sectionTitles', 'sliders', 'whyChooseUs', 'categories', 'dailyOffers', 'bannerSliders', 'chefs', 'appSection', 'testimonials', 'counter', 'latestBlogs'));
     }
 
     public function getSectionTitles(){
