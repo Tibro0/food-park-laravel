@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AppDownloadSectionController;
 use App\Http\Controllers\Admin\BannerSliderController;
@@ -110,6 +111,10 @@ Route::delete('blogs/comments/{id}', [BlogController::class, 'commentDestroy'])-
 
 /** Blogs Routes */
 Route::resource('blogs', BlogController::class);
+
+/** About Routes */
+Route::get('about', [AboutController::class, 'index'])->name('about.index');
+Route::put('about', [AboutController::class, 'update'])->name('about.update');
 
 /** Payment Gateway Routes */
 Route::get('payment-gateway-setting', [PaymentGatewaySettingController::class, 'index'])->name('payment-setting.index');

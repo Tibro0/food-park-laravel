@@ -75,6 +75,9 @@ Route::get('blogs', [BlogController::class, 'blog'])->name('blogs');
 Route::get('blogs/{slug}', [BlogController::class, 'blogDetails'])->name('blogs.details');
 Route::post('blogs/comment/{blog_id}', [BlogController::class, 'blogCommentStore'])->name('blogs.comment.store');
 
+/** About Routes */
+Route::get('about', [FrontendController::class, 'about'])->name('about');
+
 /** Show Product Details Page */
 Route::get('product/{slug}', [FrontendController::class, 'showProduct'])->name('product.show');
 

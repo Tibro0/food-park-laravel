@@ -67,6 +67,10 @@ class FrontendController extends Controller
         return view('frontend.pages.testimonial', compact('testimonials'));
     }
 
+    public function about(){
+        return view('frontend.pages.about');
+    }
+
     public function showProduct(string $slug){
         $product = Product::with(['productImages', 'productSizes', 'productOptions'])->where(['slug' => $slug, 'status' => 1])->firstOrFail();
         $relatedProducts = Product::with(['category'])->where('category_id', $product->category_id)->where('id', '!=', $product->id)->take(8)->latest()->get();;
