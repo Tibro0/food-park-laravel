@@ -111,10 +111,24 @@ use Illuminate\Support\Str;
         return round($result, 2);
     }
 
-    /** lemit text */
+    /** limit text */
     function limitText($text, $limit = 20){
     return Str::limit($text, $limit);
 }
 
+/** About us Page Video */
+function getYtThumbnail($link, $size = 'medium'){
+    $videoId = explode("?v=", $link);
+    $videoId = $videoId[1];
+
+    $finalSize = match ($size) {
+        'low' => 'sddefault',
+        'medium' => 'mqdefault',
+        'high' => 'hqdefault',
+        'max' => 'maxresdefault'
+    };
+
+    return "https://img.youtube.com/vi/$videoId/$finalSize.jpg";
+}
 
 
