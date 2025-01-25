@@ -16,7 +16,7 @@ namespace App\Models{
  * 
  *
  * @property int $id
- * @property string $image
+ * @property string|null $image
  * @property string $title
  * @property string $main_title
  * @property string $description
@@ -513,6 +513,25 @@ namespace App\Models{
  * 
  *
  * @property int $id
+ * @property string $content
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PrivacyPolicy newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PrivacyPolicy newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PrivacyPolicy query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PrivacyPolicy whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PrivacyPolicy whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PrivacyPolicy whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PrivacyPolicy whereUpdatedAt($value)
+ */
+	class PrivacyPolicy extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
  * @property string $name
  * @property string $slug
  * @property string $thumb_image
@@ -729,6 +748,17 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Testimonial whereUpdatedAt($value)
  */
 	class Testimonial extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TramsAndCondition newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TramsAndCondition newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TramsAndCondition query()
+ */
+	class TramsAndCondition extends \Eloquent {}
 }
 
 namespace App\Models{

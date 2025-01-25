@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\DailyOfferController;
 use App\Http\Controllers\Admin\DeliveryAreaController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PaymentGatewaySettingController;
+use App\Http\Controllers\Admin\PrivacyPolicyController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductGalleryController;
 use App\Http\Controllers\Admin\ProductOptionController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\TestimonialController;
+use App\Http\Controllers\Admin\TramsAndConditionController;
 use App\Http\Controllers\Admin\WhyChooseUsController;
 use Illuminate\Support\Facades\Route;
 
@@ -115,6 +117,14 @@ Route::resource('blogs', BlogController::class);
 /** About Routes */
 Route::get('about', [AboutController::class, 'index'])->name('about.index');
 Route::put('about', [AboutController::class, 'update'])->name('about.update');
+
+/** Privacy Policy Routes */
+Route::get('privacy-policy', [PrivacyPolicyController::class, 'index'])->name('privacy-policy.index');
+Route::put('privacy-policy', [PrivacyPolicyController::class, 'update'])->name('privacy-policy.update');
+
+/** Trams And Conditions Routes */
+Route::get('trams-and-conditions', [TramsAndConditionController::class, 'index'])->name('trams-and-conditions.index');
+Route::put('trams-and-conditions', [TramsAndConditionController::class, 'update'])->name('trams-and-conditions.update');
 
 /** Payment Gateway Routes */
 Route::get('payment-gateway-setting', [PaymentGatewaySettingController::class, 'index'])->name('payment-setting.index');

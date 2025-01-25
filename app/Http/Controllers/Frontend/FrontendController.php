@@ -12,10 +12,12 @@ use App\Models\Chef;
 use App\Models\Counter;
 use App\Models\Coupon;
 use App\Models\DailyOffer;
+use App\Models\PrivacyPolicy;
 use App\Models\Product;
 use App\Models\SectionTitle;
 use App\Models\Slider;
 use App\Models\Testimonial;
+use App\Models\TramsAndCondition;
 use App\Models\WhyChooseUs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -88,6 +90,16 @@ class FrontendController extends Controller
         $counter = Counter::first();
         $testimonials = Testimonial::where(['show_at_home' => 1, 'status' => 1])->get();
         return view('frontend.pages.about', compact('sectionTitles', 'about', 'whyChooseUs', 'chefs', 'counter', 'testimonials'));
+    }
+
+    public function privacyPolicy(){
+        $privacyPolicy = PrivacyPolicy::first();
+        return view('frontend.pages.privacy-policy', compact('privacyPolicy'));
+    }
+
+    public function tramsAndConditions() {
+        $tramsAndConditions = TramsAndCondition::first();
+        return view('frontend.pages.trams-and-condition', compact('tramsAndConditions'));
     }
 
     public function showProduct(string $slug){

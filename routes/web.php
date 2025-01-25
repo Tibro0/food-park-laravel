@@ -78,6 +78,12 @@ Route::post('blogs/comment/{blog_id}', [BlogController::class, 'blogCommentStore
 /** About Routes */
 Route::get('about', [FrontendController::class, 'about'])->name('about');
 
+/** Privacy Policy Routes */
+Route::get('privacy-policy', [FrontendController::class, 'privacyPolicy'])->name('privacy-policy.index');
+
+/** Trams and Conditions Routes */
+Route::get('trams-and-conditions', [FrontendController::class, 'tramsAndConditions'])->name('trams-and-conditions');
+
 /** Show Product Details Page */
 Route::get('product/{slug}', [FrontendController::class, 'showProduct'])->name('product.show');
 
