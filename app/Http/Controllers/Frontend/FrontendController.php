@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ContactMail;
 use App\Models\About;
 use App\Models\AppDownloadSection;
 use App\Models\BannerSlider;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Chef;
+use App\Models\Contact;
 use App\Models\Counter;
 use App\Models\Coupon;
 use App\Models\DailyOffer;
@@ -20,6 +22,7 @@ use App\Models\Testimonial;
 use App\Models\TramsAndCondition;
 use App\Models\WhyChooseUs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class FrontendController extends Controller
@@ -100,6 +103,24 @@ class FrontendController extends Controller
     public function tramsAndConditions() {
         $tramsAndConditions = TramsAndCondition::first();
         return view('frontend.pages.trams-and-condition', compact('tramsAndConditions'));
+    }
+
+    public function contact(){
+        $contact = Contact::first();
+        return view('frontend.pages.contact', compact('contact'));
+    }
+
+    public function sendContactMessage(Request $request) {
+        $request->validate([
+            'name' => ['required', 'max:50'],
+            'email' => ['required', 'email', 'max:255'],
+            'subject' => ['required', 'max:255'],
+            'message' => ['required', 'max: 1000']
+        ]);
+
+        Mail::send(new ContactMail($request->name, $request->email, $request->subject, $request->message));
+
+        return response(['status' => 'success', 'message' => 'Message Sent Successfully!']);
     }
 
     public function showProduct(string $slug){

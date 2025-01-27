@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChefController;
+use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\CounterController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DailyOfferController;
@@ -122,6 +123,10 @@ Route::put('about', [AboutController::class, 'update'])->name('about.update');
 Route::get('privacy-policy', [PrivacyPolicyController::class, 'index'])->name('privacy-policy.index');
 Route::put('privacy-policy', [PrivacyPolicyController::class, 'update'])->name('privacy-policy.update');
 
+/** Contact Routes */
+Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
+Route::put('contact', [ContactController::class, 'update'])->name('contact.update');
+
 /** Trams And Conditions Routes */
 Route::get('trams-and-conditions', [TramsAndConditionController::class, 'index'])->name('trams-and-conditions.index');
 Route::put('trams-and-conditions', [TramsAndConditionController::class, 'update'])->name('trams-and-conditions.update');
@@ -135,3 +140,4 @@ Route::put('razorpay-setting', [PaymentGatewaySettingController::class, 'razorpa
 /** Setting Routes */
 Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
 Route::put('general-setting', [SettingController::class, 'updateGeneralSetting'])->name('general-setting.update');
+Route::put('mail-setting', [SettingController::class, 'UpdateMailSetting'])->name('mail-setting.update');

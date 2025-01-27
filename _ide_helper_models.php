@@ -281,6 +281,17 @@ namespace App\Models{
 /**
  * 
  *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Contact newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Contact newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Contact query()
+ */
+	class Contact extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
  * @property int $id
  * @property string|null $background
  * @property string $counter_icon_one
@@ -754,9 +765,17 @@ namespace App\Models{
 /**
  * 
  *
+ * @property int $id
+ * @property string $content
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TramsAndCondition newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TramsAndCondition newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TramsAndCondition query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TramsAndCondition whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TramsAndCondition whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TramsAndCondition whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TramsAndCondition whereUpdatedAt($value)
  */
 	class TramsAndCondition extends \Eloquent {}
 }

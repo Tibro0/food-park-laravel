@@ -82,9 +82,9 @@
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('admin.about.index') }}">About</a></li>
                     <li><a class="nav-link" href="{{ route('admin.privacy-policy.index') }}">Privacy Policy</a></li>
-
                     <li><a class="nav-link" href="{{ route('admin.trams-and-conditions.index') }}">Trams and
                             Conditions</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.contact.index') }}">Contact</a></li>
                 </ul>
             </li>
 
