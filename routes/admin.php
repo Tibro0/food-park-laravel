@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Admin\ReservationTimeController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\SocialLinkController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\TramsAndConditionController;
 use App\Http\Controllers\Admin\WhyChooseUsController;
@@ -139,6 +140,9 @@ Route::delete('reservation/{id}', [ReservationController::class, 'destroy'])->na
 /** News letter Routes */
 Route::get('news-letter', [NewsLetterController::class, 'index'])->name('news-letter.index');
 Route::post('news-letter', [NewsLetterController::class, 'sendNewsLetter'])->name('news-letter.send');
+
+/** Social Links Routes */
+Route::resource('social-link', SocialLinkController::class);
 
 /** Trams And Conditions Routes */
 Route::get('trams-and-conditions', [TramsAndConditionController::class, 'index'])->name('trams-and-conditions.index');

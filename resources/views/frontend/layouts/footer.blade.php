@@ -52,13 +52,14 @@
                         </form>
                         <div class="fp__footer_social_link">
                             <h5>follow us:</h5>
+                            @php
+                                $socials = App\Models\SocialLink::where('status', 1)->orderBy('id', 'DESC')->get();
+                            @endphp
                             <ul class="d-flex flex-wrap">
-                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fab fa-behance"></i></a></li>
-                                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                                @foreach ($socials as $link)
+                                    <li><a target="_blank" href="{{ $link->link }}"><i
+                                                class="{{ $link->icon }}"></i></a></li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
