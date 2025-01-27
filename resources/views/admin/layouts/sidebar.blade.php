@@ -95,6 +95,8 @@
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('admin.reservation-time.index') }}">Reservation Times</a>
                     </li>
+                    <li><a class="nav-link" href="{{ route('admin.reservation.index') }}">Reservation</a>
+                    </li>
                 </ul>
             </li>
 

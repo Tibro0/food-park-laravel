@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\ProductGalleryController;
 use App\Http\Controllers\Admin\ProductOptionController;
 use App\Http\Controllers\Admin\ProductSizeController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Admin\ReservationTimeController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SliderController;
@@ -130,6 +131,9 @@ Route::put('contact', [ContactController::class, 'update'])->name('contact.updat
 
 /** Reservation Routes */
 Route::resource('reservation-time', ReservationTimeController::class);
+Route::get('reservation', [ReservationController::class, 'index'])->name('reservation.index');
+Route::post('reservation', [ReservationController::class, 'update'])->name('reservation.update');
+Route::delete('reservation/{id}', [ReservationController::class, 'destroy'])->name('reservation.destroy');
 
 /** Trams And Conditions Routes */
 Route::get('trams-and-conditions', [TramsAndConditionController::class, 'index'])->name('trams-and-conditions.index');

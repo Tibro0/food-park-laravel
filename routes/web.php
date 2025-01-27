@@ -88,6 +88,9 @@ Route::get('trams-and-conditions', [FrontendController::class, 'tramsAndConditio
 Route::get('contact', [FrontendController::class, 'contact'])->name('contact.index');
 Route::post('contact', [FrontendController::class, 'sendContactMessage'])->name('contact.send-message');
 
+/** Reservation Routes */
+Route::post('reservation', [FrontendController::class, 'reservation'])->name('reservation.store');
+
 /** Show Product Details Page */
 Route::get('product/{slug}', [FrontendController::class, 'showProduct'])->name('product.show');
 

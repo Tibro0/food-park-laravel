@@ -115,6 +115,10 @@
     </div>
 </div>
 
+<!-- Reservation Model Start -->
+@php
+    $reservationTimes = App\Models\ReservationTime::where('status', 1)->orderBy('id', 'DESC')->get();
+@endphp
 <div class="fp__reservation">
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -125,26 +129,20 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="fp__reservation_form">
-                        <input class="reservation_input" type="text" placeholder="Name">
-                        <input class="reservation_input" type="text" placeholder="Phone">
-                        <input class="reservation_input" type="date">
-                        <select class="reservation_input" id="select_js">
+                    <form action="{{ route('reservation.store') }}" method="POST" class="fp__reservation_form">
+                        @csrf
+                        <input type="text" name="name" class="reservation_input" placeholder="Name">
+                        <input type="text" name="phone" class="reservation_input" placeholder="Phone">
+                        <input type="date" name="date" class="reservation_input">
+
+                        <select name="time" class="reservation_input nice-select">
                             <option value="">select time</option>
-                            <option value="">08.00 am to 09.00 am</option>
-                            <option value="">10.00 am to 11.00 am</option>
-                            <option value="">12.00 pm to 01.00 pm</option>
-                            <option value="">02.00 pm to 03.00 pm</option>
-                            <option value="">04.00 pm to 05.00 pm</option>
+                            @foreach ($reservationTimes as $time)
+                                <option value="{{ $time->start_time }}-{{ $time->end_time }}">
+                                    {{ $time->start_time }} to {{ $time->end_time }}</option>
+                            @endforeach
                         </select>
-                        <select class="reservation_input" id="select_js2">
-                            <option value="">select person</option>
-                            <option value="">1 person</option>
-                            <option value="">2 person</option>
-                            <option value="">3 person</option>
-                            <option value="">4 person</option>
-                            <option value="">5 person</option>
-                        </select>
+                        <input type="text" name="persons" class="reservation_input" placeholder="Persons">
                         <button type="submit">book table</button>
                     </form>
                 </div>
@@ -152,3 +150,40 @@
         </div>
     </div>
 </div>
+<!-- Reservation Model End -->
+
+@push('frontend-js')
+    <script>
+        $(document).ready(function() {
+            $('.fp__reservation_form').on('submit', function(e) {
+                e.preventDefault();
+                let formData = $(this).serialize();
+                $.ajax({
+                    method: 'POST',
+                    url: '{{ route('reservation.store') }}',
+                    data: formData,
+                    beforeSend: function() {
+                        $('.btn_submit').html(
+                            `<span class="spinner-border text-light"> <span>`);
+                    },
+                    success: function(response) {
+                        toastr.success(response.message);
+                        $('.fp__reservation_form').trigger("reset");
+                        $('#staticBackdrop').modal('hide');
+
+                    },
+                    error: function(xhr, status, error) {
+                        let errors = xhr.responseJSON.errors;
+                        $.each(errors, function(index, value) {
+                            toastr.error(value);
+                            $('.btn_submit').html(`Book Table`);
+                        })
+                    },
+                    complete: function() {
+                        $('.btn_submit').html(`Book Table`);
+                    }
+                })
+            })
+        })
+    </script>
+@endpush

@@ -16,14 +16,18 @@ use App\Models\Coupon;
 use App\Models\DailyOffer;
 use App\Models\PrivacyPolicy;
 use App\Models\Product;
+use App\Models\Reservation;
+use App\Models\ReservationTime;
 use App\Models\SectionTitle;
 use App\Models\Slider;
 use App\Models\Testimonial;
 use App\Models\TramsAndCondition;
 use App\Models\WhyChooseUs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\ValidationException;
 
 class FrontendController extends Controller
 {
@@ -167,5 +171,32 @@ class FrontendController extends Controller
     public function destroyCoupon(){
         Session::forget('coupon');
         return response(['message' => 'Coupon Removed!', 'grand_cart_total' => grandCartTotal()]);
+    }
+
+    function reservation(Request $request) {
+        $request->validate([
+            'name' => ['required', 'max:255'],
+            'phone' => ['required', 'max:50'],
+            'date' => ['required', 'date'],
+            'time' => ['required'],
+            'persons' => ['required', 'numeric']
+        ]);
+
+        if(!Auth::check()){
+            throw ValidationException::withMessages(['Please Login to Request Reservation']);
+        }
+
+        $reservation = new Reservation();
+        $reservation->reservation_id = rand(0, 500000);
+        $reservation->user_id = Auth::user()->id;
+        $reservation->name = $request->name;
+        $reservation->phone = $request->phone;
+        $reservation->date = $request->date;
+        $reservation->time = $request->time;
+        $reservation->persons = $request->persons;
+        $reservation->status = 'pending';
+        $reservation->save();
+
+        return response(['status' => 'success', 'message' => 'Request send successfully']);
     }
 }

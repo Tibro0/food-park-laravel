@@ -679,9 +679,32 @@ namespace App\Models{
 /**
  * 
  *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation query()
+ */
+	class Reservation extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
+ * @property string $start_time
+ * @property string $end_time
+ * @property int $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ReservationTime newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ReservationTime newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ReservationTime query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ReservationTime whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ReservationTime whereEndTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ReservationTime whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ReservationTime whereStartTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ReservationTime whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ReservationTime whereUpdatedAt($value)
  */
 	class ReservationTime extends \Eloquent {}
 }
