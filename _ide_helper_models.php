@@ -679,9 +679,31 @@ namespace App\Models{
 /**
  * 
  *
+ * @property int $id
+ * @property string $reservation_id
+ * @property int $user_id
+ * @property string $name
+ * @property string $phone
+ * @property string $date
+ * @property string $time
+ * @property int $persons
+ * @property string $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation whereDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation wherePersons($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation whereReservationId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation whereTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Reservation whereUserId($value)
  */
 	class Reservation extends \Eloquent {}
 }
@@ -780,6 +802,17 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Slider whereUpdatedAt($value)
  */
 	class Slider extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscriber newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscriber newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Subscriber query()
+ */
+	class Subscriber extends \Eloquent {}
 }
 
 namespace App\Models{

@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\CounterController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DailyOfferController;
 use App\Http\Controllers\Admin\DeliveryAreaController;
+use App\Http\Controllers\Admin\NewsLetterController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PaymentGatewaySettingController;
 use App\Http\Controllers\Admin\PrivacyPolicyController;
@@ -134,6 +135,10 @@ Route::resource('reservation-time', ReservationTimeController::class);
 Route::get('reservation', [ReservationController::class, 'index'])->name('reservation.index');
 Route::post('reservation', [ReservationController::class, 'update'])->name('reservation.update');
 Route::delete('reservation/{id}', [ReservationController::class, 'destroy'])->name('reservation.destroy');
+
+/** News letter Routes */
+Route::get('news-letter', [NewsLetterController::class, 'index'])->name('news-letter.index');
+Route::post('news-letter', [NewsLetterController::class, 'sendNewsLetter'])->name('news-letter.send');
 
 /** Trams And Conditions Routes */
 Route::get('trams-and-conditions', [TramsAndConditionController::class, 'index'])->name('trams-and-conditions.index');

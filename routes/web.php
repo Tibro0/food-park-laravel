@@ -91,6 +91,9 @@ Route::post('contact', [FrontendController::class, 'sendContactMessage'])->name(
 /** Reservation Routes */
 Route::post('reservation', [FrontendController::class, 'reservation'])->name('reservation.store');
 
+/** Newsletter Routes */
+Route::post('subscribe-newsletter', [FrontendController::class, 'subscribeNewsletter'])->name('subscribe-newsletter');
+
 /** Show Product Details Page */
 Route::get('product/{slug}', [FrontendController::class, 'showProduct'])->name('product.show');
 
