@@ -59,12 +59,13 @@
                     <li><a class="nav-link" href="{{ route('admin.blogs.comments.index') }}">Comments</a></li>
                 </ul>
             </li>
-
             <li><a class="nav-link" href="{{ route('admin.news-letter.index') }}"><i class="far fa-square"></i>
                     <span>News Letter</span></a></li>
-
             <li><a class="nav-link" href="{{ route('admin.social-link.index') }}"><i class="far fa-square"></i>
                     <span>Social Links</span></a></li>
+
+            <li><a class="nav-link" href="{{ route('admin.footer-info.index') }}"><i class="far fa-square"></i>
+                    <span>Footer Info</span></a></li>
 
             <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>

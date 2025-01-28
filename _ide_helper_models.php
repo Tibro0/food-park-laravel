@@ -435,6 +435,17 @@ namespace App\Models{
 /**
  * 
  *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FooterInfo newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FooterInfo newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FooterInfo query()
+ */
+	class FooterInfo extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
  * @property int $id
  * @property string $invoice_id
  * @property int $user_id
@@ -808,9 +819,23 @@ namespace App\Models{
 /**
  * 
  *
+ * @property int $id
+ * @property string $icon
+ * @property string $name
+ * @property string $link
+ * @property int $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SocialLink newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SocialLink newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SocialLink query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SocialLink whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SocialLink whereIcon($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SocialLink whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SocialLink whereLink($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SocialLink whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SocialLink whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SocialLink whereUpdatedAt($value)
  */
 	class SocialLink extends \Eloquent {}
 }
