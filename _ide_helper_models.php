@@ -386,6 +386,17 @@ namespace App\Models{
 /**
  * 
  *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomPageBuilder newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomPageBuilder newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomPageBuilder query()
+ */
+	class CustomPageBuilder extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
  * @property int $id
  * @property int $product_id
  * @property int $status
@@ -435,9 +446,25 @@ namespace App\Models{
 /**
  * 
  *
+ * @property int $id
+ * @property string|null $short_info
+ * @property string|null $address
+ * @property string|null $phone
+ * @property string|null $email
+ * @property string|null $copyright
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder<static>|FooterInfo newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|FooterInfo newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|FooterInfo query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FooterInfo whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FooterInfo whereCopyright($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FooterInfo whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FooterInfo whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FooterInfo whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FooterInfo wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FooterInfo whereShortInfo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FooterInfo whereUpdatedAt($value)
  */
 	class FooterInfo extends \Eloquent {}
 }

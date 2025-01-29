@@ -1,6 +1,7 @@
 @extends('frontend.layouts.master')
 
 @push('frontend-css')
+    <title>FoodPark || Contact</title>
 @endpush
 
 @section('frontend-content')

@@ -5,6 +5,7 @@ use App\Http\Controllers\Frontend\AddressController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
+use App\Http\Controllers\Frontend\CustomPageController;
 use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\PaymentController;
@@ -93,6 +94,9 @@ Route::post('reservation', [FrontendController::class, 'reservation'])->name('re
 
 /** Newsletter Routes */
 Route::post('subscribe-newsletter', [FrontendController::class, 'subscribeNewsletter'])->name('subscribe-newsletter');
+
+/** Custom Page Routes */
+Route::get('page/{slug}', CustomPageController::class);
 
 /** Show Product Details Page */
 Route::get('product/{slug}', [FrontendController::class, 'showProduct'])->name('product.show');
