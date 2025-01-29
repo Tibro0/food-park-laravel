@@ -135,6 +135,13 @@
                                 </div>
                             </form>
                         </div>
+                    @else
+                        <div class="comment_input mt_100 xs_mt_70 wow fadeInUp">
+                            <h4>Leave A Comment</h4>
+                            <h5 class="bg-warning text-white text-center py-3 mt-4">Please Login First to
+                                Add
+                                Comment.</h5>
+                        </div>
                     @endauth
                 </div>
                 <div class="col-xl-4 col-lg-4">

@@ -29,7 +29,7 @@
         <div class="row grid">
             @foreach ($categories as $category)
                 @php
-                    $products = App\Models\Product::with(['category'])
+                    $products = App\Models\Product::with(['category', 'reviews'])
                         ->where([
                             'show_at_home' => 1,
                             'status' => 1,
@@ -37,6 +37,8 @@
                         ])
                         ->orderBy('id', 'DESC')
                         ->take(8)
+                        ->withAvg('reviews', 'rating')
+                        ->withCount('reviews')
                         ->get();
                 @endphp
 
@@ -49,14 +51,14 @@
                                 <a class="category" href="#">{{ @$product->category->name }}</a>
                             </div>
                             <div class="fp__menu_item_text">
-                                <p class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                    <i class="far fa-star"></i>
-                                    <span>145</span>
-                                </p>
+                                @if ($product->reviews_avg_rating)
+                                    <p class="rating">
+                                        @for ($i = 1; $i <= $product->reviews_avg_rating; $i++)
+                                            <i class="fas fa-star"></i>
+                                        @endfor
+                                        <span>{{ $product->reviews_count }}</span>
+                                    </p>
+                                @endif
                                 <a class="title"
                                     href="{{ route('product.show', $product->slug) }}">{{ $product->name }}</a>
                                 <h5 class="price">

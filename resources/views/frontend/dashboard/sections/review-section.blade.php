@@ -3,86 +3,30 @@
         <h3>review</h3>
         <div class="fp__review_area">
             <div class="fp__comment pt-0 mt_20">
-                <div class="fp__single_comment m-0 border-0">
-                    <img src="{{ asset('frontend/images/menu1.png') }}" alt="review" class="img-fluid">
-                    <div class="fp__single_comm_text">
-                        <h3><a href="#">mamun ahmed shuvo</a> <span>29 oct 2022
+                @foreach ($reviews as $review)
+                    <div class="fp__single_comment m-0 border-0">
+                        <img src="{{ asset($review->user->avatar) }}" alt="review" class="img-fluid">
+                        <div class="fp__single_comm_text">
+                            <h3><a href="javascript:;">{{ $review->user->name }}</a>
+                                <span>{{ date('d M Y', strtotime($review->created_at)) }}</span>
+                            </h3>
+                            <span class="rating">
+                                @for ($i = 1; $i <= $review->rating; $i++)
+                                    <i class="fas fa-star"></i>
+                                @endfor
                             </span>
-                        </h3>
-                        <span class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fad fa-star-half-alt"></i>
-                            <i class="fal fa-star"></i>
-                            <b>(120)</b>
-                        </span>
-                        <p>Sure there isn't anything embarrassing hiidden in the
-                            middles of text. All erators on the Internet
-                            tend to repeat predefined chunks</p>
-                        <span class="status active">active</span>
+                            <p>{{ $review->review }}</p>
+                            @if ($review->status === 1)
+                                <span class="status active">Active</span>
+                            @elseif ($review->status === 0)
+                                <span class="status inactive">Pending</span>
+                            @endif
+                        </div>
                     </div>
-                </div>
-                <div class="fp__single_comment">
-                    <img src="{{ asset('frontend/images/menu2.png') }}" alt=" review" class="img-fluid">
-                    <div class="fp__single_comm_text">
-                        <h3><a href="#">asaduzzaman khan</a> <span>29 oct 2022
-                            </span>
-                        </h3>
-                        <span class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fad fa-star-half-alt"></i>
-                            <i class="fal fa-star"></i>
-                            <b>(120)</b>
-                        </span>
-                        <p>Sure there isn't anything embarrassing hiidden in the
-                            middles of text. All erators on the Internet
-                            tend to repeat predefined chunks</p>
-                        <span class="status inactive">inactive</span>
-                    </div>
-                </div>
-                <div class="fp__single_comment">
-                    <img src="{{ asset('frontend/images/menu3.png') }}" alt="review" class="img-fluid">
-                    <div class="fp__single_comm_text">
-                        <h3><a href="#">ariful islam rupom</a> <span>29 oct 2022
-                            </span>
-                        </h3>
-                        <span class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fad fa-star-half-alt"></i>
-                            <i class="fal fa-star"></i>
-                            <b>(120)</b>
-                        </span>
-                        <p>Sure there isn't anything embarrassing hiidden in the
-                            middles of text. All erators on the Internet
-                            tend to repeat predefined chunks</p>
-                        <span class="status active">active</span>
-                    </div>
-                </div>
-                <div class="fp__single_comment">
-                    <img src="{{ asset('frontend/images/menu4.png') }}" alt="review" class="img-fluid">
-                    <div class="fp__single_comm_text">
-                        <h3><a href="#">ali ahmed jakir</a> <span>29 oct 2022 </span>
-                        </h3>
-                        <span class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fad fa-star-half-alt"></i>
-                            <i class="fal fa-star"></i>
-                            <b>(120)</b>
-                        </span>
-                        <p>Sure there isn't anything embarrassing hiidden in the
-                            middles of text. All erators on the Internet
-                            tend to repeat predefined chunks</p>
-                        <span class="status inactive">inactive</span>
-                    </div>
-                </div>
-                <a href="#" class="load_more">load More</a>
+                @endforeach
+                @if (count($reviews) === 0)
+                    <h5 class="py-4 text-center text-white bg-warning">No reviews added!</h5>
+                @endif
             </div>
         </div>
     </div>

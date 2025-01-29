@@ -386,9 +386,23 @@ namespace App\Models{
 /**
  * 
  *
+ * @property int $id
+ * @property string $name
+ * @property string $slug
+ * @property string $content
+ * @property int $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomPageBuilder newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomPageBuilder newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomPageBuilder query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomPageBuilder whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomPageBuilder whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomPageBuilder whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomPageBuilder whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomPageBuilder whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomPageBuilder whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CustomPageBuilder whereUpdatedAt($value)
  */
 	class CustomPageBuilder extends \Eloquent {}
 }
@@ -622,6 +636,8 @@ namespace App\Models{
  * @property-read int|null $product_options_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductSize> $productSizes
  * @property-read int|null $product_sizes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductRating> $reviews
+ * @property-read int|null $reviews_count
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Product query()
@@ -688,6 +704,35 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductOption whereUpdatedAt($value)
  */
 	class ProductOption extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int $product_id
+ * @property int $rating
+ * @property string $review
+ * @property int $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Product $product
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductRating newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductRating newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductRating query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductRating whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductRating whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductRating whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductRating whereRating($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductRating whereReview($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductRating whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductRating whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductRating whereUserId($value)
+ */
+	class ProductRating extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -952,6 +997,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Order> $orders
+ * @property-read int|null $orders_count
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newQuery()
