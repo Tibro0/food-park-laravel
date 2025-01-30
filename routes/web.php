@@ -10,6 +10,7 @@ use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\ProfileController;
+use App\Http\Controllers\Frontend\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /** Admin Auth Routes */
@@ -112,6 +113,9 @@ Route::post('product-review', [FrontendController::class, 'productReviewStore'])
 Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
 Route::get('get-cart-products', [CartController::class, 'getCartProduct'])->name('get-cart-products');
 Route::get('cart-product-remove/{rowId}', [CartController::class, 'cartProductRemove'])->name('cart-product-remove');
+
+/** Wishlist Route */
+Route::get('wishlist/{productId}', [WishlistController::class, 'store'])->name('wishlist.store');
 
 /** Cart Page Route */
 Route::get('cart', [CartController::class, 'index'])->name('cart.index');
