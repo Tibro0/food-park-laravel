@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminManagementController;
 use App\Http\Controllers\Admin\AppDownloadSectionController;
 use App\Http\Controllers\Admin\BannerSliderController;
 use App\Http\Controllers\Admin\BlogCategoryController;
@@ -158,6 +159,9 @@ Route::put('footer-info', [FooterInfoController::class, 'update'])->name('footer
 
 /** Custom page builder Routes */
 Route::resource('custom-page-builder', CustomPageBuilderController::class);
+
+/** Admin management Routes */
+Route::resource('admin-management', AdminManagementController::class);
 
 /** Trams And Conditions Routes */
 Route::get('trams-and-conditions', [TramsAndConditionController::class, 'index'])->name('trams-and-conditions.index');
