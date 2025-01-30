@@ -14,13 +14,17 @@
                         href="{{ route('home') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ setSidebarActive(['about']) }}" href="{{ route('about') }}">about</a>
+                    <a class="nav-link {{ setSidebarActive(['product.index']) }}"
+                        href="{{ route('product.index') }}">Products</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ setSidebarActive(['chef']) }}" href="{{ route('chef') }}">chefs</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ setSidebarActive(['blogs']) }}" href="{{ route('blogs') }}">blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ setSidebarActive(['about']) }}" href="{{ route('about') }}">about</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ setSidebarActive(['contact.*']) }}"

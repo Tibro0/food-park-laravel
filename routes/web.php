@@ -98,6 +98,9 @@ Route::post('subscribe-newsletter', [FrontendController::class, 'subscribeNewsle
 /** Custom Page Routes */
 Route::get('page/{slug}', CustomPageController::class);
 
+/** Product page Route*/
+Route::get('products', [FrontendController::class, 'products'])->name('product.index');
+
 /** Show Product Details Page */
 Route::get('product/{slug}', [FrontendController::class, 'showProduct'])->name('product.show');
 

@@ -129,6 +129,28 @@ class FrontendController extends Controller
         return response(['status' => 'success', 'message' => 'Message Sent Successfully!']);
     }
 
+    public function products(Request $request){
+        $products = Product::where(['status' => 1])->orderBy('id', 'DESC');
+
+        if($request->has('search') && $request->filled('search')) {
+            $products->where(function($query) use ($request) {
+                $query->where('name', 'like', '%'.$request->search.'%')
+                    ->orWhere('long_description', 'like', '%'.$request->search.'%');
+            });
+        }
+
+        if($request->has('category') && $request->filled('category')) {
+            $products->whereHas('category', function($query) use ($request){
+                $query->where('slug', $request->category);
+            });
+        }
+
+        $products = $products->withAvg('reviews', 'rating')->withCount('reviews')->paginate(12);
+
+        $categories = Category::where('status', 1)->orderby('id', 'DESC')->get();
+        return view('frontend.pages.product', compact('products', 'categories'));
+    }
+
     public function showProduct(string $slug){
         $product = Product::with(['productImages', 'productSizes', 'productOptions', 'reviews'])->where(['slug' => $slug, 'status' => 1])->withAvg('reviews', 'rating')->withCount('reviews')->firstOrFail();
 
