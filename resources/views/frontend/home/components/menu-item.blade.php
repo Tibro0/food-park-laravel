@@ -18,9 +18,9 @@
         <div class="row wow fadeInUp" data-wow-duration="1s">
             <div class="col-12">
                 <div class="menu_filter d-flex flex-wrap justify-content-center">
-                    <button class=" active" data-filter="*">all menu</button>
                     @foreach ($categories as $category)
-                        <button data-filter=".{{ $category->slug }}">{{ $category->name }}</button>
+                        <button class="{{ $loop->index === 0 ? 'active button-click' : '' }}"
+                            data-filter=".{{ $category->slug }}">{{ $category->name }}</button>
                     @endforeach
                 </div>
             </div>

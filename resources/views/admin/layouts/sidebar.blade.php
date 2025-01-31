@@ -8,8 +8,8 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li><a class="nav-link" href="{{ route('admin.dashboard') }}"><i class="fas fa-fire"></i><span>General
-                        Dashboard</span></a>
+            <li><a class="nav-link" href="{{ route('admin.dashboard') }}"><i
+                        class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
             <li class="menu-header">Starter</li>
             <li><a class="nav-link" href="{{ route('admin.slider.index') }}"><i class="far fa-square"></i>
