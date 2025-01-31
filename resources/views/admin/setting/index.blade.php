@@ -27,8 +27,20 @@
                                     role="tab" aria-controls="home" aria-selected="true">General Settings</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" id="home-tab4" data-toggle="tab" href="#logo-setting" role="tab"
+                                    aria-controls="home" aria-selected="true">Logo Settings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="home-tab4" data-toggle="tab" href="#appearance-setting"
+                                    role="tab" aria-controls="home" aria-selected="true">Appearance Settings</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" id="contact-tab4" data-toggle="tab" href="#mail-setting" role="tab"
                                     aria-controls="contact" aria-selected="false">Mail Settings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="" data-toggle="tab" href="#seo-setting" role="tab"
+                                    aria-controls="contact" aria-selected="false">Seo Settings</a>
                             </li>
                         </ul>
                     </div>
@@ -37,17 +49,18 @@
                             <!-- General Settings include links Start -->
                             @include('admin.setting.sections.general-setting')
                             <!-- General Settings include links End -->
+                            <!-- Logo Settings include links Start -->
+                            @include('admin.setting.sections.logo-setting')
+                            <!-- Logo Settings include links End -->
+                            <!-- Appearance Settings include links Start -->
+                            @include('admin.setting.sections.appearance-setting')
+                            <!-- Appearance Settings include links End -->
                             <!-- Mail Settings include links Start -->
                             @include('admin.setting.sections.mail-setting')
                             <!-- Mail Settings include links End -->
-
-                            <div class="tab-pane fade" id="contact4" role="tabpanel" aria-labelledby="contact-tab4">
-                                Vestibulum imperdiet odio sed neque ultricies, ut dapibus mi maximus. Proin ligula massa,
-                                gravida in lacinia efficitur, hendrerit eget mauris. Pellentesque fermentum, sem interdum
-                                molestie finibus, nulla diam varius leo, nec varius lectus elit id dolor. Nam malesuada orci
-                                non ornare vulputate. Ut ut sollicitudin magna. Vestibulum eget ligula ut ipsum venenatis
-                                ultrices. Proin bibendum bibendum augue ut luctus.
-                            </div>
+                            <!-- SEO Settings include links Start -->
+                            @include('admin.setting.sections.seo-setting')
+                            <!-- SEO Settings include links End -->
                         </div>
                     </div>
                 </div>

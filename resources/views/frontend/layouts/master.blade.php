@@ -5,9 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi" />
+    <meta name="description" content="{{ config('settings.seo_description') }}">
+    <meta name="keywords" content="{{ config('settings.seo_keywords') }}">
     @yield('og_meta_tags_section')
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" type="image/png" href="{{ asset('frontend/images/favicon.png') }}">
+    <meta name="keywords" content="{{ config('settings.seo_title') }}">
+    <link rel="icon" type="image/png" href="{{ asset(config('settings.favicon')) }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/spacing.css') }}">
@@ -22,6 +25,11 @@
     <!-- toastr Css Link -->
     <link rel="stylesheet" href="{{ asset('frontend/css/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}">
+    {{-- <style>
+        :root {
+            --colorPrimary: {{ config('settings.site_color') }};
+        }
+    </style> --}}
     {{-- <link rel="stylesheet" href="{{ asset('frontend/css/rtl.css') }}"> --}}
     @stack('frontend-css')
 </head>
