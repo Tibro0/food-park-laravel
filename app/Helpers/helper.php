@@ -132,7 +132,7 @@ function getYtThumbnail($link, $size = 'medium'){
 }
 
 
-/** get product discount in percent */
+/** set Sidebar Active */
 if (!function_exists('setSidebarActive')) {
     function setSidebarActive(array $routes){
         foreach($routes as $route){
@@ -140,9 +140,5 @@ if (!function_exists('setSidebarActive')) {
                 return 'active';
             }
         }
-        return '';
     }
 }
-
-
-

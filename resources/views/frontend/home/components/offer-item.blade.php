@@ -28,8 +28,8 @@
                                     off</span>
                             @endif
                             <a class="title"
-                                href="{{ route('product.show', $dailyOffer->product->slug) }}">{!! $dailyOffer->product->name !!}</a>
-                            <p>{{ $dailyOffer->product->short_description }}</p>
+                                href="{{ route('product.show', $dailyOffer->product->slug) }}">{!! limitText($dailyOffer->product->name, 30) !!}</a>
+                            <p>{{ limitText($dailyOffer->product->short_description, 30) }}</p>
                             <ul class="d-flex flex-wrap">
                                 <li><a href="javascript:;"
                                         onclick="loadProductModal('{{ $dailyOffer->product->id }}')"><i
