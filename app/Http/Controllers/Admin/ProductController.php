@@ -35,30 +35,35 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'image' => ['required', 'image', 'max:3000'],
-            'name' => ['required', 'max:255', 'unique:products,name'],
-            'category' => ['required', 'integer'],
-            'price' => ['required', 'numeric'],
-            'offer_price' => ['nullable', 'numeric'],
-            'quantity' => ['required', 'numeric'],
-            'short_description' => ['required', 'max:500'],
-            'long_description' => ['required'],
-            'sku' => ['nullable', 'max:255'],
-            'seo_title' => ['nullable', 'max:255'],
-            'seo_description' => ['nullable', 'max:255'],
-            'show_at_home' => ['boolean'],
-            'status' => ['required','boolean'],
-        ]);
+        $request->validate(
+            [
+                'image' => ['required', 'image', 'max:3000'],
+                'name' => ['required', 'max:255', 'unique:products,name'],
+                'category' => ['required', 'integer'],
+                'price' => ['required', 'numeric'],
+                'offer_price' => ['nullable', 'numeric'],
+                'quantity' => ['required', 'numeric'],
+                'short_description' => ['required', 'max:500'],
+                'long_description' => ['required'],
+                'sku' => ['nullable', 'max:255'],
+                'seo_title' => ['nullable', 'max:255'],
+                'seo_description' => ['nullable', 'max:255'],
+                'show_at_home' => ['boolean'],
+                'status' => ['required', 'boolean'],
+            ],
+            [
+                'category.required' => 'Please Select a Category'
+            ]
+        );
 
         if ($request->file('image')) {
             $image = $request->file('image');
             $manager = new ImageManager(new Driver());
-            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img = $img->resize(400,400);
-            $img->toJpeg(80)->save(base_path('public/uploads/product_thumb_image/'.$name_gen));
-            $save_url = 'uploads/product_thumb_image/'.$name_gen;
+            $img = $img->resize(400, 400);
+            $img->toJpeg(80)->save(base_path('public/uploads/product_thumb_image/' . $name_gen));
+            $save_url = 'uploads/product_thumb_image/' . $name_gen;
 
             $product = new Product();
             $product->thumb_image = $save_url;
@@ -98,31 +103,36 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'image' => ['nullable', 'image', 'max:3000'],
-            'name' => ['required', 'max:255', 'unique:products,name,'.$id],
-            'category' => ['required', 'integer'],
-            'price' => ['required', 'numeric'],
-            'offer_price' => ['nullable', 'numeric'],
-            'quantity' => ['required', 'numeric'],
-            'short_description' => ['required', 'max:500'],
-            'long_description' => ['required'],
-            'sku' => ['nullable', 'max:255'],
-            'seo_title' => ['nullable', 'max:255'],
-            'seo_description' => ['nullable', 'max:255'],
-            'show_at_home' => ['boolean'],
-            'status' => ['required','boolean'],
-        ]);
+        $request->validate(
+            [
+                'image' => ['nullable', 'image', 'max:3000'],
+                'name' => ['required', 'max:255', 'unique:products,name,' . $id],
+                'category' => ['required', 'integer'],
+                'price' => ['required', 'numeric'],
+                'offer_price' => ['nullable', 'numeric'],
+                'quantity' => ['required', 'numeric'],
+                'short_description' => ['required', 'max:500'],
+                'long_description' => ['required'],
+                'sku' => ['nullable', 'max:255'],
+                'seo_title' => ['nullable', 'max:255'],
+                'seo_description' => ['nullable', 'max:255'],
+                'show_at_home' => ['boolean'],
+                'status' => ['required', 'boolean'],
+            ],
+            [
+                'category.required' => 'Please Select a Category'
+            ]
+        );
 
         $oldImage = $request->old_image;
         if ($request->file('image')) {
             $image = $request->file('image');
             $manager = new ImageManager(new Driver());
-            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img = $img->resize(400,400);
-            $img->toJpeg(80)->save(base_path('public/uploads/product_thumb_image/'.$name_gen));
-            $save_url = 'uploads/product_thumb_image/'.$name_gen;
+            $img = $img->resize(400, 400);
+            $img->toJpeg(80)->save(base_path('public/uploads/product_thumb_image/' . $name_gen));
+            $save_url = 'uploads/product_thumb_image/' . $name_gen;
 
             $product = Product::findOrFail($id);
             $product->thumb_image = $save_url;
@@ -147,7 +157,7 @@ class ProductController extends Controller
 
             toastr()->success('Updated Successfully');
             return redirect()->route('admin.product.index');
-        }else{
+        } else {
             $product = Product::findOrFail($id);
             $product->name = $request->name;
             $product->slug = Str::slug($request->name);
