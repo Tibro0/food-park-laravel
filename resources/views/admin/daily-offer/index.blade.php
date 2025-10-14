@@ -24,19 +24,31 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group">
-                                    <label for="">Top Title</label>
-                                    <input type="text" class="form-control" name="daily_offer_top_title"
-                                        value="{{ @$titles['daily_offer_top_title'] }}">
+                                    <label>Top Title</label>
+                                    <input type="text"
+                                        class="form-control @error('daily_offer_top_title') is-invalid @enderror"
+                                        name="daily_offer_top_title" value="{{ @$titles['daily_offer_top_title'] }}">
+                                    @error('daily_offer_top_title')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Main Title</label>
-                                    <input type="text" class="form-control" name="daily_offer_main_title"
-                                        value="{{ @$titles['daily_offer_main_title'] }}">
+                                    <label>Main Title</label>
+                                    <input type="text"
+                                        class="form-control @error('daily_offer_main_title') is-invalid @enderror"
+                                        name="daily_offer_main_title" value="{{ @$titles['daily_offer_main_title'] ?? old('daily_offer_main_title') }}">
+                                    @error('daily_offer_main_title')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Sub Title</label>
-                                    <input type="text" class="form-control" name="daily_offer_sub_title"
-                                        value="{{ @$titles['daily_offer_sub_title'] }}">
+                                    <label>Sub Title</label>
+                                    <input type="text"
+                                        class="form-control @error('daily_offer_sub_title') is-invalid @enderror"
+                                        name="daily_offer_sub_title" value="{{ @$titles['daily_offer_sub_title'] ?? old('daily_offer_sub_title')}}">
+                                    @error('daily_offer_sub_title')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <button type="submit" class="btn btn-primary">Save</button>
                             </form>
