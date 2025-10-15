@@ -16,7 +16,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>Razorpay Country Name</label>
+                    <label>Razorpay Country Name <span class="text-danger">*</span></label>
                     <select name="razorpay_country"
                         class="select3 form-control @error('razorpay_country') is-invalid @enderror">
                         <option value="">Select</option>
@@ -30,7 +30,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>Razorpay Currency</label>
+                    <label>Razorpay Currency <span class="text-danger">*</span></label>
                     <select name="razorpay_currency"
                         class="select3 form-control @error('razorpay_currency') is-invalid @enderror">
                         <option value="">Select</option>
@@ -44,28 +44,28 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>Currency Rate ( Per {{ config('settings.site_default_currency') }} )</label>
+                    <label>Currency Rate ( Per {{ config('settings.site_default_currency') }} ) <span class="text-danger">*</span></label>
                     <input name="razorpay_rate" type="text"
                         class="form-control @error('razorpay_rate') is-invalid @enderror"
-                        value="{{ @$paymentGateway['razorpay_rate'] }}">
+                        value="{{ @$paymentGateway['razorpay_rate'] ?? old('razorpay_rate') }}">
                     @error('razorpay_rate')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>Razorpay Key</label>
+                    <label>Razorpay Key <span class="text-danger">*</span></label>
                     <input name="razorpay_api_key" type="text"
                         class="form-control @error('razorpay_api_key') is-invalid @enderror"
-                        value="{{ @$paymentGateway['razorpay_api_key'] }}">
+                        value="{{ @$paymentGateway['razorpay_api_key'] ?? old('razorpay_api_key') }}">
                     @error('razorpay_api_key')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>Razorpay Secret Key</label>
+                    <label>Razorpay Secret Key <span class="text-danger">*</span></label>
                     <input name="razorpay_secret_key" type="text"
                         class="form-control @error('razorpay_secret_key') is-invalid @enderror"
-                        value="{{ @$paymentGateway['razorpay_secret_key'] }}">
+                        value="{{ @$paymentGateway['razorpay_secret_key'] ?? old('razorpay_secret_key') }}">
                     @error('razorpay_secret_key')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

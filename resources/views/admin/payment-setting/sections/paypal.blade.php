@@ -58,7 +58,7 @@
                     <label>Currency Rate ( Per {{ config('settings.site_default_currency') }} ) <span class="text-danger">*</span></label>
                     <input name="paypal_rate" type="text"
                         class="form-control @error('paypal_rate') is-invalid @enderror"
-                        value="{{ @$paymentGateway['paypal_rate'] }}">
+                        value="{{ @$paymentGateway['paypal_rate'] ?? old('paypal_rate') }}">
                     @error('paypal_rate')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -67,7 +67,7 @@
                     <label>Paypal Client Id <span class="text-danger">*</span></label>
                     <input name="paypal_api_key" type="text"
                         class="form-control @error('paypal_api_key') is-invalid @enderror"
-                        value="{{ @$paymentGateway['paypal_api_key'] }}">
+                        value="{{ @$paymentGateway['paypal_api_key'] ?? old('paypal_api_key') }}">
                     @error('paypal_api_key')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -76,7 +76,7 @@
                     <label>Paypal Secret Key <span class="text-danger">*</span></label>
                     <input name="paypal_secret_key" type="text"
                         class="form-control @error('paypal_secret_key') is-invalid @enderror"
-                        value="{{ @$paymentGateway['paypal_secret_key'] }}">
+                        value="{{ @$paymentGateway['paypal_secret_key'] ?? old('paypal_secret_key') }}">
                     @error('paypal_secret_key')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -85,7 +85,7 @@
                     <label>Paypal App Id <span class="text-danger">*</span></label>
                     <input name="paypal_app_id" type="text"
                         class="form-control @error('paypal_app_id') is-invalid @enderror"
-                        value="{{ @$paymentGateway['paypal_app_id'] }}">
+                        value="{{ @$paymentGateway['paypal_app_id'] ?? old('paypal_app_id') }}">
                     @error('paypal_app_id')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

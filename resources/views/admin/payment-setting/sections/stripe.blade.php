@@ -6,45 +6,69 @@
                 @method('PUT')
                 <div class="form-group">
                     <label>Stripe Status</label>
-                    <select name="stripe_status" class="select3 form-control">
+                    <select name="stripe_status"
+                        class="select3 form-control @error('stripe_status') is-invalid @enderror">
                         <option @selected(@$paymentGateway['stripe_status'] == 1) value="1">Active</option>
                         <option @selected(@$paymentGateway['stripe_status'] == 0) value="0">Inactive</option>
                     </select>
+                    @error('stripe_status')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-group">
-                    <label>Stripe Country Name</label>
-                    <select name="stripe_country" class="select3 form-control">
+                    <label>Stripe Country Name <span class="text-danger">*</span></label>
+                    <select name="stripe_country"
+                        class="select3 form-control @error('stripe_country') is-invalid @enderror">
                         <option value="">Select</option>
                         @foreach (config('country_list') as $key => $country)
                             <option @selected(@$paymentGateway['stripe_country'] === $key) value="{{ $key }}">{{ $country }}
                             </option>
                         @endforeach
                     </select>
+                    @error('stripe_country')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-group">
-                    <label for="">Stripe Currency</label>
-                    <select name="stripe_currency" class="select3 form-control">
+                    <label>Stripe Currency <span class="text-danger">*</span></label>
+                    <select name="stripe_currency"
+                        class="select3 form-control @error('stripe_currency') is-invalid @enderror">
                         <option value="">Select</option>
                         @foreach (config('currencys.currency_list') as $currency)
                             <option @selected(@$paymentGateway['stripe_currency'] === $currency) value="{{ $currency }}">{{ $currency }}
                             </option>
                         @endforeach
                     </select>
+                    @error('stripe_currency')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-group">
-                    <label>Currency Rate ( Per {{ config('settings.site_default_currency') }} )</label>
-                    <input name="stripe_rate" type="text" class="form-control"
-                        value="{{ @$paymentGateway['stripe_rate'] }}">
+                    <label>Currency Rate ( Per {{ config('settings.site_default_currency') }} ) <span class="text-danger">*</span></label>
+                    <input name="stripe_rate" type="text"
+                        class="form-control @error('stripe_rate') is-invalid @enderror"
+                        value="{{ @$paymentGateway['stripe_rate'] ?? old('stripe_rate') }}">
+                    @error('stripe_rate')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-group">
-                    <label>Stripe Key</label>
-                    <input name="stripe_api_key" type="text" class="form-control"
-                        value="{{ @$paymentGateway['stripe_api_key'] }}">
+                    <label>Stripe Key <span class="text-danger">*</span></label>
+                    <input name="stripe_api_key" type="text"
+                        class="form-control @error('stripe_api_key') is-invalid @enderror"
+                        value="{{ @$paymentGateway['stripe_api_key'] ?? old('stripe_api_key') }}">
+                    @error('stripe_api_key')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-group">
-                    <label>Stripe Secret Key</label>
-                    <input name="stripe_secret_key" type="text" class="form-control"
-                        value="{{ @$paymentGateway['stripe_secret_key'] }}">
+                    <label>Stripe Secret Key <span class="text-danger">*</span></label>
+                    <input name="stripe_secret_key" type="text"
+                        class="form-control @error('stripe_secret_key') is-invalid @enderror"
+                        value="{{ @$paymentGateway['stripe_secret_key'] ?? old('stripe_secret_key') }}">
+                    @error('stripe_secret_key')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label>Stripe Logo</label>
@@ -54,6 +78,9 @@
                         <input type="hidden" name="old_stripe_logo_image"
                             value="{{ @$paymentGateway['stripe_logo'] }}">
                     </div>
+                    @error('stripe_logo')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
             </form>
