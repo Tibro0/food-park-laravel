@@ -23,8 +23,11 @@
                     <form action="{{ route('admin.product-gallery.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                            <input type="file" class="form-control" name="image">
+                            <input type="file" class="form-control @error('image') is-invalid @enderror" name="image">
                             <input type="hidden" value="{{ $product->id }}" name="product_id">
+                            @error('image')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Upload</button>
