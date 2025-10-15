@@ -24,14 +24,16 @@
                         <label>Start Time <span class="text-danger">*</span></label>
                         <input type="text" name="start_time"
                             class="form-control timepicker @error('start_time') is-invalid @enderror"
-                            value="{{ $time->start_time }}">
+                            value="{{ $time->start_time ?? old('start_time') }}">
                         @error('start_time')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label>End Time <span class="text-danger">*</span></label>
-                        <input type="text" name="end_time" class="form-control timepicker @error('end_time') is-invalid @enderror" value="{{ $time->end_time }}">
+                        <input type="text" name="end_time"
+                            class="form-control timepicker @error('end_time') is-invalid @enderror"
+                            value="{{ $time->end_time ?? old('end_time') }}">
                         @error('end_time')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -39,10 +41,13 @@
 
                     <div class="form-group">
                         <label>Status</label>
-                        <select name="status" class="form-control">
+                        <select name="status" class="form-control @error('status') is-invalid @enderror">
                             <option @selected($time->status === 1) value="1">Active</option>
                             <option @selected($time->status === 0) value="0">InActive</option>
                         </select>
+                        @error('status')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <button type="submit" class="btn btn-primary">Update</button>
