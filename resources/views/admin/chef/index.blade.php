@@ -15,7 +15,7 @@
             <div class="card-body">
                 <div id="accordion">
                     <div class="accordion">
-                        <div class="accordion-header collapsed bg-primary text-light p-3 " role="button"
+                        <div class="accordion-header collapsed bg-primary text-light p-3" role="button"
                             data-toggle="collapse" data-target="#panel-body-1" aria-expanded="false">
                             <h4>Chefs Section Titles..</h4>
                         </div>
@@ -24,19 +24,32 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group">
-                                    <label for="">Top Title</label>
-                                    <input type="text" class="form-control" name="chef_top_title"
-                                        value="{{ @$titles['chef_top_title'] }}">
+                                    <label>Top Title</label>
+                                    <input type="text" class="form-control @error('chef_top_title') is-invalid @enderror"
+                                        name="chef_top_title"
+                                        value="{{ @$titles['chef_top_title'] ?? old('chef_top_title') }}">
+                                    @error('chef_top_title')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Main Title</label>
-                                    <input type="text" class="form-control" name="chef_main_title"
-                                        value="{{ @$titles['chef_main_title'] }}">
+                                    <label>Main Title</label>
+                                    <input type="text"
+                                        class="form-control @error('chef_main_title') is-invalid @enderror"
+                                        name="chef_main_title"
+                                        value="{{ @$titles['chef_main_title'] ?? old('chef_main_title') }}">
+                                    @error('chef_main_title')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Sub Title</label>
-                                    <input type="text" class="form-control" name="chef_sub_title"
-                                        value="{{ @$titles['chef_sub_title'] }}">
+                                    <label>Sub Title</label>
+                                    <input type="text" class="form-control @error('chef_sub_title') is-invalid @enderror"
+                                        name="chef_sub_title"
+                                        value="{{ @$titles['chef_sub_title'] ?? old('chef_sub_title') }}">
+                                    @error('chef_sub_title')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <button type="submit" class="btn btn-primary">Save</button>
                             </form>
