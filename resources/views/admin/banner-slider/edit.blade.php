@@ -26,28 +26,46 @@
                             <input type="file" name="image" id="image-upload" />
                             <input type="hidden" name="old_image" value="{{ $bannerSlider->banner }}" />
                         </div>
+                        @error('image')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
-                        <label>Title</label>
-                        <input type="text" class="form-control" name="title" value="{{ $bannerSlider->title }}">
+                        <label>Title <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control @error('title') is-invalid @enderror" name="title"
+                            value="{{ $bannerSlider->title ?? old('title') }}">
+                        @error('title')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
-                        <label>Sub Title</label>
-                        <input type="text" class="form-control" name="sub_title" value="{{ $bannerSlider->sub_title }}">
+                        <label>Sub Title <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control @error('sub_title') is-invalid @enderror" name="sub_title"
+                            value="{{ $bannerSlider->sub_title ?? old('sub_title') }}">
+                        @error('sub_title')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
-                        <label>Url</label>
-                        <input type="text" class="form-control" name="url" value="{{ $bannerSlider->url }}">
+                        <label>Url <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control @error('url') is-invalid @enderror" name="url"
+                            value="{{ $bannerSlider->url ?? old('url') }}">
+                        @error('url')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Status</label>
-                        <select name="status" class="form-control">
+                        <select name="status" class="form-control @error('status') is-invalid @enderror">
                             <option @selected($bannerSlider->status === 1) value="1">Active</option>
                             <option @selected($bannerSlider->status === 0) value="0">Inactive</option>
                         </select>
+                        @error('status')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form>

@@ -18,30 +18,46 @@
                 <form action="{{ route('admin.banner-slider.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label>Image</label>
+                        <label>Image <span class="text-danger">*</span></label>
                         <div id="image-preview" class="image-preview">
                             <label for="image-upload" id="image-label">Choose File</label>
                             <input type="file" name="image" id="image-upload" />
                         </div>
+                        @error('image')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label>Title</label>
-                        <input type="text" name="title" value="{{ old('title') }}" class="form-control">
+                        <label>Title <span class="text-danger">*</span></label>
+                        <input type="text" name="title" value="{{ old('title') }}"
+                            class="form-control @error('title') is-invalid @enderror">
+                        @error('title')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label>Sub Title</label>
-                        <input type="text" name="sub_title" value="{{ old('sub_title') }}" class="form-control">
+                        <label>Sub Title <span class="text-danger">*</span></label>
+                        <input type="text" name="sub_title" value="{{ old('sub_title') }}" class="form-control @error('sub_title') is-invalid @enderror">
+                        @error('sub_title')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label>Url</label>
-                        <input type="text" name="url" value="{{ old('url') }}" class="form-control">
+                        <label>Url <span class="text-danger">*</span></label>
+                        <input type="text" name="url" value="{{ old('url') }}" class="form-control @error('url') is-invalid @enderror">
+                        @error('url')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Status</label>
-                        <select name="status" class="form-control">
+                        <select name="status" class="form-control @error('status') is-invalid @enderror">
                             <option value="1">Active</option>
                             <option value="0">Inactive</option>
                         </select>
+                        @error('status')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <button type="submit" class="btn btn-primary">Create</button>
                 </form>

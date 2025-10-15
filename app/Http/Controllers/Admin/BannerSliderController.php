@@ -36,7 +36,7 @@ class BannerSliderController extends Controller
             'image' => ['required', 'image', 'max:3000'],
             'title' => ['required', 'max:255'],
             'sub_title' => ['required', 'max:255'],
-            'url' => ['required'],
+            'url' => ['required', 'url'],
             'status' => ['required', 'boolean']
         ]);
 
@@ -80,7 +80,7 @@ class BannerSliderController extends Controller
             'image' => ['nullable', 'image', 'max:3000'],
             'title' => ['required', 'max:255'],
             'sub_title' => ['required', 'max:255'],
-            'url' => ['required'],
+            'url' => ['required', 'url'],
             'status' => ['required', 'boolean']
         ]);
 
