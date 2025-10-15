@@ -9,11 +9,13 @@ use Illuminate\Http\Request;
 
 class ReservationController extends Controller
 {
-    public function index(ReservationDataTable $dataTable){
+    public function index(ReservationDataTable $dataTable)
+    {
         return $dataTable->render('admin.reservation.index');
     }
 
-    public function update(Request $request) {
+    public function update(Request $request)
+    {
         $reservation = Reservation::findOrFail($request->id);
         $reservation->status = $request->status;
         $reservation->save();
@@ -21,7 +23,8 @@ class ReservationController extends Controller
         return response(['status' => 'success', 'message' => 'Updated Successfully!']);
     }
 
-    public function destroy(string $id) {
+    public function destroy(string $id)
+    {
         $reservation = Reservation::findOrFail($id);
         $reservation->delete();
 

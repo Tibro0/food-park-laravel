@@ -16,7 +16,7 @@ class WhyChooseUsController extends Controller
     public function index(WhyChooseUsDataTable $dataTable)
     {
         $keys = ['why_choose_top_title', 'why_choose_main_title', 'why_choose_sub_title'];
-        $titles = SectionTitle::whereIn('key', $keys)->pluck('value','key');
+        $titles = SectionTitle::whereIn('key', $keys)->pluck('value', 'key');
         return $dataTable->render('admin.why-choose-us.index', compact('titles'));
     }
 
@@ -94,7 +94,8 @@ class WhyChooseUsController extends Controller
         return response(['status' => 'success', 'message' => 'Deleted Successfully']);
     }
 
-    public function updateTitle(Request $request) {
+    public function updateTitle(Request $request)
+    {
         $validatedData = $request->validate([
             'why_choose_top_title' => ['max:100'],
             'why_choose_main_title' => ['max:200'],

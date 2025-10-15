@@ -8,12 +8,14 @@ use Illuminate\Http\Request;
 
 class PrivacyPolicyController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $privacyPolicy = PrivacyPolicy::first();
         return view('admin.privacy-policy.index', compact('privacyPolicy'));
     }
 
-    public function update(Request $request){
+    public function update(Request $request)
+    {
         $request->validate([
             'content' => ['required']
         ]);

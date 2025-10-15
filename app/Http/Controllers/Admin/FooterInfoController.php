@@ -8,18 +8,20 @@ use Illuminate\Http\Request;
 
 class FooterInfoController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $footerInfo = FooterInfo::first();
         return view('admin.footer-info.index', compact('footerInfo'));
     }
 
-    public function update(Request $request) {
+    public function update(Request $request)
+    {
         $request->validate([
             'short_info' => ['nullable', 'max:2000'],
             'address' => ['nullable', 'max:255'],
-            'phone' =>['nullable', 'max:255'],
-            'email' =>['nullable', 'max:255'],
-            'copyright' =>['nullable', 'max:255']
+            'phone' => ['nullable', 'max:255'],
+            'email' => ['nullable', 'max:255'],
+            'copyright' => ['nullable', 'max:255']
         ]);
 
         FooterInfo::updateOrCreate(

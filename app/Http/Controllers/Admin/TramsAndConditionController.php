@@ -8,12 +8,14 @@ use Illuminate\Http\Request;
 
 class TramsAndConditionController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $tramsAndCondition = TramsAndCondition::first();
         return view('admin.trams-and-condition.index', compact('tramsAndCondition'));
     }
 
-    public function update(Request $request){
+    public function update(Request $request)
+    {
         $request->validate([
             'content' => ['required']
         ]);

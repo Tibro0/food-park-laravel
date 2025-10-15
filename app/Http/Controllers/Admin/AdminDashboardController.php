@@ -12,7 +12,8 @@ use Illuminate\Http\Request;
 
 class AdminDashboardController extends Controller
 {
-    public function index(TodaysOrderDataTable $dataTable){
+    public function index(TodaysOrderDataTable $dataTable)
+    {
         $todaysOrders = Order::whereDate('created_at', now()->format('Y-m-d'))->count();
         $todaysEarnings = Order::whereDate('created_at', now()->format('Y-m-d'))->where('order_status', 'delivered')->sum('grand_total');
 

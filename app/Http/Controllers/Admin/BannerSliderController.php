@@ -43,11 +43,11 @@ class BannerSliderController extends Controller
         if ($request->file('image')) {
             $image = $request->file('image');
             $manager = new ImageManager(new Driver());
-            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img = $img->resize(400,250);
-            $img->toJpeg(80)->save(base_path('public/uploads/banner_slider_image/'.$name_gen));
-            $save_url = 'uploads/banner_slider_image/'.$name_gen;
+            $img = $img->resize(400, 250);
+            $img->toJpeg(80)->save(base_path('public/uploads/banner_slider_image/' . $name_gen));
+            $save_url = 'uploads/banner_slider_image/' . $name_gen;
 
             $bannerSlider = new BannerSlider();
             $bannerSlider->banner = $save_url;
@@ -88,11 +88,11 @@ class BannerSliderController extends Controller
         if ($request->file('image')) {
             $image = $request->file('image');
             $manager = new ImageManager(new Driver());
-            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img = $img->resize(400,250);
-            $img->toJpeg(80)->save(base_path('public/uploads/banner_slider_image/'.$name_gen));
-            $save_url = 'uploads/banner_slider_image/'.$name_gen;
+            $img = $img->resize(400, 250);
+            $img->toJpeg(80)->save(base_path('public/uploads/banner_slider_image/' . $name_gen));
+            $save_url = 'uploads/banner_slider_image/' . $name_gen;
 
             $bannerSlider = BannerSlider::findOrFail($id);
             $bannerSlider->banner = $save_url;
@@ -108,7 +108,7 @@ class BannerSliderController extends Controller
 
             toastr()->success('Updated Successfully!');
             return redirect()->route('admin.banner-slider.index');
-        }else{
+        } else {
             $bannerSlider = BannerSlider::findOrFail($id);
             $bannerSlider->title = $request->title;
             $bannerSlider->sub_title = $request->sub_title;

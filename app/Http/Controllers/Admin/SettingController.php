@@ -12,11 +12,13 @@ use Intervention\Image\Drivers\Gd\Driver;
 
 class SettingController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('admin.setting.index');
     }
 
-    public function updateGeneralSetting(Request $request){
+    public function updateGeneralSetting(Request $request)
+    {
         $validatedData = $request->validate([
             'site_name' => ['required', 'max:255'],
             'site_email' => ['nullable', 'max:255'],
@@ -40,7 +42,8 @@ class SettingController extends Controller
         return redirect()->back();
     }
 
-    public function UpdateMailSetting(Request $request){
+    public function UpdateMailSetting(Request $request)
+    {
         $validatedData = $request->validate([
             'mail_driver' => ['required'],
             'mail_host' => ['required'],
@@ -66,7 +69,8 @@ class SettingController extends Controller
         return redirect()->back();
     }
 
-    public function UpdateLogoSetting(Request $request){
+    public function UpdateLogoSetting(Request $request)
+    {
         $request->validate([
             'logo' => ['nullable', 'image', 'max:1000'],
             'footer_logo' => ['nullable', 'image', 'max:1000'],
@@ -78,11 +82,11 @@ class SettingController extends Controller
         if ($request->file('logo')) {
             $image = $request->file('logo');
             $manager = new ImageManager(new Driver());
-            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img = $img->resize(300,100);
-            $img->toJpeg(80)->save(base_path('public/uploads/logo_image/'.$name_gen));
-            $save_url = 'uploads/logo_image/'.$name_gen;
+            $img = $img->resize(300, 100);
+            $img->toJpeg(80)->save(base_path('public/uploads/logo_image/' . $name_gen));
+            $save_url = 'uploads/logo_image/' . $name_gen;
 
             Setting::updateOrCreate(
                 ['key' => 'logo'],
@@ -105,11 +109,11 @@ class SettingController extends Controller
         if ($request->file('footer_logo')) {
             $image = $request->file('footer_logo');
             $manager = new ImageManager(new Driver());
-            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img = $img->resize(300,100);
-            $img->toPng(indexed: true)->save(base_path('public/uploads/logo_image/'.$name_gen));
-            $save_url = 'uploads/logo_image/'.$name_gen;
+            $img = $img->resize(300, 100);
+            $img->toPng(indexed: true)->save(base_path('public/uploads/logo_image/' . $name_gen));
+            $save_url = 'uploads/logo_image/' . $name_gen;
 
             Setting::updateOrCreate(
                 ['key' => 'footer_logo'],
@@ -132,11 +136,11 @@ class SettingController extends Controller
         if ($request->file('favicon')) {
             $image = $request->file('favicon');
             $manager = new ImageManager(new Driver());
-            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img = $img->resize(35,35);
-            $img->toPng(indexed: true)->save(base_path('public/uploads/logo_image/'.$name_gen));
-            $save_url = 'uploads/logo_image/'.$name_gen;
+            $img = $img->resize(35, 35);
+            $img->toPng(indexed: true)->save(base_path('public/uploads/logo_image/' . $name_gen));
+            $save_url = 'uploads/logo_image/' . $name_gen;
 
             Setting::updateOrCreate(
                 ['key' => 'favicon'],
@@ -159,11 +163,11 @@ class SettingController extends Controller
         if ($request->file('breadcrumb')) {
             $image = $request->file('breadcrumb');
             $manager = new ImageManager(new Driver());
-            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img = $img->resize(1500,300);
-            $img->toJpeg(80)->save(base_path('public/uploads/logo_image/'.$name_gen));
-            $save_url = 'uploads/logo_image/'.$name_gen;
+            $img = $img->resize(1500, 300);
+            $img->toJpeg(80)->save(base_path('public/uploads/logo_image/' . $name_gen));
+            $save_url = 'uploads/logo_image/' . $name_gen;
 
             Setting::updateOrCreate(
                 ['key' => 'breadcrumb'],
@@ -183,7 +187,8 @@ class SettingController extends Controller
         }
     }
 
-    public function UpdateAppearanceSetting(Request $request){
+    public function UpdateAppearanceSetting(Request $request)
+    {
         $validatedData = $request->validate([
             'site_color' => ['required']
         ]);
@@ -203,7 +208,8 @@ class SettingController extends Controller
         return redirect()->back();
     }
 
-    public function UpdateSeoSetting(Request $request){
+    public function UpdateSeoSetting(Request $request)
+    {
         $validatedData = $request->validate([
             'seo_title' => ['required', 'max:255'],
             'seo_description' => ['nullable', 'max:600'],

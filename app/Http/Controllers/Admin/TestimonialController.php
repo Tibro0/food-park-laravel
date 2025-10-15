@@ -18,7 +18,7 @@ class TestimonialController extends Controller
     public function index(TestimonialDataTable $dataTable)
     {
         $keys = ['testimonial_top_title', 'testimonial_main_title', 'testimonial_sub_title'];
-        $titles = SectionTitle::whereIn('key', $keys)->pluck('value','key');
+        $titles = SectionTitle::whereIn('key', $keys)->pluck('value', 'key');
         return $dataTable->render('admin.testimonial.index', compact('titles'));
     }
 
@@ -48,11 +48,11 @@ class TestimonialController extends Controller
         if ($request->file('image')) {
             $image = $request->file('image');
             $manager = new ImageManager(new Driver());
-            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img = $img->resize(100,100);
-            $img->toJpeg(80)->save(base_path('public/uploads/testimonial_image/'.$name_gen));
-            $save_url = 'uploads/testimonial_image/'.$name_gen;
+            $img = $img->resize(100, 100);
+            $img->toJpeg(80)->save(base_path('public/uploads/testimonial_image/' . $name_gen));
+            $save_url = 'uploads/testimonial_image/' . $name_gen;
 
             $testimonial = new Testimonial();
             $testimonial->image = $save_url;
@@ -97,11 +97,11 @@ class TestimonialController extends Controller
         if ($request->file('image')) {
             $image = $request->file('image');
             $manager = new ImageManager(new Driver());
-            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img = $img->resize(100,100);
-            $img->toJpeg(80)->save(base_path('public/uploads/testimonial_image/'.$name_gen));
-            $save_url = 'uploads/testimonial_image/'.$name_gen;
+            $img = $img->resize(100, 100);
+            $img->toJpeg(80)->save(base_path('public/uploads/testimonial_image/' . $name_gen));
+            $save_url = 'uploads/testimonial_image/' . $name_gen;
 
             $testimonial = Testimonial::findOrFail($id);
             $testimonial->image = $save_url;
@@ -119,7 +119,7 @@ class TestimonialController extends Controller
 
             toastr()->success('Created Successfully');
             return redirect()->route('admin.testimonial.index');
-        }else{
+        } else {
             $testimonial = Testimonial::findOrFail($id);
             $testimonial->name = $request->name;
             $testimonial->title = $request->title;
@@ -134,12 +134,13 @@ class TestimonialController extends Controller
         }
     }
 
-    public function updateTitle(Request $request){
+    public function updateTitle(Request $request)
+    {
         $validatedData = $request->validate([
-                    'testimonial_top_title' => ['max:100'],
-                    'testimonial_main_title' => ['max:200'],
-                    'testimonial_sub_title' => ['max:500']
-                ]);
+            'testimonial_top_title' => ['max:100'],
+            'testimonial_main_title' => ['max:200'],
+            'testimonial_sub_title' => ['max:500']
+        ]);
         foreach ($validatedData as $key => $value) {
             SectionTitle::updateOrCreate(
                 ['key' => $key],

@@ -25,7 +25,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Name</label>
+                                        <label>Name <span class="text-danger">*</span></label>
                                         <input type="text" name="name"
                                             class="form-control @error('name') is-invalid @enderror">
                                         <input type="hidden" value="{{ $product->id }}" name="product_id">
@@ -36,7 +36,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Price</label>
+                                        <label>Price <span class="text-danger">*</span></label>
                                         <input type="text" name="price"
                                             class="form-control @error('price') is-invalid @enderror">
                                         @error('price')
@@ -101,8 +101,9 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Name</label>
-                                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror">
+                                        <label>Name <span class="text-danger">*</span></label>
+                                        <input type="text" name="name"
+                                            class="form-control @error('name') is-invalid @enderror">
                                         <input type="hidden" value="{{ $product->id }}" name="product_id">
                                         @error('name')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -111,8 +112,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Price</label>
-                                        <input type="text" name="price" class="form-control @error('price') is-invalid @enderror">
+                                        <label>Price <span class="text-danger">*</span></label>
+                                        <input type="text" name="price"
+                                            class="form-control @error('price') is-invalid @enderror">
                                         @error('price')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror

@@ -18,7 +18,7 @@ class ChefController extends Controller
     public function index(ChefDataTable $dataTable)
     {
         $keys = ['chef_top_title', 'chef_main_title', 'chef_sub_title'];
-        $titles = SectionTitle::whereIn('key', $keys)->pluck('value','key');
+        $titles = SectionTitle::whereIn('key', $keys)->pluck('value', 'key');
         return $dataTable->render('admin.chef.index', compact('titles'));
     }
 
@@ -39,7 +39,7 @@ class ChefController extends Controller
             'image' => ['required', 'image'],
             'name' => ['required', 'max:255'],
             'title' => ['required', 'max:255'],
-            'fb' => ['nullable','max:255', 'url'],
+            'fb' => ['nullable', 'max:255', 'url'],
             'in' => ['nullable', 'max:255', 'url'],
             'x' => ['nullable', 'max:255', 'url'],
             'web' => ['nullable', 'max:255', 'url'],
@@ -50,11 +50,11 @@ class ChefController extends Controller
         if ($request->file('image')) {
             $image = $request->file('image');
             $manager = new ImageManager(new Driver());
-            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img = $img->resize(200,200);
-            $img->toJpeg(80)->save(base_path('public/uploads/chefs_image/'.$name_gen));
-            $save_url = 'uploads/chefs_image/'.$name_gen;
+            $img = $img->resize(200, 200);
+            $img->toJpeg(80)->save(base_path('public/uploads/chefs_image/' . $name_gen));
+            $save_url = 'uploads/chefs_image/' . $name_gen;
 
             $chef = new Chef();
             $chef->image = $save_url;
@@ -91,7 +91,7 @@ class ChefController extends Controller
             'image' => ['nullable', 'image'],
             'name' => ['required', 'max:255'],
             'title' => ['required', 'max:255'],
-            'fb' => ['nullable','max:255', 'url'],
+            'fb' => ['nullable', 'max:255', 'url'],
             'in' => ['nullable', 'max:255', 'url'],
             'x' => ['nullable', 'max:255', 'url'],
             'web' => ['nullable', 'max:255', 'url'],
@@ -103,11 +103,11 @@ class ChefController extends Controller
         if ($request->file('image')) {
             $image = $request->file('image');
             $manager = new ImageManager(new Driver());
-            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img = $img->resize(200,200);
-            $img->toJpeg(80)->save(base_path('public/uploads/chefs_image/'.$name_gen));
-            $save_url = 'uploads/chefs_image/'.$name_gen;
+            $img = $img->resize(200, 200);
+            $img->toJpeg(80)->save(base_path('public/uploads/chefs_image/' . $name_gen));
+            $save_url = 'uploads/chefs_image/' . $name_gen;
 
             $chef = Chef::findOrFail($id);
             $chef->image = $save_url;
@@ -127,7 +127,7 @@ class ChefController extends Controller
 
             toastr()->success('Update Successfully!');
             return redirect()->route('admin.chefs.index');
-        }else{
+        } else {
             $chef = Chef::findOrFail($id);
             $chef->name = $request->name;
             $chef->title = $request->title;
@@ -144,12 +144,13 @@ class ChefController extends Controller
         }
     }
 
-    public function updateTitle(Request $request){
+    public function updateTitle(Request $request)
+    {
         $validatedData = $request->validate([
-                    'chef_top_title' => ['max:100'],
-                    'chef_main_title' => ['max:200'],
-                    'chef_sub_title' => ['max:500']
-                ]);
+            'chef_top_title' => ['max:100'],
+            'chef_main_title' => ['max:200'],
+            'chef_sub_title' => ['max:500']
+        ]);
 
         foreach ($validatedData as $key => $value) {
             SectionTitle::updateOrCreate(

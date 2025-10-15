@@ -11,12 +11,14 @@ use Intervention\Image\Drivers\Gd\Driver;
 
 class PaymentGatewaySettingController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $paymentGateway = PaymentGatewaySetting::pluck('value', 'key');
         return view('admin.payment-setting.index', compact('paymentGateway'));
     }
 
-    public function paypalSettingUpdate(Request $request){
+    public function paypalSettingUpdate(Request $request)
+    {
         $validatedData = $request->validate([
             'paypal_status' => ['required', 'boolean'],
             'paypal_account_mode' => ['required', 'in:sandbox,live'],
@@ -29,18 +31,18 @@ class PaymentGatewaySettingController extends Controller
         ]);
 
         $oldImage = $request->old_paypal_logo_image;
-        if($request->file('paypal_logo')){
+        if ($request->file('paypal_logo')) {
             $request->validate([
                 'paypal_logo' => ['nullable', 'image']
             ]);
 
             $image = $request->file('paypal_logo');
             $manager = new ImageManager(new Driver());
-            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img = $img->resize(114,60);
-            $img->toJpeg(80)->save(base_path('public/uploads/payment_gateway_logo_image/'.$name_gen));
-            $save_url = 'uploads/payment_gateway_logo_image/'.$name_gen;
+            $img = $img->resize(114, 60);
+            $img->toJpeg(80)->save(base_path('public/uploads/payment_gateway_logo_image/' . $name_gen));
+            $save_url = 'uploads/payment_gateway_logo_image/' . $name_gen;
 
             PaymentGatewaySetting::updateOrCreate(
                 ['key' => 'paypal_logo'],
@@ -52,7 +54,7 @@ class PaymentGatewaySettingController extends Controller
             }
         }
 
-        foreach($validatedData as $key => $value){
+        foreach ($validatedData as $key => $value) {
             PaymentGatewaySetting::updateOrCreate(
                 ['key' => $key],
                 ['value' => $value]
@@ -66,7 +68,8 @@ class PaymentGatewaySettingController extends Controller
         return redirect()->back();
     }
 
-    public function stripeSettingUpdate(Request $request){
+    public function stripeSettingUpdate(Request $request)
+    {
         $validatedData = $request->validate([
             'stripe_status' => ['required', 'boolean'],
             'stripe_country' => ['required'],
@@ -77,18 +80,18 @@ class PaymentGatewaySettingController extends Controller
         ]);
 
         $oldImage = $request->old_stripe_logo_image;
-        if($request->file('stripe_logo')){
+        if ($request->file('stripe_logo')) {
             $request->validate([
                 'stripe_logo' => ['nullable', 'image']
             ]);
 
             $image = $request->file('stripe_logo');
             $manager = new ImageManager(new Driver());
-            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img = $img->resize(114,60);
-            $img->toJpeg(80)->save(base_path('public/uploads/payment_gateway_logo_image/'.$name_gen));
-            $save_url = 'uploads/payment_gateway_logo_image/'.$name_gen;
+            $img = $img->resize(114, 60);
+            $img->toJpeg(80)->save(base_path('public/uploads/payment_gateway_logo_image/' . $name_gen));
+            $save_url = 'uploads/payment_gateway_logo_image/' . $name_gen;
 
             PaymentGatewaySetting::updateOrCreate(
                 ['key' => 'stripe_logo'],
@@ -100,7 +103,7 @@ class PaymentGatewaySettingController extends Controller
             }
         }
 
-        foreach($validatedData as $key => $value){
+        foreach ($validatedData as $key => $value) {
             PaymentGatewaySetting::updateOrCreate(
                 ['key' => $key],
                 ['value' => $value]
@@ -114,7 +117,8 @@ class PaymentGatewaySettingController extends Controller
         return redirect()->back();
     }
 
-    public function razorpaySettingUpdate(Request $request){
+    public function razorpaySettingUpdate(Request $request)
+    {
         $validatedData = $request->validate([
             'razorpay_status' => ['required', 'boolean'],
             'razorpay_country' => ['required'],
@@ -125,18 +129,18 @@ class PaymentGatewaySettingController extends Controller
         ]);
 
         $oldImage = $request->old_razorpay_logo_image;
-        if($request->file('razorpay_logo')){
+        if ($request->file('razorpay_logo')) {
             $request->validate([
                 'razorpay_logo' => ['nullable', 'image']
             ]);
 
             $image = $request->file('razorpay_logo');
             $manager = new ImageManager(new Driver());
-            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img = $img->resize(114,60);
-            $img->toJpeg(80)->save(base_path('public/uploads/payment_gateway_logo_image/'.$name_gen));
-            $save_url = 'uploads/payment_gateway_logo_image/'.$name_gen;
+            $img = $img->resize(114, 60);
+            $img->toJpeg(80)->save(base_path('public/uploads/payment_gateway_logo_image/' . $name_gen));
+            $save_url = 'uploads/payment_gateway_logo_image/' . $name_gen;
 
             PaymentGatewaySetting::updateOrCreate(
                 ['key' => 'razorpay_logo'],
@@ -148,7 +152,7 @@ class PaymentGatewaySettingController extends Controller
             }
         }
 
-        foreach($validatedData as $key => $value){
+        foreach ($validatedData as $key => $value) {
             PaymentGatewaySetting::updateOrCreate(
                 ['key' => $key],
                 ['value' => $value]

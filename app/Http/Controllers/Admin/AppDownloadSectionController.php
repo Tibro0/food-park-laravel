@@ -10,12 +10,14 @@ use Intervention\Image\Drivers\Gd\Driver;
 
 class AppDownloadSectionController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $appSection = AppDownloadSection::first();
         return view('admin.app-download-section.index', compact('appSection'));
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
             'image' => ['nullable', 'image', 'max:3000'],
             'title' => ['required', 'max:255'],
@@ -28,11 +30,11 @@ class AppDownloadSectionController extends Controller
         if ($request->file('image')) {
             $image = $request->file('image');
             $manager = new ImageManager(new Driver());
-            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img = $img->resize(600,700);
-            $img->toPng(indexed: true)->save(base_path('public/uploads/app_download_image/'.$name_gen));
-            $save_url = 'uploads/app_download_image/'.$name_gen;
+            $img = $img->resize(600, 700);
+            $img->toPng(indexed: true)->save(base_path('public/uploads/app_download_image/' . $name_gen));
+            $save_url = 'uploads/app_download_image/' . $name_gen;
 
             AppDownloadSection::updateOrCreate(
                 ['id' => 1],
@@ -51,7 +53,7 @@ class AppDownloadSectionController extends Controller
 
             toastr()->success('Updated Successfully!');
             return redirect()->back();
-        }else{
+        } else {
             AppDownloadSection::updateOrCreate(
                 ['id' => 1],
                 [

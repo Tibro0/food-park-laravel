@@ -51,11 +51,11 @@ class BlogController extends Controller
         if ($request->file('image')) {
             $image = $request->file('image');
             $manager = new ImageManager(new Driver());
-            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img = $img->resize(850,450);
-            $img->toJpeg(80)->save(base_path('public/uploads/blog_image/'.$name_gen));
-            $save_url = 'uploads/blog_image/'.$name_gen;
+            $img = $img->resize(850, 450);
+            $img->toJpeg(80)->save(base_path('public/uploads/blog_image/' . $name_gen));
+            $save_url = 'uploads/blog_image/' . $name_gen;
 
             $blog = new Blog();
             $blog->user_id = Auth::user()->id;
@@ -91,7 +91,7 @@ class BlogController extends Controller
     {
         $request->validate([
             'image' => ['nullable', 'image'],
-            'title' => ['required', 'max:255', 'unique:blogs,title,'. $id],
+            'title' => ['required', 'max:255', 'unique:blogs,title,' . $id],
             'category' => ['required'],
             'description' => ['required'],
             'seo_title' => ['max:255'],
@@ -103,11 +103,11 @@ class BlogController extends Controller
         if ($request->file('image')) {
             $image = $request->file('image');
             $manager = new ImageManager(new Driver());
-            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img = $img->resize(850,450);
-            $img->toJpeg(80)->save(base_path('public/uploads/blog_image/'.$name_gen));
-            $save_url = 'uploads/blog_image/'.$name_gen;
+            $img = $img->resize(850, 450);
+            $img->toJpeg(80)->save(base_path('public/uploads/blog_image/' . $name_gen));
+            $save_url = 'uploads/blog_image/' . $name_gen;
 
             $blog = Blog::findOrFail($id);
             $blog->image = $save_url;
@@ -126,7 +126,7 @@ class BlogController extends Controller
 
             toastr()->success('Updated Successfully');
             return redirect()->route('admin.blogs.index');
-        }else{
+        } else {
             $blog = Blog::findOrFail($id);
             $blog->title = $request->title;
             $blog->slug = Str::slug($request->title);
@@ -154,11 +154,13 @@ class BlogController extends Controller
         return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
 
-    public function blogComment(BlogCommentDataTable $dataTable){
+    public function blogComment(BlogCommentDataTable $dataTable)
+    {
         return $dataTable->render('admin.blog.blog-comment.index');
     }
 
-    public function commentStatusUpdate(string $id){
+    public function commentStatusUpdate(string $id)
+    {
         $comment = BlogComment::findOrFail($id);
 
         $comment->status = !$comment->status;
@@ -168,7 +170,8 @@ class BlogController extends Controller
         return redirect()->back();
     }
 
-    public function commentDestroy(string $id){
+    public function commentDestroy(string $id)
+    {
         $comment = BlogComment::findOrFail($id);
         $comment->delete();
 

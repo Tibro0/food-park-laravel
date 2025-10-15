@@ -10,12 +10,14 @@ use Intervention\Image\Drivers\Gd\Driver;
 
 class CounterController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $counter = Counter::first();
         return view('admin.counter.index', compact('counter'));
     }
 
-    public function update(Request $request){
+    public function update(Request $request)
+    {
         $request->validate([
             'background' => ['nullable', 'image', 'max:3000'],
             'counter_icon_one' => ['required', 'max:255'],
@@ -36,11 +38,11 @@ class CounterController extends Controller
         if ($request->file('background')) {
             $image = $request->file('background');
             $manager = new ImageManager(new Driver());
-            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img = $img->resize(5472,1026);
-            $img->toJpeg(80)->save(base_path('public/uploads/counter_background_image/'.$name_gen));
-            $save_url = 'uploads/counter_background_image/'.$name_gen;
+            $img = $img->resize(5472, 1026);
+            $img->toJpeg(80)->save(base_path('public/uploads/counter_background_image/' . $name_gen));
+            $save_url = 'uploads/counter_background_image/' . $name_gen;
 
             Counter::updateOrCreate(
                 ['id' => 1],
@@ -67,7 +69,7 @@ class CounterController extends Controller
 
             toastr()->success('Updated Successfully!');
             return redirect()->back();
-        }else{
+        } else {
             Counter::updateOrCreate(
                 ['id' => 1],
                 [

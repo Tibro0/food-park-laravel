@@ -63,7 +63,7 @@ class CategoryController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name' => ['required', 'max:255', 'unique:categories,name,'.$id],
+            'name' => ['required', 'max:255', 'unique:categories,name,' . $id],
             'show_at_home' => ['required', 'boolean'],
             'status' => ['required', 'boolean'],
         ]);

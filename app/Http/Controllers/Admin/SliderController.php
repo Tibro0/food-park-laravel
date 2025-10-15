@@ -45,11 +45,11 @@ class SliderController extends Controller
         if ($request->file('image')) {
             $image = $request->file('image');
             $manager = new ImageManager(new Driver());
-            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img = $img->resize(450,550);
-            $img->toJpeg(80)->save(base_path('public/uploads/slider_image/'.$name_gen));
-            $save_url = 'uploads/slider_image/'.$name_gen;
+            $img = $img->resize(450, 550);
+            $img->toJpeg(80)->save(base_path('public/uploads/slider_image/' . $name_gen));
+            $save_url = 'uploads/slider_image/' . $name_gen;
 
             $slider = new Slider();
             $slider->image = $save_url;
@@ -94,11 +94,11 @@ class SliderController extends Controller
         if ($request->file('image')) {
             $image = $request->file('image');
             $manager = new ImageManager(new Driver());
-            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img = $img->resize(450,550);
-            $img->toJpeg(80)->save(base_path('public/uploads/slider_image/'.$name_gen));
-            $save_url = 'uploads/slider_image/'.$name_gen;
+            $img = $img->resize(450, 550);
+            $img->toJpeg(80)->save(base_path('public/uploads/slider_image/' . $name_gen));
+            $save_url = 'uploads/slider_image/' . $name_gen;
 
             $slider = Slider::findOrFail($id);
             $slider->image = $save_url;
@@ -116,7 +116,7 @@ class SliderController extends Controller
 
             toastr()->success('Updated Successfully');
             return redirect()->route('admin.slider.index');
-        }else{
+        } else {
             $slider = Slider::findOrFail($id);
             $slider->offer = $request->offer;
             $slider->title = $request->title;

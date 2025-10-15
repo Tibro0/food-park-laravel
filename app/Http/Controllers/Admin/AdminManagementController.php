@@ -66,21 +66,21 @@ class AdminManagementController extends Controller
     {
         $user = User::findOrFail($id);
 
-        if($id == 1){
+        if ($id == 1) {
             throw ValidationException::withMessages(['you can not update super admin']);
         }
 
         $request->validate([
             'name' => ['required', 'max:255'],
-            'email' => ['required', 'email', 'unique:users,email,'.$id],
+            'email' => ['required', 'email', 'unique:users,email,' . $id],
             'role' => ['required', 'in:admin'],
         ]);
 
-        if($request->has('password') && $request->filled('password')){
+        if ($request->has('password') && $request->filled('password')) {
             $request->validate([
                 'password' => ['confirmed', 'min:5']
             ]);
-        $user->password = Hash::make($request->password);
+            $user->password = Hash::make($request->password);
         }
 
         $user->name = $request->name;
@@ -97,7 +97,7 @@ class AdminManagementController extends Controller
      */
     public function destroy(string $id)
     {
-        if($id == 1){
+        if ($id == 1) {
             throw ValidationException::withMessages(['you can not delete super admin']);
         }
 

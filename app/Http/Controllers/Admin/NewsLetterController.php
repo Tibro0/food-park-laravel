@@ -11,11 +11,13 @@ use Illuminate\Support\Facades\Mail;
 
 class NewsLetterController extends Controller
 {
-    public function index(SubscriberDataTable $dataTable){
+    public function index(SubscriberDataTable $dataTable)
+    {
         return $dataTable->render('admin.news-letter.index');
     }
 
-    public function sendNewsLetter(Request $request) {
+    public function sendNewsLetter(Request $request)
+    {
         $request->validate([
             'subject' => ['required', 'max:255'],
             'message' => ['required']

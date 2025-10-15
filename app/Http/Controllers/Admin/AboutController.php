@@ -10,12 +10,14 @@ use Intervention\Image\Drivers\Gd\Driver;
 
 class AboutController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $about = About::first();
         return view('admin.about.index', compact('about'));
     }
 
-    public function update(Request $request){
+    public function update(Request $request)
+    {
         $request->validate([
             'image' => ['nullable', 'image'],
             'title' => ['required', 'max:255'],
@@ -28,11 +30,11 @@ class AboutController extends Controller
         if ($request->file('image')) {
             $image = $request->file('image');
             $manager = new ImageManager(new Driver());
-            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img = $img->resize(600,400);
-            $img->toPng(indexed: true)->save(base_path('public/uploads/about_page_image/'.$name_gen));
-            $save_url = 'uploads/about_page_image/'.$name_gen;
+            $img = $img->resize(600, 400);
+            $img->toPng(indexed: true)->save(base_path('public/uploads/about_page_image/' . $name_gen));
+            $save_url = 'uploads/about_page_image/' . $name_gen;
 
             About::updateOrCreate(
                 ['id' => 1],
@@ -51,7 +53,7 @@ class AboutController extends Controller
 
             toastr()->success('Updated Successfully');
             return redirect()->back();
-        }else{
+        } else {
             About::updateOrCreate(
                 ['id' => 1],
                 [

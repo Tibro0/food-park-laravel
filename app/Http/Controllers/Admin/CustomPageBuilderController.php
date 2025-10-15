@@ -63,7 +63,7 @@ class CustomPageBuilderController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name' => ['required', 'max:200', 'unique:custom_page_builders,name,'.$id],
+            'name' => ['required', 'max:200', 'unique:custom_page_builders,name,' . $id],
             'content' => ['required'],
             'status' => ['required', 'boolean']
         ]);

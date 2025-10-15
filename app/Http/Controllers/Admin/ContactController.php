@@ -8,12 +8,14 @@ use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $contact = Contact::first();
         return view('admin.contact.index', compact('contact'));
     }
 
-    public function update(Request $request){
+    public function update(Request $request)
+    {
         $request->validate([
             'phone_one' => ['nullable', 'max:50'],
             'phone_two' => ['nullable', 'max:50'],

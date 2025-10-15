@@ -7,11 +7,13 @@ use Illuminate\Http\Request;
 
 class AdminAuthController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('admin.auth.login');
     }
 
-    public function forgetPassword(){
+    public function forgetPassword()
+    {
         return view('admin.auth.forget-password');
     }
 }

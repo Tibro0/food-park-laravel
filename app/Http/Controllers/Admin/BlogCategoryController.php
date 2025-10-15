@@ -61,7 +61,7 @@ class BlogCategoryController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name' => ['required', 'max:255', 'unique:blog_categories,name,'.$id],
+            'name' => ['required', 'max:255', 'unique:blog_categories,name,' . $id],
             'status' => ['required', 'boolean']
         ]);
 

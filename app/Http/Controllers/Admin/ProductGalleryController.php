@@ -35,11 +35,11 @@ class ProductGalleryController extends Controller
         if ($request->file('image')) {
             $image = $request->file('image');
             $manager = new ImageManager(new Driver());
-            $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img = $img->resize(400,400);
-            $img->toJpeg(80)->save(base_path('public/uploads/product_gallery_image/'.$name_gen));
-            $save_url = 'uploads/product_gallery_image/'.$name_gen;
+            $img = $img->resize(400, 400);
+            $img->toJpeg(80)->save(base_path('public/uploads/product_gallery_image/' . $name_gen));
+            $save_url = 'uploads/product_gallery_image/' . $name_gen;
 
             $gallery = new ProductGallery();
             $gallery->product_id = $request->product_id;

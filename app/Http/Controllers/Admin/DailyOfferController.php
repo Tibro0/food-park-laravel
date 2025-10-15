@@ -17,11 +17,12 @@ class DailyOfferController extends Controller
     public function index(DailyOfferDataTable $dataTable)
     {
         $keys = ['daily_offer_top_title', 'daily_offer_main_title', 'daily_offer_sub_title'];
-        $titles = SectionTitle::whereIn('key', $keys)->pluck('value','key');
+        $titles = SectionTitle::whereIn('key', $keys)->pluck('value', 'key');
         return $dataTable->render('admin.daily-offer.index', compact('titles'));
     }
 
-    public function productSearch(Request $request){
+    public function productSearch(Request $request)
+    {
         $product = Product::select('id', 'name', 'thumb_image')->where('name', 'LIKE', '%' . $request->search . '%')->get();
 
         return response($product);
@@ -82,12 +83,13 @@ class DailyOfferController extends Controller
         return redirect()->route('admin.daily-offer.index');
     }
 
-    public function updateTitle(Request $request){
+    public function updateTitle(Request $request)
+    {
         $validatedData = $request->validate([
-                    'daily_offer_top_title' => ['max:100'],
-                    'daily_offer_main_title' => ['max:200'],
-                    'daily_offer_sub_title' => ['max:500']
-                ]);
+            'daily_offer_top_title' => ['max:100'],
+            'daily_offer_main_title' => ['max:200'],
+            'daily_offer_sub_title' => ['max:500']
+        ]);
 
         foreach ($validatedData as $key => $value) {
             SectionTitle::updateOrCreate(
