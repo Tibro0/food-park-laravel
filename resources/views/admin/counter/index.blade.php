@@ -27,78 +27,122 @@
                             <input type="hidden" name="old_background" id="image-upload"
                                 value="{{ @$counter->background }}" />
                         </div>
+                        @error('background')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <h6>Counter One</h6>
                     <hr>
                     <div class="form-group">
-                        <label for="">Counter Icon One</label>
+                        <label>Counter Icon One <span class="text-danger">*</span></label>
                         <br>
                         <button class="btn btn-secondary" role="iconpicker" name="counter_icon_one"
-                            data-icon="{{ @$counter->counter_icon_one }}"></button>
+                            data-icon="{{ @$counter->counter_icon_one ?? old('counter_icon_one') }}"></button>
+                        @error('counter_icon_one')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label for="">Counter count One</label>
-                        <input type="text" class="form-control" name="counter_count_one"
-                            value="{{ @$counter->counter_count_one }}">
+                        <label>Counter count One <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control @error('counter_count_one') is-invalid @enderror"
+                            name="counter_count_one" value="{{ @$counter->counter_count_one ?? old('counter_count_one') }}">
+                        @error('counter_count_one')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label for="">Counter count Name</label>
-                        <input type="text" class="form-control" name="counter_name_one"
-                            value="{{ @$counter->counter_name_one }}">
+                        <label>Counter count Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control @error('counter_name_one') is-invalid @enderror"
+                            name="counter_name_one" value="{{ @$counter->counter_name_one ?? old('counter_name_one') }}">
+                        @error('counter_name_one')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <h6>Counter Two</h6>
                     <hr>
                     <div class="form-group">
-                        <label for="">Counter Icon Two</label>
+                        <label>Counter Icon Two <span class="text-danger">*</span></label>
                         <br>
                         <button class="btn btn-secondary" role="iconpicker" name="counter_icon_two"
-                            data-icon="{{ @$counter->counter_icon_two }}"></button>
+                            data-icon="{{ @$counter->counter_icon_two ?? old('counter_icon_two') }}"></button>
+                        @error('counter_icon_two')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label for="">Counter count Two</label>
-                        <input type="text" class="form-control" name="counter_count_two"
-                            value="{{ @$counter->counter_count_two }}">
+                        <label>Counter count Two <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control @error('counter_count_two') is-invalid @enderror"
+                            name="counter_count_two"
+                            value="{{ @$counter->counter_count_two ?? old('counter_count_two') }}">
+                        @error('counter_count_two')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label for="">Counter count Name Two</label>
-                        <input type="text" class="form-control" name="counter_name_two"
-                            value="{{ @$counter->counter_name_two }}">
+                        <label>Counter count Name Two <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control @error('counter_name_two') is-invalid @enderror"
+                            name="counter_name_two" value="{{ @$counter->counter_name_two ?? old('counter_name_two') }}">
+                        @error('counter_name_two')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <h6>Counter Three</h6>
                     <hr>
                     <div class="form-group">
-                        <label for="">Counter Icon Three</label>
+                        <label>Counter Icon Three <span class="text-danger">*</span></label>
                         <br>
                         <button class="btn btn-secondary" role="iconpicker" name="counter_icon_three"
-                            data-icon="{{ @$counter->counter_icon_three }}"></button>
+                            data-icon="{{ @$counter->counter_icon_three ?? old('counter_icon_three') }}"></button>
+                        @error('counter_icon_three')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label for="">Counter Count Three</label>
-                        <input type="text" class="form-control" name="counter_count_three"
-                            value="{{ @$counter->counter_count_three }}">
+                        <label>Counter Count Three <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control @error('counter_count_three') is-invalid @enderror"
+                            name="counter_count_three"
+                            value="{{ @$counter->counter_count_three ?? old('counter_count_three') }}">
+                        @error('counter_count_three')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label for="">Counter count Name Theree</label>
-                        <input type="text" class="form-control" name="counter_name_three"
-                            value="{{ @$counter->counter_name_three }}">
+                        <label>Counter count Name There <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control @error('counter_name_three') is-invalid @enderror"
+                            name="counter_name_three"
+                            value="{{ @$counter->counter_name_three ?? old('counter_name_three') }}">
+                        @error('counter_name_three')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <h6>Counter Four</h6>
                     <hr>
                     <div class="form-group">
-                        <label for="">Counter Icon Four</label>
+                        <label>Counter Icon Four <span class="text-danger">*</span></label>
                         <br>
                         <button class="btn btn-secondary" role="iconpicker" name="counter_icon_four"
-                            data-icon="{{ @$counter->counter_icon_four }}"></button>
+                            data-icon="{{ @$counter->counter_icon_four ?? old('counter_icon_four') }}"></button>
+                        @error('counter_icon_four')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label for="">Counter Count Four</label>
-                        <input type="text" class="form-control" name="counter_count_four"
-                            value="{{ @$counter->counter_count_four }}">
+                        <label>Counter Count Four <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control @error('counter_count_four') is-invalid @enderror"
+                            name="counter_count_four"
+                            value="{{ @$counter->counter_count_four ?? old('counter_count_four') }}">
+                        @error('counter_count_four')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label for="">Counter count Name Four</label>
-                        <input type="text" class="form-control" name="counter_name_four"
-                            value="{{ @$counter->counter_name_four }}">
+                        <label>Counter count Name Four <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control @error('counter_name_four') is-invalid @enderror"
+                            name="counter_name_four"
+                            value="{{ @$counter->counter_name_four ?? old('counter_name_four') }}">
+                        @error('counter_name_four')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form>
