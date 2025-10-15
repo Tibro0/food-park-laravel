@@ -36,7 +36,7 @@ class ChefController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => ['required', 'image'],
+            'image' => ['required', 'image', 'max:3000'],
             'name' => ['required', 'max:255'],
             'title' => ['required', 'max:255'],
             'fb' => ['nullable', 'max:255', 'url'],
@@ -88,7 +88,7 @@ class ChefController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'image' => ['nullable', 'image'],
+            'image' => ['nullable', 'image', 'max:3000'],
             'name' => ['required', 'max:255'],
             'title' => ['required', 'max:255'],
             'fb' => ['nullable', 'max:255', 'url'],

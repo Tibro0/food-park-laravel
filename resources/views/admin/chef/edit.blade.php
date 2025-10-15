@@ -26,51 +26,84 @@
                             <input type="file" name="image" id="image-upload" />
                             <input type="hidden" name="old_image" value="{{ $chef->image }}" />
                         </div>
+                        @error('image')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" name="name" value="{{ $chef->name }}" class="form-control">
+                        <label>Name <span class="text-danger">*</span></label>
+                        <input type="text" name="name" value="{{ $chef->name ?? old('name') }}"
+                            class="form-control @error('name') is-invalid @enderror">
+                        @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
-                        <label>Title</label>
-                        <input type="text" name="title" value="{{ $chef->title }}" class="form-control">
+                        <label>Title <span class="text-danger">*</span></label>
+                        <input type="text" name="title" value="{{ $chef->title ?? old('title') }}"
+                            class="form-control @error('title') is-invalid @enderror">
+                        @error('title')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <br>
                     <h5>Social Links</h5>
                     <div class="form-group">
                         <label>Facebook <code>(Leave empty for hide)</code></label>
-                        <input type="text" name="fb" value="{{ $chef->fb }}" class="form-control">
+                        <input type="text" name="fb" value="{{ $chef->fb ?? old('fb') }}"
+                            class="form-control @error('fb') is-invalid @enderror">
+                        @error('fb')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Linkedin <code>(Leave empty for hide)</code></label>
-                        <input type="text" name="in" value="{{ $chef->in }}" class="form-control">
+                        <input type="text" name="in" value="{{ $chef->in ?? old('in') }}"
+                            class="form-control @error('in') is-invalid @enderror">
+                        @error('in')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>X <code>(Leave empty for hide)</code></label>
-                        <input type="text" name="x" value="{{ $chef->x }}" class="form-control">
+                        <input type="text" name="x" value="{{ $chef->x ?? old('x') }}"
+                            class="form-control @error('x') is-invalid @enderror">
+                        @error('x')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Web <code>(Leave empty for hide)</code></label>
-                        <input type="text" name="web" value="{{ $chef->web }}" class="form-control">
+                        <input type="text" name="web" value="{{ $chef->web ?? old('web') }}"
+                            class="form-control @error('web') is-invalid @enderror">
+                        @error('web')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label>Show at Home</label>
-                        <select name="show_at_home" class="form-control">
+                        <select name="show_at_home" class="form-control @error('show_at_home') is-invalid @enderror">
                             <option @selected($chef->show_at_home === 0) value="0">No</option>
                             <option @selected($chef->show_at_home === 1) value="1">Yes</option>
                         </select>
+                        @error('show_at_home')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label>Status</label>
-                        <select name="status" class="form-control">
+                        <select name="status" class="form-control @error('status') is-invalid @enderror">
                             <option @selected($chef->status === 1) value="1">Active</option>
                             <option @selected($chef->status === 0) value="0">Inactive</option>
                         </select>
+                        @error('status')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form>
