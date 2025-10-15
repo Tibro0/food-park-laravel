@@ -77,14 +77,15 @@
                 </ul>
             </li>
             <li
-                class="dropdown {{ setSidebarActive(['admin.blog-category.*', 'admin.blogs.index', 'admin.blogs.comments.*']) }}">
+                class="dropdown {{ setSidebarActive(['admin.blog-category.*', 'admin.blogs.index', 'admin.blogs.edit', 'admin.blogs.create', 'admin.blogs.comments.*']) }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fab fa-blogger-b"></i>
                     <span>Blog</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ setSidebarActive(['admin.blog-category.*']) }}"><a class="nav-link"
                             href="{{ route('admin.blog-category.index') }}">Categories</a></li>
-                    <li class="{{ setSidebarActive(['admin.blogs.index']) }}"><a class="nav-link"
-                            href="{{ route('admin.blogs.index') }}">Blogs</a></li>
+                    <li
+                        class="{{ setSidebarActive(['admin.blogs.index', 'admin.blogs.edit', 'admin.blogs.create']) }}">
+                        <a class="nav-link" href="{{ route('admin.blogs.index') }}">Blogs</a></li>
                     <li class="{{ setSidebarActive(['admin.blogs.comments.*']) }}"><a class="nav-link"
                             href="{{ route('admin.blogs.comments.index') }}">Comments</a></li>
                 </ul>
