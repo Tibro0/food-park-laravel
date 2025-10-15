@@ -24,19 +24,34 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group">
-                                    <label for="">Top Title</label>
-                                    <input type="text" class="form-control" name="why_choose_top_title"
-                                        value="{{ @$titles['why_choose_top_title'] }}">
+                                    <label>Top Title</label>
+                                    <input type="text"
+                                        class="form-control @error('why_choose_top_title') is-invalid @enderror"
+                                        name="why_choose_top_title"
+                                        value="{{ @$titles['why_choose_top_title'] ?? old('why_choose_top_title') }}">
+                                    @error('why_choose_top_title')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Main Title</label>
-                                    <input type="text" class="form-control" name="why_choose_main_title"
-                                        value="{{ @$titles['why_choose_main_title'] }}">
+                                    <label>Main Title</label>
+                                    <input type="text"
+                                        class="form-control @error('why_choose_main_title') is-invalid @enderror"
+                                        name="why_choose_main_title"
+                                        value="{{ @$titles['why_choose_main_title'] ?? old('why_choose_main_title') }}">
+                                    @error('why_choose_main_title')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Sub Title</label>
-                                    <input type="text" class="form-control" name="why_choose_sub_title"
-                                        value="{{ @$titles['why_choose_sub_title'] }}">
+                                    <label>Sub Title</label>
+                                    <input type="text"
+                                        class="form-control @error('why_choose_sub_title') is-invalid @enderror"
+                                        name="why_choose_sub_title"
+                                        value="{{ @$titles['why_choose_sub_title'] ?? old('why_choose_sub_title') }}">
+                                    @error('why_choose_sub_title')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <button type="submit" class="btn btn-primary">Save</button>
                             </form>
