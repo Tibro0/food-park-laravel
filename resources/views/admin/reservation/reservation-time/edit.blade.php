@@ -21,13 +21,20 @@
                     @csrf
                     @method('PUT')
                     <div class="form-group">
-                        <label>Start Time</label>
-                        <input type="text" name="start_time" class="form-control timepicker"
+                        <label>Start Time <span class="text-danger">*</span></label>
+                        <input type="text" name="start_time"
+                            class="form-control timepicker @error('start_time') is-invalid @enderror"
                             value="{{ $time->start_time }}">
+                        @error('start_time')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label>End Time</label>
-                        <input type="text" name="end_time" class="form-control timepicker" value="{{ $time->end_time }}">
+                        <label>End Time <span class="text-danger">*</span></label>
+                        <input type="text" name="end_time" class="form-control timepicker @error('end_time') is-invalid @enderror" value="{{ $time->end_time }}">
+                        @error('end_time')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">

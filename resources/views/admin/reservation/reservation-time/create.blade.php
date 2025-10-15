@@ -21,19 +21,26 @@
                 <form action="{{ route('admin.reservation-time.store') }}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label>Start Time</label>
+                        <label>Start Time <span class="text-danger">*</span></label>
                         <input type="text" name="start_time" value="{{ old('start_time') }}"
-                            class="form-control timepicker">
+                            class="form-control timepicker @error('start_time') is-invalid @enderror">
+                        @error('start_time')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label>End Time</label>
-                        <input type="text" name="end_time" value="{{ old('end_time') }}" class="form-control timepicker">
+                        <label>End Time <span class="text-danger">*</span></label>
+                        <input type="text" name="end_time" value="{{ old('end_time') }}"
+                            class="form-control timepicker @error('end_time') is-invalid @enderror">
+                        @error('end_time')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Status</label>
                         <select name="status" class="form-control">
-                            <option value="1">Yes</option>
-                            <option value="0">No</option>
+                            <option value="1">Active</option>
+                            <option value="0">InActive</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Create</button>
