@@ -24,45 +24,67 @@
                     @csrf
                     @method('PUT')
                     <div class="form-group">
-                        <label>Image</label>
+                        <label>Image <span class="text-danger">*</span></label>
                         <div id="image-preview" class="image-preview">
                             <label for="image-upload" id="image-label">Choose File</label>
                             <input type="file" name="image" id="image-upload" />
                             <input type="hidden" name="old_image" value="{{ $blog->image }}" />
                         </div>
+                        @error('image')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label>Title</label>
-                        <input type="text" name="title" value="{{ $blog->title }}" class="form-control">
+                        <label>Title <span class="text-danger">*</span></label>
+                        <input type="text" name="title" value="{{ $blog->title ?? old('title') }}"
+                            class="form-control @error('title') is-invalid @enderror">
+                        @error('title')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label>Category</label>
-                        <select name="category" class="form-control select2">
+                        <label>Select a Category <span class="text-danger">*</span></label>
+                        <select name="category" class="form-control select2 @error('category') is-invalid @enderror">
                             <option value="">select</option>
                             @foreach ($categories as $category)
                                 <option @selected($category->id === $blog->category_id) value="{{ $category->id }}">{{ $category->name }}
                                 </option>
                             @endforeach
                         </select>
+                        @error('category')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label>Description</label>
-                        <textarea name="description" class="form-control summernote">{!! $blog->description !!}</textarea>
+                        <label>Description <span class="text-danger">*</span></label>
+                        <textarea name="description" class="form-control summernote @error('description') is-invalid @enderror">{!! $blog->description ?? old('description') !!}</textarea>
+                        @error('description')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Seo Title</label>
-                        <input type="text" name="seo_title" value="{{ $blog->seo_title }}" class="form-control">
+                        <input type="text" name="seo_title" value="{{ $blog->seo_title ?? old('seo_title') }}" class="form-control @error('seo_title') is-invalid @enderror">
+                        @error('seo_title')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Seo Description</label>
-                        <textarea name="seo_description" class="form-control">{{ $blog->seo_description }}</textarea>
+                        <textarea name="seo_description" class="form-control @error('seo_description') is-invalid @enderror">{{ $blog->seo_description ?? old('seo_description') }}</textarea>
+                        @error('seo_description')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Status</label>
-                        <select name="status" class="form-control">
+                        <select name="status" class="form-control @error('status') is-invalid @enderror">
                             <option @selected($blog->status === 1) value="1">Active</option>
                             <option @selected($blog->status === 0) value="0">Inactive</option>
                         </select>
+                        @error('status')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form>

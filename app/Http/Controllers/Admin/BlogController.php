@@ -38,15 +38,20 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'image' => ['required', 'image', 'max:3000'],
-            'title' => ['required', 'max:255', 'unique:blogs,title'],
-            'category' => ['required'],
-            'description' => ['required'],
-            'seo_title' => ['max:255'],
-            'seo_description' => ['max:255'],
-            'status' => ['required', 'boolean']
-        ]);
+        $request->validate(
+            [
+                'image' => ['required', 'image', 'max:3000'],
+                'title' => ['required', 'max:255', 'unique:blogs,title'],
+                'category' => ['required'],
+                'description' => ['required'],
+                'seo_title' => ['max:255'],
+                'seo_description' => ['max:255'],
+                'status' => ['required', 'boolean']
+            ],
+            [
+                'category.required' => 'Please Select a Category'
+            ]
+        );
 
         if ($request->file('image')) {
             $image = $request->file('image');
@@ -89,15 +94,20 @@ class BlogController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'image' => ['nullable', 'image'],
-            'title' => ['required', 'max:255', 'unique:blogs,title,' . $id],
-            'category' => ['required'],
-            'description' => ['required'],
-            'seo_title' => ['max:255'],
-            'seo_description' => ['max:255'],
-            'status' => ['required', 'boolean']
-        ]);
+        $request->validate(
+            [
+                'image' => ['nullable', 'image'],
+                'title' => ['required', 'max:255', 'unique:blogs,title,' . $id],
+                'category' => ['required'],
+                'description' => ['required'],
+                'seo_title' => ['max:255'],
+                'seo_description' => ['max:255'],
+                'status' => ['required', 'boolean']
+            ],
+            [
+                'category.required' => 'Please Select a Category'
+            ]
+        );
 
         $oldImage = $request->old_image;
         if ($request->file('image')) {

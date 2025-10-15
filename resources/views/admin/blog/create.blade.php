@@ -23,50 +23,72 @@
                 <form action="{{ route('admin.blogs.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label>Image</label>
+                        <label>Image <span class="text-danger">*</span></label>
                         <div id="image-preview" class="image-preview">
                             <label for="image-upload" id="image-label">Choose File</label>
                             <input type="file" name="image" id="image-upload" />
                         </div>
+                        @error('image')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
-                        <label>Title</label>
-                        <input type="text" name="title" value="{{ old('title') }}" class="form-control">
+                        <label>Title <span class="text-danger">*</span></label>
+                        <input type="text" name="title" value="{{ old('title') }}"
+                            class="form-control @error('title') is-invalid @enderror">
+                        @error('title')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
-                        <label>Category</label>
-                        <select name="category" class="form-control select2">
+                        <label>Select a Category <span class="text-danger">*</span></label>
+                        <select name="category" class="form-control select2 @error('category') is-invalid @enderror">
                             <option value="">Select</option>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
                         </select>
+                        @error('category')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
-
                     <div class="form-group">
-                        <label>Description</label>
-                        <textarea name="description" class="form-control summernote">{{ old('description') }}</textarea>
+                        <label>Description <span class="text-danger">*</span></label>
+                        <textarea name="description" class="form-control summernote @error('description') is-invalid @enderror">{{ old('description') }}</textarea>
+                        @error('description')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label>Seo Title</label>
-                        <input type="text" name="seo_title" class="form-control" value="{{ old('seo_title') }}">
+                        <input type="text" name="seo_title" class="form-control @error('seo_title') is-invalid @enderror"
+                            value="{{ old('seo_title') }}">
+                        @error('seo_title')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label>Seo Description</label>
-                        <textarea name="seo_description" class="form-control">{{ old('seo_description') }}</textarea>
+                        <textarea name="seo_description" class="form-control @error('seo_description') is-invalid @enderror">{{ old('seo_description') }}</textarea>
+                        @error('seo_description')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label>Status</label>
-                        <select name="status" class="form-control">
+                        <select name="status" class="form-control @error('status') is-invalid @enderror">
                             <option value="1">Active</option>
                             <option value="0">Inactive</option>
                         </select>
+                        @error('status')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <button type="submit" class="btn btn-primary">Create</button>
