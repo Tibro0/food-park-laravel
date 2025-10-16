@@ -20,24 +20,38 @@
                 <form action="{{ route('admin.social-link.store') }}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="">Icon</label>
+                        <label>Icon <span class="text-danger">*</span></label>
                         <br>
                         <button class="btn btn-secondary" role="iconpicker" name="icon" data-icon=""></button>
+                        @error('icon')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" name="name" value="{{ old('name') }}" class="form-control">
+                        <label>Name <span class="text-danger">*</span></label>
+                        <input type="text" name="name" value="{{ old('name') }}"
+                            class="form-control @error('name') is-invalid @enderror">
+                        @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label>Link</label>
-                        <input type="text" name="link" value="{{ old('link') }}" class="form-control">
+                        <label>Link <span class="text-danger">*</span></label>
+                        <input type="text" name="link" value="{{ old('link') }}"
+                            class="form-control @error('link') is-invalid @enderror">
+                        @error('link')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Status</label>
-                        <select name="status" class="form-control" id="">
+                        <select name="status" class="form-control @error('status') is-invalid @enderror">
                             <option value="1">Yes</option>
                             <option value="0">No</option>
                         </select>
+                        @error('status')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <button type="submit" class="btn btn-primary">Create</button>
                 </form>

@@ -25,22 +25,36 @@
                         <label>Icon</label>
                         <br>
                         <button class="btn btn-secondary" role="iconpicker" name="icon"
-                            data-icon="{{ $link->icon }}"></button>
+                            data-icon="{{ $link->icon ?? old('icon') }}"></button>
+                        @error('icon')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" name="name" value="{{ $link->name }}" class="form-control">
+                        <input type="text" name="name" value="{{ $link->name ?? old('name') }}"
+                            class="form-control @error('name') is-invalid @enderror">
+                        @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Link</label>
-                        <input type="text" name="link" value="{{ $link->link }}" class="form-control">
+                        <input type="text" name="link" value="{{ $link->link ?? old('link') }}"
+                            class="form-control @error('link') is-invalid @enderror">
+                        @error('link')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Status</label>
-                        <select name="status" class="form-control">
+                        <select name="status" class="form-control @error('status') is-invalid @enderror">
                             <option @selected($link->status === 1) value="1">Yes</option>
                             <option @selected($link->status === 0) value="0">No</option>
                         </select>
+                        @error('status')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form>
