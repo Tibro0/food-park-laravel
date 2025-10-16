@@ -24,15 +24,26 @@
                                 <label for="image-upload" id="image-label">Choose File</label>
                                 <input type="file" name="avatar" id="image-upload" />
                                 <input type="hidden" name="old_avatar" value="{{ auth()->user()->avatar }}" />
+                                @error('avatar')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" class="form-control" name="name" value="{{ auth()->user()->name }}">
+                            <label>Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+                                value="{{ auth()->user()->name ?? old('name') }}">
+                            @error('name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
-                            <label>Email</label>
-                            <input type="text" class="form-control" name="email" value="{{ auth()->user()->email }}">
+                            <label>Email <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control @error('email') is-invalid @enderror" name="email"
+                                value="{{ auth()->user()->email ?? old('email') }}">
+                            @error('email')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <button class="btn btn-primary" type="submit">Save</button>
                     </form>
@@ -49,16 +60,28 @@
                         @csrf
                         @method('PUT')
                         <div class="form-group">
-                            <label>Current Password</label>
-                            <input type="password" class="form-control" name="current_password">
+                            <label>Current Password <span class="text-danger">*</span></label>
+                            <input type="password" name="current_password"
+                                class="form-control @error('current_password') is-invalid @enderror">
+                            @error('current_password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
-                            <label>New Password</label>
-                            <input type="password" class="form-control" name="password">
+                            <label>New Password <span class="text-danger">*</span></label>
+                            <input type="password" name="password"
+                                class="form-control @error('password') is-invalid @enderror">
+                            @error('password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
-                            <label>Confirm Password</label>
-                            <input type="password" class="form-control" name="password_confirmation">
+                            <label>Confirm Password <span class="text-danger">*</span></label>
+                            <input type="password" name="password_confirmation"
+                                class="form-control @error('password_confirmation') is-invalid @enderror">
+                            @error('password_confirmation')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <button class="btn btn-primary" type="submit">Save</button>
                     </form>

@@ -36,7 +36,7 @@
             <!-- Main Content End -->
 
             <footer class="main-footer">
-                <div class="footer-left">
+                <div class="footer-left w-100 text-center">
                     Copyright {{ date('Y') }}. All Rights Reserved.
                 </div>
                 <div class="footer-right">
