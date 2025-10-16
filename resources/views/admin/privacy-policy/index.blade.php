@@ -21,8 +21,11 @@
                     @csrf
                     @method('PUT')
                     <div class="form-group">
-                        <label>Content</label>
-                        <textarea name="content" class="summernote" class="form-control">{!! @$privacyPolicy->content !!}</textarea>
+                        <label>Content <span class="text-danger">*</span></label>
+                        <textarea name="content" class="summernote form-control @error('content') is-invalid @enderror">{!! @$privacyPolicy->content ?? old('content') !!}</textarea>
+                        @error('content')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form>
