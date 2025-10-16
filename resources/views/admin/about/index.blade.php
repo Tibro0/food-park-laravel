@@ -27,23 +27,41 @@
                             <input type="file" name="image" id="image-upload" />
                             <input type="hidden" name="old_image" value="{{ @$about->image }}" />
                         </div>
+                        @error('image')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
-                        <label>Title</label>
-                        <input type="text" name="title" value="{{ @$about->title }}" class="form-control">
+                        <label>Title <span class="text-danger">*</span></label>
+                        <input type="text" name="title" value="{{ @$about->title ?? old('title') }}"
+                            class="form-control @error('title') is-invalid @enderror">
+                        @error('title')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label>Main Title</label>
-                        <input type="text" name="main_title" value="{{ @$about->main_title }}" class="form-control">
+                        <label>Main Title <span class="text-danger">*</span></label>
+                        <input type="text" name="main_title" value="{{ @$about->main_title ?? old('main_title') }}"
+                            class="form-control @error('main_title') is-invalid @enderror">
+                        @error('main_title')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label>Description</label>
-                        <textarea name="description" class="summernote" class="form-control">{!! @$about->description !!}</textarea>
+                        <label>Description <span class="text-danger">*</span></label>
+                        <textarea name="description" class="summernote" class="form-control @error('description') is-invalid @enderror">{!! @$about->description ?? old('description') !!}</textarea>
+                        @error('description')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label>Youtube Video Link</label>
-                        <input type="text" name="video_link" value="{{ @$about->video_link }}" class="form-control">
+                        <label>Youtube Video Link <span class="text-danger">*</span></label>
+                        <input type="text" name="video_link" value="{{ @$about->video_link ?? old('video_link') }}"
+                            class="form-control @error('video_link') is-invalid @enderror">
+                        @error('video_link')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form>
