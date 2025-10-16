@@ -38,27 +38,41 @@
                                         <div class="fp__login_imput">
                                             <label>name</label>
                                             <input type="text" name="name" value="{{ old('name') }}"
-                                                placeholder="Name">
+                                                placeholder="Name" class="@error('name') border border-danger @enderror">
+                                            @error('name')
+                                                <div class="text-danger ms-3">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-xl-12">
                                         <div class="fp__login_imput">
                                             <label>email</label>
                                             <input type="email" name="email" value="{{ old('email') }}"
-                                                placeholder="Email">
+                                                placeholder="Email" class="@error('email') border border-danger @enderror">
+                                            @error('email')
+                                                <div class="text-danger ms-3">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-xl-12">
                                         <div class="fp__login_imput">
                                             <label>password</label>
-                                            <input type="password" name="password" placeholder="Password">
+                                            <input type="password" name="password" placeholder="Password"
+                                                class="@error('password') border border-danger @enderror">
+                                            @error('password')
+                                                <div class="text-danger ms-3">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-xl-12">
                                         <div class="fp__login_imput">
                                             <label>confirm password</label>
                                             <input type="password" name="password_confirmation"
-                                                placeholder="Confirm Password">
+                                                placeholder="Confirm Password"
+                                                class="@error('password_confirmation') border border-danger @enderror">
+                                            @error('password_confirmation')
+                                                <div class="text-danger ms-3">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-xl-12">
