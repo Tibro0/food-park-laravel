@@ -13,9 +13,12 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <div class="form-group">
-                                <label>Site Color</label>
-                                <input type="text" class="form-control colorpickerinput" name="site_color"
+                                <label>Site Color <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control colorpickerinput @error('site_color') is-invalid @enderror" name="site_color"
                                     value="{{ config('settings.site_color') }}">
+                                @error('site_color')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>

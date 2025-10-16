@@ -13,6 +13,9 @@
                                 <input type="file" name="logo" id="image-upload" />
                                 <input type="hidden" name="old_logo" value="{{ config('settings.logo') }}">
                             </div>
+                            @error('logo')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -25,6 +28,9 @@
                                     value="{{ config('settings.footer_logo') }}">
                             </div>
                         </div>
+                        @error('footer_logo')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
@@ -34,6 +40,9 @@
                                 <input type="file" name="favicon" id="image-upload-3" />
                                 <input type="hidden" name="old_favicon" value="{{ config('settings.favicon') }}">
                             </div>
+                            @error('favicon')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-3">
