@@ -38,7 +38,10 @@
                                         <div class="fp__login_imput">
                                             <label>email</label>
                                             <input type="email" name="email" value="{{ old('email') }}"
-                                                placeholder="Email">
+                                                placeholder="Email" class="@error('email') border border-danger @enderror">
+                                            @error('email')
+                                                <div class="text-danger ms-3">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-xl-12">
