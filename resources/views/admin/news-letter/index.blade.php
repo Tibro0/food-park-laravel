@@ -27,11 +27,18 @@
                                 @csrf
                                 <div class="form-group">
                                     <label>Subject</label>
-                                    <input type="text" class="form-control" name="subject" value="{{ old('subject') }}">
+                                    <input type="text" class="form-control @error('subject') is-invalid @enderror"
+                                        name="subject" value="{{ old('subject') }}">
+                                    @error('subject')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label>Message</label>
-                                    <textarea name="message" class="summernote">{{ old('message') }}</textarea>
+                                    <textarea name="message" class="summernote form-control @error('message') is-invalid @enderror">{{ old('message') }}</textarea>
+                                    @error('message')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <button type="submit" class="btn btn-primary">Send</button>
                             </form>
