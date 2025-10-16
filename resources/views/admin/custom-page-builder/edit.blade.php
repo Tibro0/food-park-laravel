@@ -22,19 +22,29 @@
                     @csrf
                     @method('PUT')
                     <div class="form-group">
-                        <label>Page Name</label>
-                        <input type="text" name="name" class="form-control" value="{{ $page->name }}">
+                        <label>Page Name <span class="text-danger">*</span></label>
+                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                            value="{{ $page->name ?? old('name') }}">
+                        @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label>Page Contents</label>
-                        <textarea name="content" class="form-control summernote">{!! $page->content !!}</textarea>
+                        <label>Page Contents <span class="text-danger">*</span></label>
+                        <textarea name="content" class="form-control summernote @error('content') is-invalid @enderror">{!! $page->content ?? old('content') !!}</textarea>
+                        @error('content')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Status</label>
-                        <select name="status" class="form-control" id="">
+                        <select name="status" class="form-control @error('status') is-invalid @enderror">
                             <option value="1" @selected($page->status === 1)>Active</option>
                             <option value="0" @selected($page->status === 0)>Inactive</option>
                         </select>
+                        @error('status')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form>
