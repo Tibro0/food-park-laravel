@@ -67,7 +67,7 @@
     <!-- Toastr js Links -->
     <script src="{{ asset('admin/assets/js/toastr.min.js') }}"></script>
     <!-- show dynamic validation message -->
-    <script>
+    {{-- <script>
         toastr.options.progressBar = true;
 
         @if ($errors->any())
@@ -75,7 +75,7 @@
                 toastr.error("{{ $error }}")
             @endforeach
         @endif
-    </script>
+    </script> --}}
     @stack('admin-js')
 </body>
 

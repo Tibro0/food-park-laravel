@@ -144,14 +144,14 @@
     <!-- toastr Css Link -->
     <script src="{{ asset('frontend/js/toastr.min.js') }}"></script>
     <!-- show dynamic validation message-->
-    <script>
+    {{-- <script>
         toastr.options.progressBar = true;
         @if ($errors->any())
             @foreach ($errors->all() as $error)
                 toastr.error("{{ $error }}")
             @endforeach
         @endif
-    </script>
+    </script> --}}
     <script>
         $.ajaxSetup({
             headers: {
