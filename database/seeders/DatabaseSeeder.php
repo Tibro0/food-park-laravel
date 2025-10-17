@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             SliderSeeder::class,
             WhyChooseUsSeeder::class,
-            SectionTitleSeeder::class
+            SectionTitleSeeder::class,
+            CategorySeeder::class,
         ]);
     }
 }
