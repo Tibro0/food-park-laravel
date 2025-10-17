@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             SettingSeeder::class,
             CouponSeeder::class,
             DeliveryAreaSeeder::class,
+            AddressSeeder::class,
         ]);
     }
 }
