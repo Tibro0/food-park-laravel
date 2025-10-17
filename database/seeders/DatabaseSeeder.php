@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
 
             PaymentGatewaySettingSeeder::class,
             DailyOfferSeeder::class,
+            BannerSliderSeeder::class,
         ]);
     }
 }
