@@ -32,12 +32,6 @@ class DailyOfferSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            [
-                'product_id' => 2,
-                'status' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
         ]);
     }
 }
