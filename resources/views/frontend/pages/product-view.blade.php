@@ -210,7 +210,8 @@
                                                         <div class="row">
                                                             <div class="col-xl-12">
                                                                 <label class="mb-2">Choose a rating</label>
-                                                                <select name="rating" id="rating_input" class="nice-select">
+                                                                <select name="rating" id="rating_input" class="nice-select"
+                                                                    class="@error('rating') border border-danger @enderror">
                                                                     <option value="5">5</option>
                                                                     <option value="4">4</option>
                                                                     <option value="3">3</option>
@@ -219,9 +220,16 @@
                                                                 </select>
                                                                 <input type="hidden" name="product_id"
                                                                     value="{{ $product->id }}">
+                                                                @error('rating')
+                                                                    <div class="text-danger ms-3">{{ $message }}</div>
+                                                                @enderror
                                                             </div>
                                                             <div class="col-xl-12">
-                                                                <textarea rows="3" name="review" placeholder="Write your review"></textarea>
+                                                                <textarea rows="3" name="review" placeholder="Write your review"
+                                                                    class="@error('review') border border-danger @enderror"></textarea>
+                                                                @error('review')
+                                                                    <div class="text-danger ms-3">{{ $message }}</div>
+                                                                @enderror
                                                             </div>
                                                             <div class="col-12">
                                                                 <button class="common_btn" type="submit">submit
