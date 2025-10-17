@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             ProductGallerySeeder::class,
             ProductSizeSeeder::class,
             ProductOptionSeeder::class,
+            SettingSeeder::class,
         ]);
     }
 }
