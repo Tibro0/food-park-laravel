@@ -34,6 +34,8 @@ class DatabaseSeeder extends Seeder
             CouponSeeder::class,
             DeliveryAreaSeeder::class,
             AddressSeeder::class,
+
+            PaymentGatewaySettingSeeder::class,
         ]);
     }
 }
