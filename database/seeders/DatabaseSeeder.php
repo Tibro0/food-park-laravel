@@ -43,6 +43,7 @@ class DatabaseSeeder extends Seeder
             TestimonialSeeder::class,
             CounterSeeder::class,
             BlogCategorySeeder::class,
+            BlogSeeder::class,
         ]);
     }
 }
