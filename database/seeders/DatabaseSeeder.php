@@ -47,6 +47,7 @@ class DatabaseSeeder extends Seeder
 
             AboutSeeder::class,
             PrivacyPolicySeeder::class,
+            TramsAndConditionSeeder::class,
         ]);
     }
 }
