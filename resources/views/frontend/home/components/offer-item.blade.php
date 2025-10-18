@@ -18,7 +18,7 @@
             @foreach ($dailyOffers as $dailyOffer)
                 <div class="col-xl-4">
                     <div class="fp__offer_item_single">
-                        <div class="img">
+                        <div class="img" style="height: 170px;">
                             <img src="{{ asset($dailyOffer->product->thumb_image) }}" alt="offer"
                                 class="img-fluid w-100">
                         </div>
@@ -29,7 +29,7 @@
                             @endif
                             <a class="title"
                                 href="{{ route('product.show', $dailyOffer->product->slug) }}">{!! limitText($dailyOffer->product->name, 30) !!}</a>
-                            <p>{{ limitText($dailyOffer->product->short_description, 30) }}</p>
+                            <p>{{ limitText($dailyOffer->product->short_description, 29) }}</p>
                             <ul class="d-flex flex-wrap">
                                 <li><a href="javascript:;"
                                         onclick="loadProductModal('{{ $dailyOffer->product->id }}')"><i
