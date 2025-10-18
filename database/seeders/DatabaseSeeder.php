@@ -44,6 +44,8 @@ class DatabaseSeeder extends Seeder
             CounterSeeder::class,
             BlogCategorySeeder::class,
             BlogSeeder::class,
+
+            AboutSeeder::class,
         ]);
     }
 }
