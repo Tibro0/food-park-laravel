@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder
             BannerSliderSeeder::class,
             ChefSeeder::class,
             AppDownloadSectionSeeder::class,
+            TestimonialSeeder::class,
         ]);
     }
 }
