@@ -18,7 +18,7 @@ class BlogSeeder extends Seeder
             [
                 'user_id' => 1,
                 'category_id' => 1,
-                'image' => 'Fronted/images/menu2_img_1.jpg',
+                'image' => 'frontend/images/menu2_img_1.jpg',
                 'title' => 'Beef Burger Recipe',
                 'slug' => Str::slug('Beef Burger Recipe'),
                 'description' => "A classic beef burger is a simple yet satisfying culinary creation, centered around a juicy, flavorful patty.
@@ -37,7 +37,7 @@ class BlogSeeder extends Seeder
             [
                 'user_id' => 1,
                 'category_id' => 3,
-                'image' => 'Fronted/images/menu2_img_2.jpg',
+                'image' => 'frontend/images/menu2_img_2.jpg',
                 'title' => 'Pizza Recipe',
                 'slug' => Str::slug('Pizza Recipe'),
                 'description' => "A great pizza relies on simplicity and quality ingredients, starting with the crust. The base is a smooth, elastic dough made from strong bread flour, water, yeast, salt, and a touch of olive oil. After kneading, it's left to rise until doubled in size, developing flavour and airiness.
@@ -56,7 +56,7 @@ class BlogSeeder extends Seeder
             [
                 'user_id' => 1,
                 'category_id' => 4,
-                'image' => 'Fronted/images/menu2_img_3.jpg',
+                'image' => 'frontend/images/menu2_img_3.jpg',
                 'title' => 'Dresserts Recipe',
                 'slug' => Str::slug('Dresserts Recipe'),
                 'description' => "Dessert recipes are structured guides for creating sweet culinary creations, typically enjoyed at the end of a meal. They provide a precise list of ingredients with specific quantities and a step-by-step method for combining and transforming those ingredients into a finished dish.
