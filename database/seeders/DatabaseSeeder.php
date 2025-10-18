@@ -41,6 +41,7 @@ class DatabaseSeeder extends Seeder
             ChefSeeder::class,
             AppDownloadSectionSeeder::class,
             TestimonialSeeder::class,
+            CounterSeeder::class,
         ]);
     }
 }
