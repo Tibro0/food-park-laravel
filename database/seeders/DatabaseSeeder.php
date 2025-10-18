@@ -52,6 +52,7 @@ class DatabaseSeeder extends Seeder
             ReservationTimeSeeder::class,
 
             SocialLinkSeeder::class,
+            FooterInfoSeeder::class,
         ]);
     }
 }
