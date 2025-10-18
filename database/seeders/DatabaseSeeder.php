@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
             AppDownloadSectionSeeder::class,
             TestimonialSeeder::class,
             CounterSeeder::class,
+            BlogCategorySeeder::class,
         ]);
     }
 }
