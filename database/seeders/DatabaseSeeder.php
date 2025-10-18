@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
             DailyOfferSeeder::class,
             BannerSliderSeeder::class,
             ChefSeeder::class,
+            AppDownloadSectionSeeder::class,
         ]);
     }
 }
