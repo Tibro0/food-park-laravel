@@ -49,6 +49,7 @@ class DatabaseSeeder extends Seeder
             PrivacyPolicySeeder::class,
             TramsAndConditionSeeder::class,
             ContactSeeder::class,
+            ReservationTimeSeeder::class,
         ]);
     }
 }
