@@ -50,6 +50,8 @@ class DatabaseSeeder extends Seeder
             TramsAndConditionSeeder::class,
             ContactSeeder::class,
             ReservationTimeSeeder::class,
+
+            SocialLinkSeeder::class,
         ]);
     }
 }
