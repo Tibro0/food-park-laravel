@@ -7,6 +7,7 @@ use App\Models\Setting;
 use App\Services\SettingsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Session;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 
@@ -229,5 +230,10 @@ class SettingController extends Controller
 
         toastr()->success('Updated Successfully!');
         return redirect()->back();
+    }
+
+    public function adminSettingListStyle(Request $request)
+    {
+        Session::put('setting_list_style', $request->style);
     }
 }

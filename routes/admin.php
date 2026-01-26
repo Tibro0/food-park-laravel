@@ -117,7 +117,7 @@ Route::resource('testimonial', TestimonialController::class);
 Route::get('counter', [CounterController::class, 'index'])->name('counter.index');
 Route::put('counter', [CounterController::class, 'update'])->name('counter.update');
 
- /** Blog Category Routes */
+/** Blog Category Routes */
 Route::resource('blog-category', BlogCategoryController::class);
 
 /** Blog Comment */
@@ -180,3 +180,7 @@ Route::put('mail-setting', [SettingController::class, 'UpdateMailSetting'])->nam
 Route::put('logo-setting', [SettingController::class, 'UpdateLogoSetting'])->name('logo-setting.update');
 Route::put('appearance-setting', [SettingController::class, 'UpdateAppearanceSetting'])->name('appearance-setting.update');
 Route::put('seo-setting', [SettingController::class, 'UpdateSeoSetting'])->name('seo-setting.update');
+
+Route::controller(SettingController::class)->group(function () {
+    Route::get('setting-list-style', 'adminSettingListStyle')->name('setting-list-style');
+});

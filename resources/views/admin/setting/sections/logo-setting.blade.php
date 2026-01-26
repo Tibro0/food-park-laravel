@@ -1,4 +1,4 @@
-<div class="tab-pane fade show" id="logo-setting" role="tabpanel" aria-labelledby="home-tab4">
+<div class="tab-pane fade {{ Session::has('setting_list_style') && Session::get('setting_list_style') == 'section_two' ? 'show active' : '' }}" id="logo-setting" role="tabpanel" aria-labelledby="home-tab4">
     <div class="card">
         <div class="card-body border">
             <form action="{{ route('admin.logo-setting.update') }}" method="POST" enctype="multipart/form-data">

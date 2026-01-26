@@ -1,4 +1,4 @@
-<div class="tab-pane fade show" id="mail-setting" role="tabpanel" aria-labelledby="home-tab4">
+<div class="tab-pane fade {{ Session::has('setting_list_style') && Session::get('setting_list_style') == 'section_four' ? 'show active' : '' }}" id="mail-setting" role="tabpanel" aria-labelledby="home-tab4">
     <div class="card">
         <div class="card-body border">
             <form action="{{ route('admin.mail-setting.update') }}" method="POST">

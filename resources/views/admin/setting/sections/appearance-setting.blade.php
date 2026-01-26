@@ -3,7 +3,7 @@
     <link rel="stylesheet"
         href="{{ asset('admin/assets/modules/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
 @endpush
-<div class="tab-pane fade show" id="appearance-setting" role="tabpanel" aria-labelledby="home-tab4">
+<div class="tab-pane fade {{ Session::has('setting_list_style') && Session::get('setting_list_style') == 'section_three' ? 'show active' : '' }}" id="appearance-setting" role="tabpanel" aria-labelledby="home-tab4">
     <div class="card">
         <div class="card-body border">
             <form action="{{ route('admin.appearance-setting.update') }}" method="POST">

@@ -2,7 +2,7 @@
     <!-- tagsinput Css Link -->
     <link rel="stylesheet" href="{{ asset('admin/assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
 @endpush
-<div class="tab-pane fade show" id="seo-setting" role="tabpanel" aria-labelledby="home-tab4">
+<div class="tab-pane fade {{ Session::has('setting_list_style') && Session::get('setting_list_style') == 'section_five' ? 'show active' : '' }}" id="seo-setting" role="tabpanel" aria-labelledby="home-tab4">
     <div class="card">
         <div class="card-body border">
             <form action="{{ route('admin.seo-setting.update') }}" method="POST">

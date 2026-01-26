@@ -1,4 +1,4 @@
-<div class="tab-pane fade show active" id="general-setting" role="tabpanel" aria-labelledby="general-setting">
+<div class="tab-pane fade {{ Session::has('setting_list_style') && Session::get('setting_list_style') == 'section_one' ? 'show active' : '' }} {{ !Session::has('setting_list_style') ? 'show active' : '' }}" id="general-setting" role="tabpanel" aria-labelledby="general-setting">
     <div class="card">
         <div class="card-body border">
             <form action="{{ route('admin.general-setting.update') }}" method="POST">
