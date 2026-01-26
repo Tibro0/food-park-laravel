@@ -9,6 +9,7 @@ use App\Http\Controllers\Frontend\CustomPageController;
 use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\GithubLoginController;
+use App\Http\Controllers\Frontend\GoogleLoginController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\WishlistController;
@@ -151,4 +152,9 @@ Route::get('destroy-coupon', [FrontendController::class, 'destroyCoupon'])->name
 Route::controller(GithubLoginController::class)->group(function () {
     Route::get('/auth/github-redirect', 'githubLogin')->name('github.login');
     Route::get('/auth/github-callback', 'githubCallback')->name('github.callback');
+});
+
+Route::controller(GoogleLoginController::class)->group(function () {
+    Route::get('/auth/google-redirect', 'googleLogin')->name('google.login');
+    Route::get('/auth/google-callback', 'googleCallback')->name('google.callback');
 });

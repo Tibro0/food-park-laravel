@@ -24,6 +24,10 @@ return new class extends Migration
             $table->text('github_token')->nullable();
             $table->text('github_refresh_token')->nullable();
 
+            $table->text('google_id')->nullable();
+            $table->text('google_token')->nullable();
+            $table->text('google_refresh_token')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });

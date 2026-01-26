@@ -75,7 +75,7 @@
                             </form>
                             <p class="or"><span>or</span></p>
                             <ul class="d-flex">
-                                <li><a href="#"><i class="fab fa-google"></i></a></li>
+                                <li><a href="{{ route('google.login') }}"><i class="fab fa-google"></i></a></li>
                                 <li><a href="{{ route('github.login') }}"><i class="fab fa-github"></i></a></li>
                             </ul>
                             <p class="create_account">Dont’t have an aceount ? <a href="{{ route('register') }}">Create
