@@ -8,6 +8,7 @@ use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\CustomPageController;
 use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Frontend\GithubLoginController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\WishlistController;
@@ -146,3 +147,8 @@ Route::get('cart-destroy', [CartController::class, 'cartDestroy'])->name('cart.d
 /** Coupon Routes */
 Route::post('apply-coupon', [FrontendController::class, 'applyCoupon'])->name('apply-coupon');
 Route::get('destroy-coupon', [FrontendController::class, 'destroyCoupon'])->name('destroy-coupon');
+
+Route::controller(GithubLoginController::class)->group(function () {
+    Route::get('/auth/github-redirect', 'githubLogin')->name('github.login');
+    Route::get('/auth/github-callback', 'githubCallback')->name('github.callback');
+});

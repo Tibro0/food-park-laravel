@@ -18,7 +18,12 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->enum('role', ['user', 'admin'])->default('user');
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
+
+            $table->text('github_id')->nullable();
+            $table->text('github_token')->nullable();
+            $table->text('github_refresh_token')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });
