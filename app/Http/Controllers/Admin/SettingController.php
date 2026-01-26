@@ -186,6 +186,9 @@ class SettingController extends Controller
             toastr()->success('Updated Successfully!');
             return redirect()->back();
         }
+
+        toastr()->success('Updated Successfully!');
+        return redirect()->back();
     }
 
     public function UpdateAppearanceSetting(Request $request)

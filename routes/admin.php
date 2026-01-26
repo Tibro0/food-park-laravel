@@ -38,12 +38,16 @@ use Illuminate\Support\Facades\Route;
 
 
 /** Admin Dashboard Route */
-Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+Route::controller(AdminDashboardController::class)->group(function () {
+    Route::get('dashboard', 'index')->name('dashboard');
+});
 
 /** Profile Route */
-Route::get('profile', [ProfileController::class, 'index'])->name('profile');
-Route::put('profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
-Route::put('profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
+Route::controller(ProfileController::class)->group(function () {
+    Route::get('profile', 'index')->name('profile');
+    Route::put('profile', 'updateProfile')->name('profile.update');
+    Route::put('profile/password', 'updatePassword')->name('profile.password.update');
+});
 
 /** Slider Route */
 Route::resource('slider', SliderController::class);
@@ -70,9 +74,11 @@ Route::resource('product-size', ProductSizeController::class);
 Route::resource('product-option', ProductOptionController::class);
 
 /** Product Reviews Routes */
-Route::get('product-reviews', [ProductReviewController::class, 'index'])->name('product-reviews.index');
-Route::post('product-reviews', [ProductReviewController::class, 'updateStatus'])->name('product-reviews.update');
-Route::delete('product-reviews/{id}', [ProductReviewController::class, 'destroy'])->name('product-reviews.destroy');
+Route::controller(ProductReviewController::class)->group(function () {
+    Route::get('product-reviews', 'index')->name('product-reviews.index');
+    Route::post('product-reviews', 'updateStatus')->name('product-reviews.update');
+    Route::delete('product-reviews/{id}', 'destroy')->name('product-reviews.destroy');
+});
 
 /** Coupon Routes */
 Route::resource('coupon', CouponController::class);
@@ -81,81 +87,107 @@ Route::resource('coupon', CouponController::class);
 Route::resource('delivery-area', DeliveryAreaController::class);
 
 /** Orders Routes */
-Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
-Route::get('orders/{id}', [OrderController::class, 'show'])->name('orders.show');
-Route::delete('orders/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
+Route::controller(OrderController::class)->group(function () {
+    Route::get('orders', 'index')->name('orders.index');
+    Route::get('orders/{id}', 'show')->name('orders.show');
+    Route::delete('orders/{id}', 'destroy')->name('orders.destroy');
 
-Route::get('pending-orders', [OrderController::class, 'pendingOrderIndex'])->name('pending-orders');
-Route::get('inprocess-orders', [OrderController::class, 'inProcessOrderIndex'])->name('inprocess-orders');
-Route::get('delivered-orders', [OrderController::class, 'deliveredOrderIndex'])->name('delivered-orders');
-Route::get('declined-orders', [OrderController::class, 'declinedOrderIndex'])->name('declined-orders');
+    Route::get('pending-orders', 'pendingOrderIndex')->name('pending-orders');
+    Route::get('inprocess-orders', 'inProcessOrderIndex')->name('inprocess-orders');
+    Route::get('delivered-orders', 'deliveredOrderIndex')->name('delivered-orders');
+    Route::get('declined-orders', 'declinedOrderIndex')->name('declined-orders');
 
-Route::get('orders/status/{id}', [OrderController::class, 'getOrderStatus'])->name('orders.status');
-Route::put('orders/status-update/{id}', [OrderController::class, 'orderStatusUpdate'])->name('orders.status-update');
+    Route::get('orders/status/{id}', 'getOrderStatus')->name('orders.status');
+    Route::put('orders/status-update/{id}', 'orderStatusUpdate')->name('orders.status-update');
+});
 
 /** Daily Offer Routes */
-Route::get('daily-offer/search-product', [DailyOfferController::class, 'productSearch'])->name('daily-offer.search-product');
-Route::put('daily-offer-title-update', [DailyOfferController::class, 'updateTitle'])->name('daily-offer-title-update');
+Route::controller(DailyOfferController::class)->group(function () {
+    Route::get('daily-offer/search-product', 'productSearch')->name('daily-offer.search-product');
+    Route::put('daily-offer-title-update', 'updateTitle')->name('daily-offer-title-update');
+});
 Route::resource('daily-offer', DailyOfferController::class);
 
 /** Banner Slider Routes */
 Route::resource('banner-slider', BannerSliderController::class);
 
 /** Chefs Routes */
-Route::put('chefs-title-update', [ChefController::class, 'updateTitle'])->name('chefs-title-update');
+Route::controller(ChefController::class)->group(function () {
+    Route::put('chefs-title-update', 'updateTitle')->name('chefs-title-update');
+});
 Route::resource('chefs', ChefController::class);
 
 /** App Download Routes */
-Route::get('app-download', [AppDownloadSectionController::class, 'index'])->name('app-download.index');
-Route::post('app-download', [AppDownloadSectionController::class, 'store'])->name('app-download.store');
+Route::controller(AppDownloadSectionController::class)->group(function () {
+    Route::get('app-download', 'index')->name('app-download.index');
+    Route::post('app-download', 'store')->name('app-download.store');
+});
 
 /** Testimonial Routes */
-Route::put('testimonial-title-update', [TestimonialController::class, 'updateTitle'])->name('testimonial-title-update');
+Route::controller(TestimonialController::class)->group(function () {
+    Route::put('testimonial-title-update', 'updateTitle')->name('testimonial-title-update');
+});
 Route::resource('testimonial', TestimonialController::class);
 
 /** Counter Routes */
-Route::get('counter', [CounterController::class, 'index'])->name('counter.index');
-Route::put('counter', [CounterController::class, 'update'])->name('counter.update');
+Route::controller(CounterController::class)->group(function () {
+    Route::get('counter', 'index')->name('counter.index');
+    Route::put('counter', 'update')->name('counter.update');
+});
 
 /** Blog Category Routes */
 Route::resource('blog-category', BlogCategoryController::class);
 
 /** Blog Comment */
-Route::get('blogs/comments', [BlogController::class, 'blogComment'])->name('blogs.comments.index');
-Route::get('blogs/comments/{id}', [BlogController::class, 'commentStatusUpdate'])->name('blogs.comments.update');
-Route::delete('blogs/comments/{id}', [BlogController::class, 'commentDestroy'])->name('blogs.comments.destroy');
+Route::controller(BlogController::class)->group(function () {
+    Route::get('blogs/comments', 'blogComment')->name('blogs.comments.index');
+    Route::get('blogs/comments/{id}', 'commentStatusUpdate')->name('blogs.comments.update');
+    Route::delete('blogs/comments/{id}', 'commentDestroy')->name('blogs.comments.destroy');
+});
 
 /** Blogs Routes */
 Route::resource('blogs', BlogController::class);
 
 /** About Routes */
-Route::get('about', [AboutController::class, 'index'])->name('about.index');
-Route::put('about', [AboutController::class, 'update'])->name('about.update');
+Route::controller(AboutController::class)->group(function () {
+    Route::get('about', 'index')->name('about.index');
+    Route::put('about', 'update')->name('about.update');
+});
 
 /** Privacy Policy Routes */
-Route::get('privacy-policy', [PrivacyPolicyController::class, 'index'])->name('privacy-policy.index');
-Route::put('privacy-policy', [PrivacyPolicyController::class, 'update'])->name('privacy-policy.update');
+Route::controller(PrivacyPolicyController::class)->group(function () {
+    Route::get('privacy-policy', 'index')->name('privacy-policy.index');
+    Route::put('privacy-policy', 'update')->name('privacy-policy.update');
+});
 
 /** Contact Routes */
-Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
-Route::put('contact', [ContactController::class, 'update'])->name('contact.update');
+Route::controller(ContactController::class)->group(function () {
+    Route::get('contact', 'index')->name('contact.index');
+    Route::put('contact', 'update')->name('contact.update');
+});
 
 /** Reservation Routes */
 Route::resource('reservation-time', ReservationTimeController::class);
-Route::get('reservation', [ReservationController::class, 'index'])->name('reservation.index');
-Route::post('reservation', [ReservationController::class, 'update'])->name('reservation.update');
-Route::delete('reservation/{id}', [ReservationController::class, 'destroy'])->name('reservation.destroy');
+Route::controller(ReservationController::class)->group(function () {
+    Route::get('reservation', 'index')->name('reservation.index');
+    Route::post('reservation', 'update')->name('reservation.update');
+    Route::delete('reservation/{id}', 'destroy')->name('reservation.destroy');
+});
 
 /** News letter Routes */
-Route::get('news-letter', [NewsLetterController::class, 'index'])->name('news-letter.index');
-Route::post('news-letter', [NewsLetterController::class, 'sendNewsLetter'])->name('news-letter.send');
+Route::controller(NewsLetterController::class)->group(function () {
+    Route::get('news-letter', 'index')->name('news-letter.index');
+    Route::post('news-letter', 'sendNewsLetter')->name('news-letter.send');
+});
 
 /** Social Links Routes */
 Route::resource('social-link', SocialLinkController::class);
 
 /** Footer info Routes */
-Route::get('footer-info', [FooterInfoController::class, 'index'])->name('footer-info.index');
-Route::put('footer-info', [FooterInfoController::class, 'update'])->name('footer-info.update');
+Route::controller(FooterInfoController::class)->group(function () {
+    Route::get('footer-info', 'index')->name('footer-info.index');
+    Route::put('footer-info', 'update')->name('footer-info.update');
+});
 
 /** Custom page builder Routes */
 Route::resource('custom-page-builder', CustomPageBuilderController::class);
@@ -164,23 +196,26 @@ Route::resource('custom-page-builder', CustomPageBuilderController::class);
 Route::resource('admin-management', AdminManagementController::class);
 
 /** Trams And Conditions Routes */
-Route::get('trams-and-conditions', [TramsAndConditionController::class, 'index'])->name('trams-and-conditions.index');
-Route::put('trams-and-conditions', [TramsAndConditionController::class, 'update'])->name('trams-and-conditions.update');
+Route::controller(TramsAndConditionController::class)->group(function () {
+    Route::get('trams-and-conditions', 'index')->name('trams-and-conditions.index');
+    Route::put('trams-and-conditions', 'update')->name('trams-and-conditions.update');
+});
 
 /** Payment Gateway Routes */
-Route::get('payment-gateway-setting', [PaymentGatewaySettingController::class, 'index'])->name('payment-setting.index');
-Route::put('paypal-setting', [PaymentGatewaySettingController::class, 'paypalSettingUpdate'])->name('paypal-setting.update');
-Route::put('stripe-setting', [PaymentGatewaySettingController::class, 'stripeSettingUpdate'])->name('stripe-setting.update');
-Route::put('razorpay-setting', [PaymentGatewaySettingController::class, 'razorpaySettingUpdate'])->name('razorpay-setting.update');
+Route::controller(PaymentGatewaySettingController::class)->group(function () {
+    Route::get('payment-gateway-setting', 'index')->name('payment-setting.index');
+    Route::put('paypal-setting', 'paypalSettingUpdate')->name('paypal-setting.update');
+    Route::put('stripe-setting', 'stripeSettingUpdate')->name('stripe-setting.update');
+    Route::put('razorpay-setting', 'razorpaySettingUpdate')->name('razorpay-setting.update');
+});
 
 /** Setting Routes */
-Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
-Route::put('general-setting', [SettingController::class, 'updateGeneralSetting'])->name('general-setting.update');
-Route::put('mail-setting', [SettingController::class, 'UpdateMailSetting'])->name('mail-setting.update');
-Route::put('logo-setting', [SettingController::class, 'UpdateLogoSetting'])->name('logo-setting.update');
-Route::put('appearance-setting', [SettingController::class, 'UpdateAppearanceSetting'])->name('appearance-setting.update');
-Route::put('seo-setting', [SettingController::class, 'UpdateSeoSetting'])->name('seo-setting.update');
-
 Route::controller(SettingController::class)->group(function () {
+    Route::get('setting', 'index')->name('setting.index');
+    Route::put('general-setting', 'updateGeneralSetting')->name('general-setting.update');
+    Route::put('mail-setting', 'UpdateMailSetting')->name('mail-setting.update');
+    Route::put('logo-setting', 'UpdateLogoSetting')->name('logo-setting.update');
+    Route::put('appearance-setting', 'UpdateAppearanceSetting')->name('appearance-setting.update');
+    Route::put('seo-setting', 'UpdateSeoSetting')->name('seo-setting.update');
     Route::get('setting-list-style', 'adminSettingListStyle')->name('setting-list-style');
 });
