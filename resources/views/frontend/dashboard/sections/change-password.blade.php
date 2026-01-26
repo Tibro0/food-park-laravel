@@ -1,4 +1,4 @@
-<div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+<div class="tab-pane fade {{ Session::has('user_dashboard_list_style') && Session::get('user_dashboard_list_style') == 'section_six' ? 'show active' : '' }}" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
     <div class="fp_dashboard_body fp__change_password">
         <div class="fp__review_input">
             <h3>change password</h3>

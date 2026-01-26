@@ -1,4 +1,4 @@
-<div class="tab-pane fade" id="v-pills-address" role="tabpanel" aria-labelledby="v-pills-address-tab">
+<div class="tab-pane fade {{ Session::has('user_dashboard_list_style') && Session::get('user_dashboard_list_style') == 'section_two' ? 'show active' : '' }}" id="v-pills-address" role="tabpanel" aria-labelledby="v-pills-address-tab">
     <div class="fp_dashboard_body address_body">
         <h3>address <a class="dash_add_new_address"><i class="far fa-plus"></i> add new
             </a>

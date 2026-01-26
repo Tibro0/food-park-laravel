@@ -41,35 +41,43 @@
                             </div>
                             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
                                 aria-orientation="vertical">
-                                <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
+                                <button
+                                    class="nav-link list-view {{ Session::has('user_dashboard_list_style') && Session::get('user_dashboard_list_style') == 'section_one' ? 'active' : '' }} {{ !Session::has('user_dashboard_list_style') ? 'active' : '' }}"
+                                    data-id="section_one" id="v-pills-home-tab" data-bs-toggle="pill"
                                     data-bs-target="#v-pills-home" type="button" role="tab"
                                     aria-controls="v-pills-home" aria-selected="true"><span><i
                                             class="fas fa-user"></i></span> Parsonal Info</button>
 
-                                <button class="nav-link" id="v-pills-address-tab" data-bs-toggle="pill"
-                                    data-bs-target="#v-pills-address" type="button" role="tab"
-                                    aria-controls="v-pills-address" aria-selected="true"><span><i
-                                            class="fas fa-address-card"></i></span>address</button>
+                                <button
+                                    class="nav-link list-view {{ Session::has('user_dashboard_list_style') && Session::get('user_dashboard_list_style') == 'section_two' ? 'active' : '' }}" data-id="section_two"
+                                    id="v-pills-address-tab" data-bs-toggle="pill" data-bs-target="#v-pills-address"
+                                    type="button" role="tab" aria-controls="v-pills-address"
+                                    aria-selected="true"><span><i class="fas fa-address-card"></i></span>address</button>
 
-                                <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
-                                    data-bs-target="#v-pills-profile" type="button" role="tab"
-                                    aria-controls="v-pills-profile" aria-selected="false"><span><i
-                                            class="fas fa-bags-shopping"></i></span> Order</button>
+                                <button
+                                    class="nav-link list-view {{ Session::has('user_dashboard_list_style') && Session::get('user_dashboard_list_style') == 'section_three' ? 'active' : '' }}" data-id="section_three"
+                                    id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile"
+                                    type="button" role="tab" aria-controls="v-pills-profile"
+                                    aria-selected="false"><span><i class="fas fa-bags-shopping"></i></span> Order</button>
 
-                                <button class="nav-link" id="v-pills-messages-tab2" data-bs-toggle="pill"
-                                    data-bs-target="#v-pills-messages2" type="button" role="tab"
-                                    aria-controls="v-pills-messages2" aria-selected="false"><span><i
-                                            class="far fa-heart"></i></span> wishlist</button>
+                                <button
+                                    class="nav-link list-view {{ Session::has('user_dashboard_list_style') && Session::get('user_dashboard_list_style') == 'section_four' ? 'active' : '' }}" data-id="section_four"
+                                    id="v-pills-messages-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-messages2"
+                                    type="button" role="tab" aria-controls="v-pills-messages2"
+                                    aria-selected="false"><span><i class="far fa-heart"></i></span> wishlist</button>
 
-                                <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
-                                    data-bs-target="#v-pills-messages" type="button" role="tab"
-                                    aria-controls="v-pills-messages" aria-selected="false"><span><i
-                                            class="fas fa-star"></i></span> Reviews</button>
+                                <button
+                                    class="nav-link list-view {{ Session::has('user_dashboard_list_style') && Session::get('user_dashboard_list_style') == 'section_five' ? 'active' : '' }}" data-id="section_five"
+                                    id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages"
+                                    type="button" role="tab" aria-controls="v-pills-messages"
+                                    aria-selected="false"><span><i class="fas fa-star"></i></span> Reviews</button>
 
-                                <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
-                                    data-bs-target="#v-pills-settings" type="button" role="tab"
-                                    aria-controls="v-pills-settings" aria-selected="false"><span><i
-                                            class="fas fa-user-lock"></i></span> Change Password </button>
+                                <button
+                                    class="nav-link list-view {{ Session::has('user_dashboard_list_style') && Session::get('user_dashboard_list_style') == 'section_six' ? 'active' : '' }}" data-id="section_six"
+                                    id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+                                    type="button" role="tab" aria-controls="v-pills-settings"
+                                    aria-selected="false"><span><i class="fas fa-user-lock"></i></span> Change Password
+                                </button>
 
                                 <!-- Authentication -->
                                 <form method="POST" action="{{ route('logout') }}">
@@ -225,5 +233,23 @@
                 })
             })
         })
+    </script>
+    {{-- List Link Active --}}
+    <script>
+        $(document).ready(function() {
+            $('.list-view').on('click', function() {
+                let style = $(this).data('id');
+                $.ajax({
+                    method: "GET",
+                    url: "{{ route('user-dashboard-list-style') }}",
+                    data: {
+                        style: style
+                    },
+                    success: function(data) {
+
+                    }
+                });
+            })
+        });
     </script>
 @endpush

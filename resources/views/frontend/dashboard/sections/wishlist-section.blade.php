@@ -1,4 +1,4 @@
-<div class="tab-pane fade " id="v-pills-messages2" role="tabpanel" aria-labelledby="v-pills-messages-tab2">
+<div class="tab-pane fade {{ Session::has('user_dashboard_list_style') && Session::get('user_dashboard_list_style') == 'section_four' ? 'show active' : '' }}" id="v-pills-messages2" role="tabpanel" aria-labelledby="v-pills-messages-tab2">
     <div class="fp_dashboard_body">
         <h3>wishlist</h3>
         <div class="fp_dashboard_order">

@@ -22,6 +22,8 @@ Route::group(['middleware' => 'guest'], function () {
 Route::group(['middleware' => 'auth'], function(){
     /** User Dashboard Route */
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('user-dashboard-list-style', [DashboardController::class, 'userDashboardListStyle'])->name('user-dashboard-list-style');
+    
     /** User Profile Update Route */
     Route::put('profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
     Route::put('profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
