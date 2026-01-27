@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\PaymentGatewaySetting;
 use App\Services\PaymentGatewaySettingService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 
@@ -164,5 +165,10 @@ class PaymentGatewaySettingController extends Controller
 
         toastr()->success('Updated Successfully!');
         return redirect()->back();
+    }
+
+    public function paymentGatewayListStyle(Request $request)
+    {
+        Session::put('payment_gateway_list_style', $request->style);
     }
 }

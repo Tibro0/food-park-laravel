@@ -207,6 +207,7 @@ Route::controller(PaymentGatewaySettingController::class)->group(function () {
     Route::put('paypal-setting', 'paypalSettingUpdate')->name('paypal-setting.update');
     Route::put('stripe-setting', 'stripeSettingUpdate')->name('stripe-setting.update');
     Route::put('razorpay-setting', 'razorpaySettingUpdate')->name('razorpay-setting.update');
+    Route::get('payment-gateway-list-style', 'paymentGatewayListStyle')->name('payment-gateway-list-style');
 });
 
 /** Setting Routes */

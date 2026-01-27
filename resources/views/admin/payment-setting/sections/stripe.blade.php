@@ -1,4 +1,4 @@
-<div class="tab-pane fade active" id="stripe-setting" role="tabpanel" aria-labelledby="home-tab4">
+<div class="tab-pane fade {{ Session::has('payment_gateway_list_style') && Session::get('payment_gateway_list_style') == 'section_two' ? 'show active' : '' }}" id="stripe-setting" role="tabpanel" aria-labelledby="home-tab4">
     <div class="card">
         <div class="card-body border">
             <form action="{{ route('admin.stripe-setting.update') }}" method="POST" enctype="multipart/form-data">

@@ -23,15 +23,18 @@
                     <div class="col-12 col-sm-12 col-md-2">
                         <ul class="nav nav-pills flex-column" id="myTab4" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="home-tab4" data-toggle="tab" href="#paypal-setting"
+                                <a class="nav-link list-view {{ Session::has('payment_gateway_list_style') && Session::get('payment_gateway_list_style') == 'section_one' ? 'active' : '' }} {{ !Session::has('payment_gateway_list_style') ? 'active' : '' }}"
+                                    data-id="section_one" id="home-tab4" data-toggle="tab" href="#paypal-setting"
                                     role="tab" aria-controls="home" aria-selected="true">Paypal</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="profile-tab4" data-toggle="tab" href="#stripe-setting"
+                                <a class="nav-link list-view {{ Session::has('payment_gateway_list_style') && Session::get('payment_gateway_list_style') == 'section_two' ? 'active' : '' }}"
+                                    data-id="section_two" id="profile-tab4" data-toggle="tab" href="#stripe-setting"
                                     role="tab" aria-controls="profile" aria-selected="false">Stripe</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="contact-tab4" data-toggle="tab" href="#razorpay-setting"
+                                <a class="nav-link list-view {{ Session::has('payment_gateway_list_style') && Session::get('payment_gateway_list_style') == 'section_three' ? 'active' : '' }}"
+                                    data-id="section_three" id="contact-tab4" data-toggle="tab" href="#razorpay-setting"
                                     role="tab" aria-controls="contact" aria-selected="false">Razorpay</a>
                             </li>
                         </ul>
@@ -69,6 +72,24 @@
             label_selected: "Change File", // Default: Change File
             no_label: false, // Default: false
             success_callback: null // Default: null
+        });
+    </script>
+    {{-- List Link Active --}}
+    <script>
+        $(document).ready(function() {
+            $('.list-view').on('click', function() {
+                let style = $(this).data('id');
+                $.ajax({
+                    method: "GET",
+                    url: "{{ route('admin.payment-gateway-list-style') }}",
+                    data: {
+                        style: style
+                    },
+                    success: function(data) {
+
+                    }
+                });
+            })
         });
     </script>
 @endpush

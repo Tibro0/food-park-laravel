@@ -1,4 +1,5 @@
-<div class="tab-pane fade active" id="razorpay-setting" role="tabpanel" aria-labelledby="home-tab4">
+<div class="tab-pane fade {{ Session::has('payment_gateway_list_style') && Session::get('payment_gateway_list_style') == 'section_three' ? 'show active' : '' }}"
+    id="razorpay-setting" role="tabpanel" aria-labelledby="home-tab4">
     <div class="card">
         <div class="card-body border">
             <form action="{{ route('admin.razorpay-setting.update') }}" method="POST" enctype="multipart/form-data">
@@ -44,7 +45,8 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>Currency Rate ( Per {{ config('settings.site_default_currency') }} ) <span class="text-danger">*</span></label>
+                    <label>Currency Rate ( Per {{ config('settings.site_default_currency') }} ) <span
+                            class="text-danger">*</span></label>
                     <input name="razorpay_rate" type="text"
                         class="form-control @error('razorpay_rate') is-invalid @enderror"
                         value="{{ @$paymentGateway['razorpay_rate'] ?? old('razorpay_rate') }}">
