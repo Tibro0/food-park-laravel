@@ -43,6 +43,10 @@
                                 <a class="nav-link list-view {{ Session::has('setting_list_style') && Session::get('setting_list_style') == 'section_five' ? 'active' : '' }}" data-id="section_five" id="" data-toggle="tab" href="#seo-setting" role="tab"
                                     aria-controls="contact" aria-selected="false">Seo Settings</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link list-view {{ Session::has('setting_list_style') && Session::get('setting_list_style') == 'section_six' ? 'active' : '' }}" data-id="section_six" id="" data-toggle="tab" href="#github-setting" role="tab"
+                                    aria-controls="contact" aria-selected="false">Github Settings</a>
+                            </li>
                         </ul>
                     </div>
                     <div class="col-12 col-sm-12 col-md-10">
@@ -62,6 +66,9 @@
                             <!-- SEO Settings include links Start -->
                             @include('admin.setting.sections.seo-setting')
                             <!-- SEO Settings include links End -->
+                            <!-- Github Settings include links Start -->
+                            @include('admin.setting.sections.github-setting')
+                            <!-- Github Settings include links End -->
                         </div>
                     </div>
                 </div>
