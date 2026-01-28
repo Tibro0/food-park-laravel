@@ -218,9 +218,7 @@ Route::controller(SettingController::class)->group(function () {
     Route::put('logo-setting', 'UpdateLogoSetting')->name('logo-setting.update');
     Route::put('appearance-setting', 'UpdateAppearanceSetting')->name('appearance-setting.update');
     Route::put('seo-setting', 'UpdateSeoSetting')->name('seo-setting.update');
-
     Route::put('github-setting', 'updateGithubSetting')->name('github-setting.update');
-
-
+    Route::put('google-setting', 'updateGoogleSetting')->name('google-setting.update');
     Route::get('setting-list-style', 'adminSettingListStyle')->name('setting-list-style');
 });
