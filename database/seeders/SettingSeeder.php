@@ -140,6 +140,42 @@ class SettingSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'key' => 'github_client_id',
+                'value' => 'Github Client ID',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'key' => 'github_client_secret',
+                'value' => 'Github Client Secret',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'key' => 'github_redirect_url',
+                'value' => 'http://127.0.0.1:8000/auth/github-callback',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'key' => 'google_client_id',
+                'value' => 'Google Client ID',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'key' => 'google_client_secret',
+                'value' => 'Google Client Secret',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'key' => 'google_redirect_url',
+                'value' => 'http://127.0.0.1:8000/auth/google-callback',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }
