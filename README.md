@@ -1,9 +1,5 @@
 # Food Park Website
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
-[![Laravel Version](https://img.shields.io/badge/Laravel-10.x%2B-red.svg)](https://laravel.com)
-[![PHP Version](https://img.shields.io/badge/PHP-8.1%2B-blue.svg)](https://php.net)
-
 A brief description of your Laravel project and its purpose.
 
 ## ✨ Features
@@ -37,8 +33,8 @@ Follow these steps to set up the project locally:
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/Tibro0/portfolio-two-laravel.git portfolio-two-laravel
-cd portfolio-two-laravel
+git clone https://github.com/Tibro0/food-park-laravel.git food-park-laravel
+cd food-park-laravel
 code .
 ```
 
