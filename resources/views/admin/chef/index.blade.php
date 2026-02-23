@@ -16,7 +16,8 @@
                 <h4>All Chefs</h4>
                 <div class="card-header-action">
                     <a href="{{ route('admin.chefs.create') }}" class="btn btn-primary">Create new</a>
-                    <button class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">Chefs Section Title</button>
+                    <button class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">Chefs Section
+                        Title</button>
                 </div>
             </div>
             <div class="card-body">
