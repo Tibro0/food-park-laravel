@@ -11,62 +11,12 @@
         <div class="section-header">
             <h1>All Chefs</h1>
         </div>
-        <div class="card">
-            <div class="card-body">
-                <div id="accordion">
-                    <div class="accordion">
-                        <div class="accordion-header collapsed bg-primary text-light p-3" role="button"
-                            data-toggle="collapse" data-target="#panel-body-1" aria-expanded="false">
-                            <h4>Chefs Section Titles..</h4>
-                        </div>
-                        <div class="accordion-body collapse" id="panel-body-1" data-parent="#accordion" style="">
-                            <form action="{{ route('admin.chefs-title-update') }}" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <div class="form-group">
-                                    <label>Top Title</label>
-                                    <input type="text" class="form-control @error('chef_top_title') is-invalid @enderror"
-                                        name="chef_top_title"
-                                        value="{{ @$titles['chef_top_title'] ?? old('chef_top_title') }}">
-                                    @error('chef_top_title')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label>Main Title</label>
-                                    <input type="text"
-                                        class="form-control @error('chef_main_title') is-invalid @enderror"
-                                        name="chef_main_title"
-                                        value="{{ @$titles['chef_main_title'] ?? old('chef_main_title') }}">
-                                    @error('chef_main_title')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label>Sub Title</label>
-                                    <input type="text" class="form-control @error('chef_sub_title') is-invalid @enderror"
-                                        name="chef_sub_title"
-                                        value="{{ @$titles['chef_sub_title'] ?? old('chef_sub_title') }}">
-                                    @error('chef_sub_title')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <button type="submit" class="btn btn-primary">Save</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <section class="section">
         <div class="card card-primary">
             <div class="card-header">
                 <h4>All Chefs</h4>
                 <div class="card-header-action">
                     <a href="{{ route('admin.chefs.create') }}" class="btn btn-primary">Create new</a>
+                    <button class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">Chefs Section Title</button>
                 </div>
             </div>
             <div class="card-body">
@@ -74,6 +24,52 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('modal')
+    <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Chefs Section Titles..</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('admin.chefs-title-update') }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="form-group">
+                            <label>Top Title</label>
+                            <input type="text" class="form-control @error('chef_top_title') is-invalid @enderror"
+                                name="chef_top_title" value="{{ @$titles['chef_top_title'] ?? old('chef_top_title') }}">
+                            @error('chef_top_title')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label>Main Title</label>
+                            <input type="text" class="form-control @error('chef_main_title') is-invalid @enderror"
+                                name="chef_main_title" value="{{ @$titles['chef_main_title'] ?? old('chef_main_title') }}">
+                            @error('chef_main_title')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label>Sub Title</label>
+                            <input type="text" class="form-control @error('chef_sub_title') is-invalid @enderror"
+                                name="chef_sub_title" value="{{ @$titles['chef_sub_title'] ?? old('chef_sub_title') }}">
+                            @error('chef_sub_title')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('admin-js')
