@@ -34,7 +34,7 @@
                 @yield('admin-content')
             </div>
             <!-- Main Content End -->
-
+            @yield('modal')
             <footer class="main-footer">
                 <div class="footer-left w-100 text-center">
                     Copyright {{ date('Y') }}. All Rights Reserved.
