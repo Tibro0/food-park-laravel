@@ -20,7 +20,7 @@
                     <span>Daily Offer</span></a></li>
             <li
                 class="dropdown {{ setSidebarActive(['admin.orders.*', 'admin.pending-orders', 'admin.inprocess-orders', 'admin.delivered-orders', 'admin.declined-orders']) }}">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-box"></i>
+                <a href="javascript:;" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-box"></i>
                     <span>Orders</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ setSidebarActive(['admin.orders.*']) }}"><a class="nav-link"
@@ -37,7 +37,7 @@
             </li>
             <li
                 class="dropdown {{ setSidebarActive(['admin.category.*', 'admin.product.*', 'admin.product-reviews.*']) }}">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
+                <a href="javascript:;" class="nav-link has-dropdown" data-toggle="dropdown"><i
                         class="fas fa-shopping-cart"></i>
                     <span>Manage Products</span></a>
                 <ul class="dropdown-menu">
@@ -52,7 +52,7 @@
 
             <li
                 class="dropdown {{ setSidebarActive(['admin.coupon.*', 'admin.delivery-area.*', 'admin.payment-setting.*']) }}">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-store"></i>
+                <a href="javascript:;" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-store"></i>
                     <span>Manage E-commerce</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ setSidebarActive(['admin.coupon.*']) }}"><a class="nav-link"
@@ -65,7 +65,7 @@
             </li>
 
             <li class="dropdown {{ setSidebarActive(['admin.reservation-time.*', 'admin.reservation.*']) }}">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-chair"></i>
+                <a href="javascript:;" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-chair"></i>
                     <span>Manage Reservations</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ setSidebarActive(['admin.reservation-time.*']) }}"><a class="nav-link"
@@ -78,21 +78,24 @@
             </li>
             <li
                 class="dropdown {{ setSidebarActive(['admin.blog-category.*', 'admin.blogs.index', 'admin.blogs.edit', 'admin.blogs.create', 'admin.blogs.comments.*']) }}">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fab fa-blogger-b"></i>
+                <a href="javascript:;" class="nav-link has-dropdown" data-toggle="dropdown"><i
+                        class="fab fa-blogger-b"></i>
                     <span>Blog</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ setSidebarActive(['admin.blog-category.*']) }}"><a class="nav-link"
                             href="{{ route('admin.blog-category.index') }}">Categories</a></li>
                     <li
                         class="{{ setSidebarActive(['admin.blogs.index', 'admin.blogs.edit', 'admin.blogs.create']) }}">
-                        <a class="nav-link" href="{{ route('admin.blogs.index') }}">Blogs</a></li>
+                        <a class="nav-link" href="{{ route('admin.blogs.index') }}">Blogs</a>
+                    </li>
                     <li class="{{ setSidebarActive(['admin.blogs.comments.*']) }}"><a class="nav-link"
                             href="{{ route('admin.blogs.comments.index') }}">Comments</a></li>
                 </ul>
             </li>
             <li
                 class="dropdown {{ setSidebarActive(['admin.why-choose-us.*', 'admin.banner-slider.*', 'admin.chefs.*', 'admin.app-download.*', 'admin.testimonial.*', 'admin.counter.*']) }}">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-stream"></i>
+                <a href="javascript:;" class="nav-link has-dropdown" data-toggle="dropdown"><i
+                        class="fas fa-stream"></i>
                     <span>Sections</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ setSidebarActive(['admin.why-choose-us.*']) }}"><a class="nav-link"
@@ -114,7 +117,7 @@
             </li>
             <li
                 class="dropdown {{ setSidebarActive(['admin.custom-page-builder.*', 'admin.about.*', 'admin.privacy-policy.*', 'admin.trams-and-conditions.*', 'admin.contact.*']) }}">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
+                <a href="javascript:;" class="nav-link has-dropdown" data-toggle="dropdown"><i
                         class="fas fa-file-alt"></i>
                     <span>Pages</span></a>
                 <ul class="dropdown-menu">

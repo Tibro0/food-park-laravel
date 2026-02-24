@@ -84,10 +84,10 @@
                             <p>{{ @$footerInfo->copyright }}</p>
                         @endif
                         <ul class="d-flex flex-wrap">
-                            <li><a href="#">FAQs</a></li>
-                            <li><a href="#">payment</a></li>
-                            <li><a href="#">settings</a></li>
-                            <li><a href="#">privacy policy</a></li>
+                            <li><a href="javascript:;">FAQs</a></li>
+                            <li><a href="javascript:;">payment</a></li>
+                            <li><a href="javascript:;">settings</a></li>
+                            <li><a href="javascript:;">privacy policy</a></li>
                         </ul>
                     </div>
                 </div>

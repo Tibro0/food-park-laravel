@@ -33,7 +33,7 @@
             </ul>
             <ul class="menu_icon d-flex flex-wrap">
                 <li>
-                    <a href="#" class="menu_search"><i class="far fa-search"></i></a>
+                    <a href="javascript:;" class="menu_search"><i class="far fa-search"></i></a>
                     <div class="fp__search_form">
                         <form action="{{ route('product.index') }}" method="GET">
                             <span class="close_search"><i class="far fa-times"></i></span>
@@ -50,7 +50,7 @@
                     <a href="{{ route('login') }}"><i class="fas fa-user"></i></a>
                 </li>
                 <li>
-                    <a class="common_btn" href="#" data-bs-toggle="modal"
+                    <a class="common_btn" href="javascript:;" data-bs-toggle="modal"
                         data-bs-target="#staticBackdrop">reservation</a>
                 </li>
             </ul>
