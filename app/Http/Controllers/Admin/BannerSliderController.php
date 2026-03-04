@@ -33,7 +33,7 @@ class BannerSliderController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => ['required', 'image', 'max:3000'],
+            'image' => ['required', 'image', 'max:2048', 'mimes:png'],
             'title' => ['required', 'max:255'],
             'sub_title' => ['required', 'max:255'],
             'url' => ['required', 'url'],
@@ -46,7 +46,7 @@ class BannerSliderController extends Controller
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
             $img = $img->resize(400, 250);
-            $img->toJpeg(80)->save(base_path('public/uploads/banner_slider_image/' . $name_gen));
+            $img->toPng()->save(base_path('public/uploads/banner_slider_image/' . $name_gen));
             $save_url = 'uploads/banner_slider_image/' . $name_gen;
 
             $bannerSlider = new BannerSlider();
@@ -77,7 +77,7 @@ class BannerSliderController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'image' => ['nullable', 'image', 'max:3000'],
+            'image' => ['nullable', 'image', 'max:2048', 'mimes:png'],
             'title' => ['required', 'max:255'],
             'sub_title' => ['required', 'max:255'],
             'url' => ['required', 'url'],
@@ -91,7 +91,7 @@ class BannerSliderController extends Controller
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
             $img = $img->resize(400, 250);
-            $img->toJpeg(80)->save(base_path('public/uploads/banner_slider_image/' . $name_gen));
+            $img->toPng()->save(base_path('public/uploads/banner_slider_image/' . $name_gen));
             $save_url = 'uploads/banner_slider_image/' . $name_gen;
 
             $bannerSlider = BannerSlider::findOrFail($id);
@@ -102,7 +102,14 @@ class BannerSliderController extends Controller
             $bannerSlider->status = $request->status;
             $bannerSlider->save();
 
-            if (file_exists($oldImage)) {
+            $defaultImages = [
+                'frontend/images/offer_slider_1.png',
+                'frontend/images/offer_slider_2.png',
+                'frontend/images/offer_slider_3.png',
+                'frontend/images/offer_slider_4.png',
+            ];
+
+            if ($oldImage && !in_array($oldImage, $defaultImages) && file_exists($oldImage)) {
                 unlink($oldImage);
             }
 
@@ -127,9 +134,19 @@ class BannerSliderController extends Controller
     public function destroy(string $id)
     {
         $bannerSlider = BannerSlider::findOrFail($id);
-        unlink($bannerSlider->banner);
-        $bannerSlider->delete();
 
+        $defaultImages = [
+            'frontend/images/offer_slider_1.png',
+            'frontend/images/offer_slider_2.png',
+            'frontend/images/offer_slider_3.png',
+            'frontend/images/offer_slider_4.png',
+        ];
+
+        if ($bannerSlider->banner && !in_array($bannerSlider->banner, $defaultImages) && file_exists($bannerSlider->banner)) {
+            unlink($bannerSlider->banner);
+        }
+
+        $bannerSlider->delete();
         return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
 }
