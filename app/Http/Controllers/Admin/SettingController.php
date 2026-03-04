@@ -73,10 +73,10 @@ class SettingController extends Controller
     public function UpdateLogoSetting(Request $request)
     {
         $request->validate([
-            'logo' => ['nullable', 'image', 'max:1000'],
-            'footer_logo' => ['nullable', 'image', 'max:1000'],
-            'favicon' => ['nullable', 'image', 'max:1000'],
-            'breadcrumb' => ['nullable', 'image', 'max:1000'],
+            'logo' => ['nullable', 'image', 'max:2048', 'mimes:png'],
+            'footer_logo' => ['nullable', 'image', 'max:2048', 'mimes:png'],
+            'favicon' => ['nullable', 'image', 'max:2048', 'mimes:png'],
+            'breadcrumb' => ['nullable', 'image', 'max:2048', 'mimes:png'],
         ]);
 
         $oldLogo = $request->old_logo;
@@ -86,7 +86,7 @@ class SettingController extends Controller
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
             $img = $img->resize(300, 100);
-            $img->toJpeg(80)->save(base_path('public/uploads/logo_image/' . $name_gen));
+            $img->toPng()->save(base_path('public/uploads/logo_image/' . $name_gen));
             $save_url = 'uploads/logo_image/' . $name_gen;
 
             Setting::updateOrCreate(
@@ -94,7 +94,11 @@ class SettingController extends Controller
                 ['value' => $save_url]
             );
 
-            if (file_exists($oldLogo)) {
+            $defaultImages = [
+                'frontend/images/logo.png',
+            ];
+
+            if ($oldLogo && !in_array($oldLogo, $defaultImages) && file_exists($oldLogo)) {
                 unlink($oldLogo);
             }
 
@@ -121,7 +125,11 @@ class SettingController extends Controller
                 ['value' => $save_url]
             );
 
-            if (file_exists($oldFootedLogo)) {
+            $defaultImages = [
+                'frontend/images/footer_logo.png',
+            ];
+
+            if ($oldFootedLogo && !in_array($oldFootedLogo, $defaultImages) && file_exists($oldFootedLogo)) {
                 unlink($oldFootedLogo);
             }
 
@@ -148,7 +156,11 @@ class SettingController extends Controller
                 ['value' => $save_url]
             );
 
-            if (file_exists($oldFavicon)) {
+            $defaultImages = [
+                'frontend/images/favicon.png',
+            ];
+
+            if ($oldFavicon && !in_array($oldFavicon, $defaultImages) && file_exists($oldFavicon)) {
                 unlink($oldFavicon);
             }
 
@@ -175,7 +187,11 @@ class SettingController extends Controller
                 ['value' => $save_url]
             );
 
-            if (file_exists($oldBreadcrumb)) {
+            $defaultImages = [
+                'frontend/images/counter_bg.jpg',
+            ];
+
+            if ($oldBreadcrumb && !in_array($oldBreadcrumb, $defaultImages) && file_exists($oldBreadcrumb)) {
                 unlink($oldBreadcrumb);
             }
 

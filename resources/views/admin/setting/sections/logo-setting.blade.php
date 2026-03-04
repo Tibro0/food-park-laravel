@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Logo</label>
+                            <label>Logo <span class="text-danger">(2MB Maximum) PNG</span></label>
                             <div id="image-preview" class="image-preview logo">
                                 <label for="image-upload" id="image-label">Choose File</label>
                                 <input type="file" name="logo" id="image-upload" />
@@ -20,7 +20,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Footer Logo</label>
+                            <label>Footer Logo <span class="text-danger">(2MB Maximum) PNG</span></label>
                             <div id="image-preview-2" class="image-preview footer_logo">
                                 <label for="image-upload-2" id="image-label-2">Choose File</label>
                                 <input type="file" name="footer_logo" id="image-upload-2" />
@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Favicon</label>
+                            <label>Favicon <span class="text-danger">(2MB Maximum) PNG</span></label>
                             <div id="image-preview-3" class="image-preview favicon">
                                 <label for="image-upload-3" id="image-label-3">Choose File</label>
                                 <input type="file" name="favicon" id="image-upload-3" />
@@ -47,7 +47,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Breadcrumb</label>
+                            <label>Breadcrumb <span class="text-danger">(2MB Maximum) PNG</span></label>
                             <div id="image-preview-4" class="image-preview breadcrumb">
                                 <label for="image-upload-4" id="image-label-4">Choose File</label>
                                 <input type="file" name="breadcrumb" id="image-upload-4" />
