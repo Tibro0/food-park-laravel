@@ -19,7 +19,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Image</label>
+                                <label>Image <span class="text-danger">(2MB Maximum) PNG</span></label>
                                 <div id="image-preview" class="image-preview image-preview-1">
                                     <label for="image-upload" id="image-label">Choose File</label>
                                     <input type="file" name="image" id="image-upload" />

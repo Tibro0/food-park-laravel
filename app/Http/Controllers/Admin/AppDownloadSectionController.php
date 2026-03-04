@@ -19,7 +19,7 @@ class AppDownloadSectionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => ['nullable', 'image', 'max:3000'],
+            'image' => ['nullable', 'image', 'max:2048', 'mimes:png'],
             'title' => ['required', 'max:255'],
             'short_description' => ['required', 'max:1000'],
             'play_store_link' => ['nullable', 'url'],
@@ -47,7 +47,11 @@ class AppDownloadSectionController extends Controller
                 ]
             );
 
-            if (file_exists($oldImage)) {
+            $defaultImages = [
+                'frontend/images/download_img.png',
+            ];
+
+            if ($oldImage && !in_array($oldImage, $defaultImages) && file_exists($oldImage)) {
                 unlink($oldImage);
             }
 
