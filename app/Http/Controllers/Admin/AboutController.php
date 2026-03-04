@@ -19,7 +19,7 @@ class AboutController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'image' => ['nullable', 'image'],
+            'image' => ['nullable', 'image', 'max:2024', 'mimes:png'],
             'title' => ['required', 'max:255'],
             'main_title' => ['required', 'max:255'],
             'description' => ['required'],
@@ -47,7 +47,11 @@ class AboutController extends Controller
                 ]
             );
 
-            if (file_exists($oldImage)) {
+            $defaultImages = [
+                'frontend/images/about_chef.jpg',
+            ];
+
+            if ($oldImage && !in_array($oldImage, $defaultImages) && file_exists($oldImage)) {
                 unlink($oldImage);
             }
 
