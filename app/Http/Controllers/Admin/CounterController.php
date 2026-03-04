@@ -41,7 +41,7 @@ class CounterController extends Controller
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
             $img = $img->resize(5472, 1026);
-            $img->toJpeg(80)->save(base_path('public/uploads/counter_background_image/' . $name_gen));
+            $img->toPng()->save(base_path('public/uploads/counter_background_image/' . $name_gen));
             $save_url = 'uploads/counter_background_image/' . $name_gen;
 
             Counter::updateOrCreate(
@@ -63,7 +63,11 @@ class CounterController extends Controller
                 ]
             );
 
-            if (file_exists($oldImage)) {
+            $defaultImages = [
+                'frontend/images/counter_bg2.jpg',
+            ];
+
+            if ($oldImage && !in_array($oldImage, $defaultImages) && file_exists($oldImage)) {
                 unlink($oldImage);
             }
 

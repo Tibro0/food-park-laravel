@@ -20,7 +20,7 @@
                     @csrf
                     @method('PUT')
                     <div class="form-group">
-                        <label>Background</label>
+                        <label>Background <span class="text-danger">(2MB Maximum) PNG</span></label>
                         <div id="image-preview" class="image-preview">
                             <label for="image-upload" id="image-label">Choose File</label>
                             <input type="file" name="background" id="image-upload" />
