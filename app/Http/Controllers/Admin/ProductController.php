@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductGallery;
 use App\Models\ProductOption;
+use App\Models\ProductRating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
@@ -204,6 +205,11 @@ class ProductController extends Controller
         $productOptions = ProductOption::where(['product_id' => $product->id])->count();
         if ($productOptions > 0) {
             return response(['status' => 'error', 'message' => 'This Products Have Products Variants you cant Delete It.']);
+        }
+
+        $productRatting = ProductRating::where(['product_id' => $product->id])->count();
+        if ($productRatting > 0) {
+            return response(['status' => 'error', 'message' => 'This Product Have Product Ratting you cant Delete It.']);
         }
 
         $defaultImages = [

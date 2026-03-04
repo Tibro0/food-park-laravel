@@ -40,7 +40,7 @@ class BlogController extends Controller
     {
         $request->validate(
             [
-                'image' => ['required', 'image', 'max:3000'],
+                'image' => ['required', 'image', 'max:2048', 'mimes:png'],
                 'title' => ['required', 'max:255', 'unique:blogs,title'],
                 'category' => ['required'],
                 'description' => ['required'],
@@ -59,7 +59,7 @@ class BlogController extends Controller
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
             $img = $img->resize(850, 450);
-            $img->toJpeg(80)->save(base_path('public/uploads/blog_image/' . $name_gen));
+            $img->toPng()->save(base_path('public/uploads/blog_image/' . $name_gen));
             $save_url = 'uploads/blog_image/' . $name_gen;
 
             $blog = new Blog();
@@ -96,7 +96,7 @@ class BlogController extends Controller
     {
         $request->validate(
             [
-                'image' => ['nullable', 'image'],
+                'image' => ['nullable', 'image', 'max:2048', 'mimes:png'],
                 'title' => ['required', 'max:255', 'unique:blogs,title,' . $id],
                 'category' => ['required'],
                 'description' => ['required'],
@@ -116,7 +116,7 @@ class BlogController extends Controller
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
             $img = $img->resize(850, 450);
-            $img->toJpeg(80)->save(base_path('public/uploads/blog_image/' . $name_gen));
+            $img->toPng()->save(base_path('public/uploads/blog_image/' . $name_gen));
             $save_url = 'uploads/blog_image/' . $name_gen;
 
             $blog = Blog::findOrFail($id);
@@ -130,7 +130,13 @@ class BlogController extends Controller
             $blog->status = $request->status;
             $blog->save();
 
-            if (file_exists($oldImage)) {
+            $defaultImages = [
+                'frontend/images/menu2_img_1.jpg',
+                'frontend/images/menu2_img_2.jpg',
+                'frontend/images/menu2_img_3.jpg',
+            ];
+
+            if ($oldImage && !in_array($oldImage, $defaultImages) && file_exists($oldImage)) {
                 unlink($oldImage);
             }
 
@@ -158,9 +164,23 @@ class BlogController extends Controller
     public function destroy(string $id)
     {
         $blog = Blog::findOrFail($id);
-        unlink($blog->image);
-        $blog->delete();
 
+        $blogComments = BlogComment::where(['blog_id' => $blog->id])->count();
+        if ($blogComments) {
+            return response(['status' => 'error', 'message' => 'This Blog Have Some Blog Comments you cant Delete It.']);
+        }
+
+        $defaultImages = [
+            'frontend/images/menu2_img_1.jpg',
+            'frontend/images/menu2_img_2.jpg',
+            'frontend/images/menu2_img_3.jpg',
+        ];
+
+        if ($blog->image && !in_array($blog->image, $defaultImages) && file_exists($blog->image)) {
+            unlink($blog->image);
+        }
+
+        $blog->delete();
         return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
 

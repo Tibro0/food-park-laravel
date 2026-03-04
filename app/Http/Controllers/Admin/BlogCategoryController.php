@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\BlogCategoryDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\Blog;
 use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -81,6 +82,12 @@ class BlogCategoryController extends Controller
     public function destroy(string $id)
     {
         $category = BlogCategory::findOrFail($id);
+
+        $blogs = Blog::where(['category_id' => $category->id])->count();
+        if ($blogs > 0) {
+            return response(['status' => 'error', 'message' => 'This Blog Category Have Some Blogs you cant Delete It.']);
+        }
+
         $category->delete();
         return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
