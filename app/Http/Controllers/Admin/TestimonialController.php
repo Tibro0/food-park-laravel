@@ -36,7 +36,7 @@ class TestimonialController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => ['required', 'image', 'max:3000'],
+            'image' => ['required', 'image', 'max:2048', 'mimes:png'],
             'name' => ['required', 'max:255'],
             'title' => ['required', 'max:255'],
             'rating' => ['required', 'integer', 'max:5'],
@@ -51,7 +51,7 @@ class TestimonialController extends Controller
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
             $img = $img->resize(100, 100);
-            $img->toJpeg(80)->save(base_path('public/uploads/testimonial_image/' . $name_gen));
+            $img->toPng()->save(base_path('public/uploads/testimonial_image/' . $name_gen));
             $save_url = 'uploads/testimonial_image/' . $name_gen;
 
             $testimonial = new Testimonial();
@@ -84,7 +84,7 @@ class TestimonialController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'image' => ['nullable', 'image', 'max:3000'],
+            'image' => ['nullable', 'image', 'max:2048', 'mimes:png'],
             'name' => ['required', 'max:255'],
             'title' => ['required', 'max:255'],
             'rating' => ['required', 'integer', 'max:5'],
@@ -100,7 +100,7 @@ class TestimonialController extends Controller
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
             $img = $img->resize(100, 100);
-            $img->toJpeg(80)->save(base_path('public/uploads/testimonial_image/' . $name_gen));
+            $img->toPng()->save(base_path('public/uploads/testimonial_image/' . $name_gen));
             $save_url = 'uploads/testimonial_image/' . $name_gen;
 
             $testimonial = Testimonial::findOrFail($id);
@@ -113,7 +113,14 @@ class TestimonialController extends Controller
             $testimonial->status = $request->status;
             $testimonial->save();
 
-            if (file_exists($oldImage)) {
+            $defaultImages = [
+                'frontend/images/comment_img_1.png',
+                'frontend/images/comment_img_2.png',
+                'frontend/images/client_img_1.jpg',
+                'frontend/images/client_img_3.jpg',
+            ];
+
+            if ($oldImage && !in_array($oldImage, $defaultImages) && file_exists($oldImage)) {
                 unlink($oldImage);
             }
 
@@ -157,9 +164,19 @@ class TestimonialController extends Controller
     public function destroy(string $id)
     {
         $testimonial = Testimonial::findOrFail($id);
-        unlink($testimonial->image);
-        $testimonial->delete();
 
+        $defaultImages = [
+            'frontend/images/comment_img_1.png',
+            'frontend/images/comment_img_2.png',
+            'frontend/images/client_img_1.jpg',
+            'frontend/images/client_img_3.jpg',
+        ];
+
+        if ($testimonial->image && !in_array($testimonial->image, $defaultImages) && file_exists($testimonial->image)) {
+            unlink($testimonial->image);
+        }
+
+        $testimonial->delete();
         return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
 }
