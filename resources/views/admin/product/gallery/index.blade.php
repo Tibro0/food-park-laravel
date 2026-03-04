@@ -23,6 +23,7 @@
                     <form action="{{ route('admin.product-gallery.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
+                            <label>Image <span class="text-danger">* (2MB Maximum) PNG</span></label>
                             <input type="file" class="form-control @error('image') is-invalid @enderror" name="image">
                             <input type="hidden" value="{{ $product->id }}" name="product_id">
                             @error('image')

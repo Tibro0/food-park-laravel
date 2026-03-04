@@ -28,7 +28,7 @@ class ProductGalleryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => ['required', 'image', 'max:3000'],
+            'image' => ['required', 'image', 'max:2048'],
             'product_id' => ['required', 'integer']
         ]);
 
@@ -38,7 +38,7 @@ class ProductGalleryController extends Controller
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
             $img = $img->resize(400, 400);
-            $img->toJpeg(80)->save(base_path('public/uploads/product_gallery_image/' . $name_gen));
+            $img->toPng()->save(base_path('public/uploads/product_gallery_image/' . $name_gen));
             $save_url = 'uploads/product_gallery_image/' . $name_gen;
 
             $gallery = new ProductGallery();
@@ -57,9 +57,22 @@ class ProductGalleryController extends Controller
     public function destroy(string $id)
     {
         $image = ProductGallery::findOrFail($id);
-        unlink($image->image);
-        $image->delete();
 
+        $defaultImages = [
+            'frontend/images/menu4.png',
+            'frontend/images/menu6.png',
+            'frontend/images/menu7.png',
+            'frontend/images/menu8.png',
+            'frontend/images/menu1.png',
+            'frontend/images/menu2.png',
+            'frontend/images/menu5.png',
+        ];
+
+        if ($image->image && !in_array($image->image, $defaultImages) && file_exists($image->image)) {
+            unlink($image->image);
+        }
+
+        $image->delete();
         return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
 }

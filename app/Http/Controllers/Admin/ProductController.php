@@ -6,6 +6,8 @@ use App\DataTables\ProductDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductGallery;
+use App\Models\ProductOption;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
@@ -37,7 +39,7 @@ class ProductController extends Controller
     {
         $request->validate(
             [
-                'image' => ['required', 'image', 'max:3000'],
+                'image' => ['required', 'image', 'max:2048', 'mimes:png'],
                 'name' => ['required', 'max:255', 'unique:products,name'],
                 'category' => ['required', 'integer'],
                 'price' => ['required', 'numeric'],
@@ -62,7 +64,7 @@ class ProductController extends Controller
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
             $img = $img->resize(400, 400);
-            $img->toJpeg(80)->save(base_path('public/uploads/product_thumb_image/' . $name_gen));
+            $img->toPng()->save(base_path('public/uploads/product_thumb_image/' . $name_gen));
             $save_url = 'uploads/product_thumb_image/' . $name_gen;
 
             $product = new Product();
@@ -105,7 +107,7 @@ class ProductController extends Controller
     {
         $request->validate(
             [
-                'image' => ['nullable', 'image', 'max:3000'],
+                'image' => ['nullable', 'max:2048', 'mimes:png'],
                 'name' => ['required', 'max:255', 'unique:products,name,' . $id],
                 'category' => ['required', 'integer'],
                 'price' => ['required', 'numeric'],
@@ -131,7 +133,7 @@ class ProductController extends Controller
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
             $img = $img->resize(400, 400);
-            $img->toJpeg(80)->save(base_path('public/uploads/product_thumb_image/' . $name_gen));
+            $img->toPng()->save(base_path('public/uploads/product_thumb_image/' . $name_gen));
             $save_url = 'uploads/product_thumb_image/' . $name_gen;
 
             $product = Product::findOrFail($id);
@@ -151,7 +153,15 @@ class ProductController extends Controller
             $product->status = $request->status;
             $product->save();
 
-            if (file_exists($oldImage)) {
+            $defaultImages = [
+                'frontend/images/menu2_img_1.jpg',
+                'frontend/images/menu2_img_2.jpg',
+                'frontend/images/menu2_img_7.jpg',
+                'frontend/images/menu2_img_4.jpg',
+                'frontend/images/menu2_img_8.jpg',
+            ];
+
+            if ($oldImage && !in_array($oldImage, $defaultImages) && file_exists($oldImage)) {
                 unlink($oldImage);
             }
 
@@ -185,9 +195,30 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         $product = Product::findOrFail($id);
-        unlink($product->thumb_image);
-        $product->delete();
 
+        $galleryImages = ProductGallery::where(['product_id' => $product->id])->count();
+        if ($galleryImages > 0) {
+            return response(['status' => 'error', 'message' => 'This Products Have Gallery Images you cant Delete It.']);
+        }
+
+        $productOptions = ProductOption::where(['product_id' => $product->id])->count();
+        if ($productOptions > 0) {
+            return response(['status' => 'error', 'message' => 'This Products Have Products Variants you cant Delete It.']);
+        }
+
+        $defaultImages = [
+            'frontend/images/menu2_img_1.jpg',
+            'frontend/images/menu2_img_2.jpg',
+            'frontend/images/menu2_img_7.jpg',
+            'frontend/images/menu2_img_4.jpg',
+            'frontend/images/menu2_img_8.jpg',
+        ];
+
+        if ($product->thumb_image && !in_array($product->thumb_image, $defaultImages) && file_exists($product->thumb_image)) {
+            unlink($product->thumb_image);
+        }
+
+        $product->delete();
         return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
 }
