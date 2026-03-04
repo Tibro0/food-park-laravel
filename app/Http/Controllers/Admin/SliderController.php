@@ -33,7 +33,7 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => ['required', 'image', 'max:3000'],
+            'image' => ['required', 'image', 'max:2048', 'mimes:png'],
             'offer' => ['nullable', 'string', 'max:50'],
             'title' => ['required', 'max:255'],
             'sub_title' => ['required', 'max:255'],
@@ -48,7 +48,7 @@ class SliderController extends Controller
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
             $img = $img->resize(450, 550);
-            $img->toJpeg(80)->save(base_path('public/uploads/slider_image/' . $name_gen));
+            $img->toPng()->save(base_path('public/uploads/slider_image/' . $name_gen));
             $save_url = 'uploads/slider_image/' . $name_gen;
 
             $slider = new Slider();
@@ -81,7 +81,7 @@ class SliderController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'image' => ['nullable', 'image', 'max:3000'],
+            'image' => ['nullable', 'image', 'max:2048', 'mimes:png'],
             'offer' => ['nullable', 'string', 'max:50'],
             'title' => ['required', 'max:255'],
             'sub_title' => ['required', 'max:255'],
@@ -97,7 +97,7 @@ class SliderController extends Controller
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
             $img = $img->resize(450, 550);
-            $img->toJpeg(80)->save(base_path('public/uploads/slider_image/' . $name_gen));
+            $img->toPng()->save(base_path('public/uploads/slider_image/' . $name_gen));
             $save_url = 'uploads/slider_image/' . $name_gen;
 
             $slider = Slider::findOrFail($id);
@@ -110,7 +110,13 @@ class SliderController extends Controller
             $slider->status = $request->status;
             $slider->save();
 
-            if (file_exists($oldImage)) {
+            $defaultImages = [
+                'frontend/images/slider_img_1.png',
+                'frontend/images/slider_img_2.png',
+                'frontend/images/slider_img_3.png',
+            ];
+
+            if ($oldImage && !in_array($oldImage, $defaultImages) && file_exists($oldImage)) {
                 unlink($oldImage);
             }
 
@@ -137,9 +143,18 @@ class SliderController extends Controller
     public function destroy(string $id)
     {
         $slider = Slider::findOrFail($id);
-        unlink($slider->image);
-        $slider->delete();
 
+        $defaultImages = [
+            'frontend/images/slider_img_1.png',
+            'frontend/images/slider_img_2.png',
+            'frontend/images/slider_img_3.png',
+        ];
+
+        if ($slider->image && !in_array($slider->image, $defaultImages) && file_exists($slider->image)) {
+            unlink($slider->image);
+        }
+
+        $slider->delete();
         return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
 }
