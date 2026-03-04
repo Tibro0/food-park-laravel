@@ -36,7 +36,7 @@ class ChefController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => ['required', 'image', 'max:3000'],
+            'image' => ['required', 'image', 'max:2048', 'mimes:png'],
             'name' => ['required', 'max:255'],
             'title' => ['required', 'max:255'],
             'fb' => ['nullable', 'max:255', 'url'],
@@ -53,7 +53,7 @@ class ChefController extends Controller
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
             $img = $img->resize(200, 200);
-            $img->toJpeg(80)->save(base_path('public/uploads/chefs_image/' . $name_gen));
+            $img->toPng()->save(base_path('public/uploads/chefs_image/' . $name_gen));
             $save_url = 'uploads/chefs_image/' . $name_gen;
 
             $chef = new Chef();
@@ -88,7 +88,7 @@ class ChefController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'image' => ['nullable', 'image', 'max:3000'],
+            'image' => ['nullable', 'image', 'max:2048', 'mimes:png'],
             'name' => ['required', 'max:255'],
             'title' => ['required', 'max:255'],
             'fb' => ['nullable', 'max:255', 'url'],
@@ -106,7 +106,7 @@ class ChefController extends Controller
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
             $img = $img->resize(200, 200);
-            $img->toJpeg(80)->save(base_path('public/uploads/chefs_image/' . $name_gen));
+            $img->toPng()->save(base_path('public/uploads/chefs_image/' . $name_gen));
             $save_url = 'uploads/chefs_image/' . $name_gen;
 
             $chef = Chef::findOrFail($id);
@@ -121,7 +121,15 @@ class ChefController extends Controller
             $chef->status = $request->status;
             $chef->save();
 
-            if (file_exists($oldImage)) {
+            $defaultImages = [
+                'frontend/images/chef_1.jpg',
+                'frontend/images/chef_2.jpg',
+                'frontend/images/chef_3.jpg',
+                'frontend/images/chef_4.jpg',
+                'frontend/images/chef_5.jpg',
+            ];
+
+            if ($oldImage && !in_array($oldImage, $defaultImages) && file_exists($oldImage)) {
                 unlink($oldImage);
             }
 
@@ -169,9 +177,20 @@ class ChefController extends Controller
     public function destroy(string $id)
     {
         $chef = Chef::findOrFail($id);
-        unlink($chef->image);
-        $chef->delete();
 
+        $defaultImages = [
+            'frontend/images/chef_1.jpg',
+            'frontend/images/chef_2.jpg',
+            'frontend/images/chef_3.jpg',
+            'frontend/images/chef_4.jpg',
+            'frontend/images/chef_5.jpg',
+        ];
+
+        if ($chef->image && !in_array($chef->image, $defaultImages) && file_exists($chef->image)) {
+            unlink($chef->image);
+        }
+
+        $chef->delete();
         return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
 }

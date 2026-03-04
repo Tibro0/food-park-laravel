@@ -18,7 +18,7 @@
                 <form action="{{ route('admin.chefs.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label>Image <span class="text-danger">*</span></label>
+                        <label>Image <span class="text-danger">* (2MB Maximum) PNG</span></label>
                         <div id="image-preview" class="image-preview">
                             <label for="image-upload" id="image-label">Choose File</label>
                             <input type="file" name="image" id="image-upload" />
