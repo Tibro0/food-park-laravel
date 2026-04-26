@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Admin\AdminDashboardController;
+use App\Http\Controllers\Api\Admin\DailyOfferController;
 use App\Http\Controllers\Api\Admin\ProfileController;
 use App\Http\Controllers\Api\Admin\SliderController;
 use App\Http\Controllers\Api\Auth\AuthController;
@@ -47,6 +48,17 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
         Route::get('sliders/{id}', 'show');
         Route::post('sliders/{id}', 'update');
         Route::delete('sliders/{id}', 'destroy');
+    });
+
+    // Daily Offer Routes
+    Route::controller(DailyOfferController::class)->group(function () {
+        Route::get('daily-offer', 'index');
+        Route::get('daily-offer/product-search', 'productSearch');
+        Route::post('daily-offer', 'store');
+        Route::get('daily-offer/{id}', 'show');
+        Route::put('daily-offer/{id}', 'update');
+        Route::delete('daily-offer/{id}', 'destroy');
+        Route::put('daily-offer-title', 'dailyOfferTitleUpdate');
     });
 });
 
