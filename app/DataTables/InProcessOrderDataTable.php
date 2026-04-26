@@ -23,42 +23,44 @@ class InProcessOrderDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('user_name', function($query){
+            ->addColumn('user_name', function ($query) {
                 return $query->user?->name;
             })
-            ->addColumn('grand_total', function($query){
-                return $query->grand_total.' '.strtoupper($query->currency_name);
+            ->addColumn('grand_total', function ($query) {
+                return $query->grand_total . ' ' . strtoupper($query->currency_name);
             })
-            ->addColumn('order_status', function($query){
-                if($query->order_status === 'delivered'){
+            ->addColumn('order_status', function ($query) {
+                if ($query->order_status === 'delivered') {
                     return '<span class="badge badge-success">Delivered</span>';
-                }elseif($query->order_status === 'declined'){
+                } elseif ($query->order_status === 'declined') {
                     return '<span class="badge badge-danger">Declined</span>';
-                }else {
-                    return '<span class="badge badge-warning">'.ucfirst($query->order_status).'</span>';
+                } elseif ($query->order_status === 'in_process') {
+                    return '<span class="badge badge-info">In Process</span>';
+                } else {
+                    return '<span class="badge badge-warning">' . ucfirst($query->order_status) . '</span>';
                 }
             })
-            ->addColumn('payment_status', function($query){
-                if(strtoupper($query->payment_status) == 'COMPLETED'){
+            ->addColumn('payment_status', function ($query) {
+                if (strtoupper($query->payment_status) == 'COMPLETED') {
                     return '<span class="badge badge-success">COMPLETED</span>';
-                }elseif(strtoupper($query->payment_status) == 'PENDING'){
+                } elseif (strtoupper($query->payment_status) == 'PENDING') {
                     return '<span class="badge badge-warning">PENDING</span>';
-                }else {
-                    return '<span class="badge badge-danger">'.ucfirst($query->payment_status).'</span>';
+                } else {
+                    return '<span class="badge badge-danger">' . ucfirst($query->payment_status) . '</span>';
                 }
             })
-            ->addColumn('date', function($query){
+            ->addColumn('date', function ($query) {
                 return date('d-m-Y', strtotime($query->created_at));
             })
-            ->addColumn('action', function($query){
+            ->addColumn('action', function ($query) {
 
-                $view = "<a href='".route('admin.orders.show', $query->id)."' class='btn btn-primary'><i class='fas fa-eye'></i></a>";
-                $status = "<a href='javascript:;' class='btn btn-warning ml-2 order_status_btn' data-id='".$query->id."'><i class='fas fa-truck-loading' data-toggle='modal' data-target='#order_modal'></i></a>";
+                $view = "<a href='" . route('admin.orders.show', $query->id) . "' class='btn btn-primary'><i class='fas fa-eye'></i></a>";
+                $status = "<a href='javascript:;' class='btn btn-warning ml-2 order_status_btn' data-id='" . $query->id . "'><i class='fas fa-truck-loading' data-toggle='modal' data-target='#order_modal'></i></a>";
 
-                $delete = "<a href='".route('admin.orders.destroy', $query->id)."' class='btn btn-danger ml-2' id='delete'><i class='fas fa-trash'></i></a>";
+                $delete = "<a href='" . route('admin.orders.destroy', $query->id) . "' class='btn btn-danger ml-2' id='delete'><i class='fas fa-trash'></i></a>";
 
 
-                return $view.$status.$delete;
+                return $view . $status . $delete;
             })
             ->rawColumns(['order_status', 'payment_status', 'date', 'action'])
             ->setRowId('id');
@@ -78,20 +80,20 @@ class InProcessOrderDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('pendingorder-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(0)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+            ->setTableId('pendingorder-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            //->dom('Bfrtip')
+            ->orderBy(0)
+            ->selectStyleSingle()
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('pdf'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            ]);
     }
 
     /**
@@ -109,10 +111,10 @@ class InProcessOrderDataTable extends DataTable
             Column::make('payment_status'),
             Column::make('date'),
             Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(145)
-                  ->addClass('text-center'),
+                ->exportable(false)
+                ->printable(false)
+                ->width(145)
+                ->addClass('text-center'),
         ];
     }
 

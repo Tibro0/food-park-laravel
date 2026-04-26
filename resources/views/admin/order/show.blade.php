@@ -65,9 +65,11 @@
                                     <address>
                                         <strong>Order Status:</strong><br>
                                         @if ($order->order_status === 'delivered')
-                                            <span class="badge badge-success">Delivered</span>';
+                                            <span class="badge badge-success">Delivered</span>
                                         @elseif($order->order_status === 'declined')
-                                            <span class="badge badge-danger">Declined</span>';
+                                            <span class="badge badge-danger">Declined</span>
+                                        @elseif ($order->order_status === 'in_process')
+                                            <span class="badge badge-info">In Process</span>
                                         @else
                                             <span class="badge badge-warning">{{ ucfirst($order->order_status) }}</span>
                                         @endif

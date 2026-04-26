@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Admin\AdminDashboardController;
 use App\Http\Controllers\Api\Admin\DailyOfferController;
+use App\Http\Controllers\Api\Admin\OrderController;
 use App\Http\Controllers\Api\Admin\ProfileController;
 use App\Http\Controllers\Api\Admin\SliderController;
 use App\Http\Controllers\Api\Auth\AuthController;
@@ -59,6 +60,18 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
         Route::put('daily-offer/{id}', 'update');
         Route::delete('daily-offer/{id}', 'destroy');
         Route::put('daily-offer-title', 'dailyOfferTitleUpdate');
+    });
+
+    // Admin Order Routes
+    Route::controller(OrderController::class)->group(function () {
+        Route::get('orders', 'index');
+        Route::get('orders/pending', 'pendingOrderIndex');
+        Route::get('orders/in-process', 'inProcessOrderIndex');
+        Route::get('orders/delivered', 'deliveredOrderIndex');
+        Route::get('orders/declined', 'declinedOrderIndex');
+        Route::get('orders/{id}', 'show');
+        Route::put('orders/status/{id}', 'orderStatusUpdate');
+        Route::delete('orders/{id}', 'destroy');
     });
 });
 
