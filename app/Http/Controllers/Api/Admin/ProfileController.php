@@ -1,31 +1,40 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
-
 
 class ProfileController extends Controller
 {
     public function index()
     {
-        return view('admin.profile.index');
+        return response()->json([
+            'status' => 200,
+            'data' => Auth::user(),
+        ], 200);
     }
 
     public function updateProfile(Request $request)
     {
-        $request->validate([
-            'avatar' => ['nullable', 'image', 'mimes:png', 'max:2048'],
-            'name' => ['required', 'max:255',],
-            'email' => ['required', 'email', 'max:255', 'unique:users,email,' . Auth::user()->id],
+        $validator = Validator::make($request->all(), [
+            'avatar' => 'nullable|image|mimes:png|max:2048',
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . Auth::user()->id,
         ]);
 
-        $oldImage = $request->old_avatar;
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors(),
+            ], 400);
+        }
+
+        $oldImage = Auth::user()->avatar;
         if ($request->file('avatar')) {
             $image = $request->file('avatar');
             $manager = new ImageManager(new Driver());
@@ -45,33 +54,20 @@ class ProfileController extends Controller
                 unlink($oldImage);
             }
 
-            toastr()->success('Updated Successfully');
-            return redirect()->back();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Updated Successfully!',
+            ], 200);
         } else {
             $user = Auth::user();
             $user->name = $request->name;
             $user->email = $request->email;
             $user->save();
 
-            toastr()->success('Updated Successfully');
-            return redirect()->back();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Updated Successfully!',
+            ], 200);
         }
-    }
-
-    public function updatePassword(Request $request)
-    {
-        $request->validate([
-            'current_password' => ['required', 'current_password'],
-            'password' => ['required', 'min:5', 'confirmed']
-        ], [
-            'current_password.current_password' => 'Current Password is invalid!',
-        ]);
-
-        $user = Auth::user();
-        $user->password = Hash::make($request->password);
-        $user->save();
-        toastr()->success('Password Updated Successfully');
-
-        return redirect()->back();
     }
 }

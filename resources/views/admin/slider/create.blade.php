@@ -10,8 +10,9 @@
             <h1>Create Slider</h1>
         </div>
         <div class="card card-primary">
-            <div class="card-header">
+            <div class="card-header justify-content-between">
                 <h4>Create Slider</h4>
+                <a href="{{ route('admin.slider.index') }}" class="btn btn-primary px-5">Back</a>
             </div>
             <div class="card-body">
                 <form action="{{ route('admin.slider.store') }}" method="POST" enctype="multipart/form-data">

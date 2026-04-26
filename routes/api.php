@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Admin\AdminDashboardController;
+use App\Http\Controllers\Api\Admin\ProfileController;
 use App\Http\Controllers\Api\Admin\SliderController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use Illuminate\Http\Request;
@@ -30,6 +31,13 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
     // Admin Dashboard Route
     Route::controller(AdminDashboardController::class)->group(function () {
         Route::get('dashboard', 'index');
+    });
+
+    // Admin Profile Routes
+    Route::controller(ProfileController::class)->group(function () {
+        Route::get('profile', 'index');
+        Route::post('profile', 'updateProfile');
+        Route::post('profile/password', 'updatePassword');
     });
 
     // Admin Slider Routes
