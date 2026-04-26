@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Admin\AdminDashboardController;
+use App\Http\Controllers\Api\Admin\SliderController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,15 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
     // Admin Dashboard Route
     Route::controller(AdminDashboardController::class)->group(function () {
         Route::get('dashboard', 'index');
+    });
+
+    // Admin Slider Routes
+    Route::controller(SliderController::class)->group(function () {
+        Route::get('sliders', 'index');
+        Route::post('sliders', 'store');
+        Route::get('sliders/{id}', 'show');
+        Route::post('sliders/{id}', 'update');
+        Route::delete('sliders/{id}', 'destroy');
     });
 });
 
