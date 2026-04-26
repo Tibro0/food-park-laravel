@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Admin\AdminDashboardController;
+use App\Http\Controllers\Api\Admin\CategoryController;
 use App\Http\Controllers\Api\Admin\DailyOfferController;
 use App\Http\Controllers\Api\Admin\OrderController;
 use App\Http\Controllers\Api\Admin\ProfileController;
@@ -72,6 +73,15 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
         Route::get('orders/{id}', 'show');
         Route::put('orders/status/{id}', 'orderStatusUpdate');
         Route::delete('orders/{id}', 'destroy');
+    });
+
+    // Admin Category Routes
+    Route::controller(CategoryController::class)->group(function () {
+        Route::get('categories', 'index');
+        Route::post('categories', 'store');
+        Route::get('categories/{id}', 'show');
+        Route::put('categories/{id}', 'update');
+        Route::delete('categories/{id}', 'destroy');
     });
 });
 

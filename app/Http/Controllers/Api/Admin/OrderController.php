@@ -14,7 +14,7 @@ class OrderController extends Controller
         $orders = Order::with(['user:id,name'])->orderBy('id', 'DESC')->get();
         return response()->json([
             'status' => 200,
-            'orders' => $orders
+            'data' => $orders
         ], 200);
     }
 
@@ -23,7 +23,7 @@ class OrderController extends Controller
         $orders = Order::with(['user:id,name'])->where('order_status', 'pending')->orderBy('id', 'DESC')->get();
         return response()->json([
             'status' => 200,
-            'orders' => $orders
+            'data' => $orders
         ], 200);
     }
 
@@ -32,7 +32,7 @@ class OrderController extends Controller
         $orders = Order::with(['user:id,name'])->where('order_status', 'in_process')->orderBy('id', 'DESC')->get();
         return response()->json([
             'status' => 200,
-            'orders' => $orders
+            'data' => $orders
         ], 200);
     }
 
@@ -41,7 +41,7 @@ class OrderController extends Controller
         $orders = Order::with(['user:id,name'])->where('order_status', 'delivered')->orderBy('id', 'DESC')->get();
         return response()->json([
             'status' => 200,
-            'orders' => $orders
+            'data' => $orders
         ], 200);
     }
 
@@ -50,7 +50,7 @@ class OrderController extends Controller
         $orders = Order::with(['user:id,name'])->where('order_status', 'declined')->orderBy('id', 'DESC')->get();
         return response()->json([
             'status' => 200,
-            'orders' => $orders
+            'data' => $orders
         ], 200);
     }
 
@@ -67,7 +67,7 @@ class OrderController extends Controller
 
         return response()->json([
             'status' => 200,
-            'order' => $order
+            'data' => $order
         ], 200);
     }
 
