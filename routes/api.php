@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\Admin\CategoryController;
 use App\Http\Controllers\Api\Admin\DailyOfferController;
 use App\Http\Controllers\Api\Admin\OrderController;
 use App\Http\Controllers\Api\Admin\ProductController;
+use App\Http\Controllers\Api\Admin\ProductGalleryController;
 use App\Http\Controllers\Api\Admin\ProfileController;
 use App\Http\Controllers\Api\Admin\SliderController;
 use App\Http\Controllers\Api\Auth\AuthController;
@@ -92,6 +93,13 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
         Route::get('products/{id}', 'show');
         Route::post('products/{id}', 'update');
         Route::delete('products/{id}', 'destroy');
+    });
+
+    // Admin Product Gallery Routes
+    Route::controller(ProductGalleryController::class)->group(function () {
+        Route::get('products/gallery/{productId}', 'index');
+        Route::post('products-gallery', 'store');
+        Route::delete('products/gallery/{id}', 'destroy');
     });
 });
 

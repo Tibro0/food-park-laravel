@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductGallery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
-
 
 class ProductGalleryController extends Controller
 {
@@ -18,8 +18,22 @@ class ProductGalleryController extends Controller
     public function index(string $productId)
     {
         $images = ProductGallery::where('product_id', $productId)->get();
-        $product = Product::findOrFail($productId);
-        return view('admin.product.gallery.index', compact('product', 'images'));
+        $product = Product::find($productId)->only(['id', 'name']);
+
+        if ($product == null) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Product not found'
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 200,
+            'data' => [
+                'product' => $product,
+                'images' => $images
+            ]
+        ], 200);
     }
 
     /**
@@ -27,10 +41,17 @@ class ProductGalleryController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'image' => ['required', 'image', 'max:2048', 'mimes:png'],
-            'product_id' => ['required', 'integer']
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|image|max:2048|mimes:png',
+            'product_id' => 'required|integer',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors(),
+            ], 400);
+        }
 
         if ($request->file('image')) {
             $image = $request->file('image');
@@ -47,8 +68,10 @@ class ProductGalleryController extends Controller
             $gallery->save();
         }
 
-        toastr()->success('Created Successfully!');
-        return redirect()->back();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Created Successfully!',
+        ], 200);
     }
 
     /**
@@ -56,7 +79,14 @@ class ProductGalleryController extends Controller
      */
     public function destroy(string $id)
     {
-        $image = ProductGallery::findOrFail($id);
+        $image = ProductGallery::find($id);
+
+        if ($image == null) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Image Not Found!'
+            ], 404);
+        }
 
         $defaultImages = [
             'frontend/images/menu4.png',
@@ -73,6 +103,10 @@ class ProductGalleryController extends Controller
         }
 
         $image->delete();
-        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Deleted Successfully!'
+        ], 200);
     }
 }
