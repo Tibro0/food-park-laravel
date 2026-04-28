@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\Admin\DailyOfferController;
 use App\Http\Controllers\Api\Admin\OrderController;
 use App\Http\Controllers\Api\Admin\ProductController;
 use App\Http\Controllers\Api\Admin\ProductGalleryController;
+use App\Http\Controllers\Api\Admin\ProductOptionController;
+use App\Http\Controllers\Api\Admin\ProductSizeController;
 use App\Http\Controllers\Api\Admin\ProfileController;
 use App\Http\Controllers\Api\Admin\SliderController;
 use App\Http\Controllers\Api\Auth\AuthController;
@@ -100,6 +102,19 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
         Route::get('products/gallery/{productId}', 'index');
         Route::post('products-gallery', 'store');
         Route::delete('products/gallery/{id}', 'destroy');
+    });
+
+    // Admin Product Size Routes
+    Route::controller(ProductSizeController::class)->group(function () {
+        Route::get('products/sizes/{productId}', 'index');
+        Route::post('products-sizes', 'store');
+        Route::delete('products/sizes/{id}', 'destroy');
+    });
+
+    // Admin Product Option Routes
+    Route::controller(ProductOptionController::class)->group(function () {
+        Route::post('products-options', 'store');
+        Route::delete('products/options/{id}', 'destroy');
     });
 });
 
