@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Admin\OrderController;
 use App\Http\Controllers\Api\Admin\ProductController;
 use App\Http\Controllers\Api\Admin\ProductGalleryController;
 use App\Http\Controllers\Api\Admin\ProductOptionController;
+use App\Http\Controllers\Api\Admin\ProductReviewController;
 use App\Http\Controllers\Api\Admin\ProductSizeController;
 use App\Http\Controllers\Api\Admin\ProfileController;
 use App\Http\Controllers\Api\Admin\SliderController;
@@ -115,6 +116,13 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
     Route::controller(ProductOptionController::class)->group(function () {
         Route::post('products-options', 'store');
         Route::delete('products/options/{id}', 'destroy');
+    });
+
+    // Product Review Routes
+    Route::controller(ProductReviewController::class)->group(function () {
+        Route::get('product-reviews', 'index');
+        Route::post('product-reviews-status/{id}', 'updateStatus');
+        Route::delete('product-reviews/{id}', 'destroy');
     });
 });
 
