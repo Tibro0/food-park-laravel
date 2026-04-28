@@ -17,8 +17,9 @@
         </div>
 
         <div class="card card-primary">
-            <div class="card-header">
+            <div class="card-header justify-content-between">
                 <h4>Update Product</h4>
+                <a href="{{ route('admin.product.index') }}" class="btn btn-primary px-5">Back</a>
             </div>
             <div class="card-body">
                 <form action="{{ route('admin.product.update', $product->id) }}" method="POST"
@@ -38,7 +39,8 @@
                     </div>
                     <div class="form-group">
                         <label>Name <span class="text-danger">*</span></label>
-                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ $product->name ?? old('name') }}">
+                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                            value="{{ $product->name ?? old('name') }}">
                         @error('name')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -58,21 +60,25 @@
                     </div>
                     <div class="form-group">
                         <label>Price <span class="text-danger">*</span></label>
-                        <input type="text" name="price" class="form-control @error('price') is-invalid @enderror" value="{{ $product->price ?? old('price') }}">
+                        <input type="text" name="price" class="form-control @error('price') is-invalid @enderror"
+                            value="{{ $product->price ?? old('price') }}">
                         @error('price')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label>Offer Price</label>
-                        <input type="text" name="offer_price" class="form-control @error('offer_price') is-invalid @enderror" value="{{ $product->offer_price ?? old('offer_price') }}">
+                        <input type="text" name="offer_price"
+                            class="form-control @error('offer_price') is-invalid @enderror"
+                            value="{{ $product->offer_price ?? old('offer_price') }}">
                         @error('offer_price')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label>Quantity <span class="text-danger">*</span></label>
-                        <input type="text" name="quantity" class="form-control @error('quantity') is-invalid @enderror" value="{{ $product->quantity ?? old('quantity') }}">
+                        <input type="text" name="quantity" class="form-control @error('quantity') is-invalid @enderror"
+                            value="{{ $product->quantity ?? old('quantity') }}">
                         @error('quantity')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -93,14 +99,16 @@
                     </div>
                     <div class="form-group">
                         <label>Sku</label>
-                        <input type="text" name="sku" class="form-control @error('sku') is-invalid @enderror" value="{{ $product->sku ?? old('sku') }}">
+                        <input type="text" name="sku" class="form-control @error('sku') is-invalid @enderror"
+                            value="{{ $product->sku ?? old('sku') }}">
                         @error('sku')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label>Seo Title</label>
-                        <input type="text" name="seo_title" class="form-control @error('seo_title') is-invalid @enderror" value="{{ $product->seo_title ?? old('seo_title') }}">
+                        <input type="text" name="seo_title" class="form-control @error('seo_title') is-invalid @enderror"
+                            value="{{ $product->seo_title ?? old('seo_title') }}">
                         @error('seo_title')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
