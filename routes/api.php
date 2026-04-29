@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\Admin\AdminDashboardController;
 use App\Http\Controllers\Api\Admin\CategoryController;
 use App\Http\Controllers\Api\Admin\CouponController;
 use App\Http\Controllers\Api\Admin\DailyOfferController;
+use App\Http\Controllers\Api\Admin\DeliveryAreaController;
 use App\Http\Controllers\Api\Admin\OrderController;
 use App\Http\Controllers\Api\Admin\ProductController;
 use App\Http\Controllers\Api\Admin\ProductGalleryController;
@@ -133,6 +134,15 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
         Route::get('coupons/{id}', 'show');
         Route::put('coupons/{id}', 'update');
         Route::delete('coupons/{id}', 'destroy');
+    });
+
+    // Delivery Area Routes
+    Route::controller(DeliveryAreaController::class)->group(function () {
+        Route::get('delivery-areas', 'index');
+        Route::post('delivery-areas', 'store');
+        Route::get('delivery-areas/{id}', 'show');
+        Route::put('delivery-areas/{id}', 'update');
+        Route::delete('delivery-areas/{id}', 'destroy');
     });
 });
 
