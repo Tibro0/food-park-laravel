@@ -11,9 +11,9 @@
         </div>
 
         <div class="card card-primary">
-            <div class="card-header">
+            <div class="card-header justify-content-between">
                 <h4>Update Coupon</h4>
-
+                <a href="{{ route('admin.coupon.index') }}" class="btn btn-primary px-5">Back</a>
             </div>
             <div class="card-body">
                 <form action="{{ route('admin.coupon.update', $coupon->id) }}" method="POST" enctype="multipart/form-data">
@@ -58,7 +58,9 @@
 
                     <div class="form-group">
                         <label>Expire Date <span class="text-danger">*</span></label>
-                        <input type="date" name="expire_date" class="form-control @error('expire_date') is-invalid @enderror" value="{{ $coupon->expire_date ?? old('expire_date') }}">
+                        <input type="date" name="expire_date"
+                            class="form-control @error('expire_date') is-invalid @enderror"
+                            value="{{ $coupon->expire_date ?? old('expire_date') }}">
                         @error('expire_date')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -78,7 +80,8 @@
 
                     <div class="form-group">
                         <label>Discount Amount <span class="text-danger">*</span></label>
-                        <input type="text" name="discount" class="form-control @error('discount') is-invalid @enderror" value="{{ $coupon->discount ?? old('discount') }}">
+                        <input type="text" name="discount" class="form-control @error('discount') is-invalid @enderror"
+                            value="{{ $coupon->discount ?? old('discount') }}">
                         @error('discount')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

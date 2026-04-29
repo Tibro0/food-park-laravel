@@ -11,13 +11,13 @@
         </div>
 
         <div class="card card-primary">
-            <div class="card-header">
+            <div class="card-header justify-content-between">
                 <h4>Create Coupon</h4>
+                <a href="{{ route('admin.coupon.index') }}" class="btn btn-primary px-5">Back</a>
             </div>
             <div class="card-body">
                 <form action="{{ route('admin.coupon.store') }}" method="POST">
                     @csrf
-
                     <div class="form-group">
                         <label>Name <span class="text-danger">*</span></label>
                         <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"

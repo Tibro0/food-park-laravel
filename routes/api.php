@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Admin\AdminDashboardController;
 use App\Http\Controllers\Api\Admin\CategoryController;
+use App\Http\Controllers\Api\Admin\CouponController;
 use App\Http\Controllers\Api\Admin\DailyOfferController;
 use App\Http\Controllers\Api\Admin\OrderController;
 use App\Http\Controllers\Api\Admin\ProductController;
@@ -123,6 +124,15 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
         Route::get('product-reviews', 'index');
         Route::post('product-reviews-status/{id}', 'updateStatus');
         Route::delete('product-reviews/{id}', 'destroy');
+    });
+
+    // Coupon Routes
+    Route::controller(CouponController::class)->group(function () {
+        Route::get('coupons', 'index');
+        Route::post('coupons', 'store');
+        Route::get('coupons/{id}', 'show');
+        Route::put('coupons/{id}', 'update');
+        Route::delete('coupons/{id}', 'destroy');
     });
 });
 

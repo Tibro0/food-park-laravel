@@ -36,7 +36,7 @@ class CouponController extends Controller
             'quantity' => ['required', 'integer'],
             'min_purchase_amount' => ['required', 'integer'],
             'expire_date' => ['required', 'date'],
-            'discount_type' => ['required'],
+            'discount_type' => ['required', 'in:percent,amount'],
             'discount' => ['required'],
             'status' => ['required', 'boolean']
         ]);
@@ -76,7 +76,7 @@ class CouponController extends Controller
             'quantity' => ['required', 'integer'],
             'min_purchase_amount' => ['required', 'integer'],
             'expire_date' => ['required', 'date'],
-            'discount_type' => ['required'],
+            'discount_type' => ['required', 'in:percent,amount'],
             'discount' => ['required'],
             'status' => ['required', 'boolean']
         ]);
