@@ -34,7 +34,7 @@ class PaymentGatewaySettingController extends Controller
         $oldImage = $request->old_paypal_logo_image;
         if ($request->file('paypal_logo')) {
             $request->validate([
-                'paypal_logo' => ['nullable', 'image']
+                'paypal_logo' => ['nullable', 'image', 'max:2048', 'mimes:png']
             ]);
 
             $image = $request->file('paypal_logo');

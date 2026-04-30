@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Admin\CouponController;
 use App\Http\Controllers\Api\Admin\DailyOfferController;
 use App\Http\Controllers\Api\Admin\DeliveryAreaController;
 use App\Http\Controllers\Api\Admin\OrderController;
+use App\Http\Controllers\Api\Admin\PaymentGatewaySettingController;
 use App\Http\Controllers\Api\Admin\ProductController;
 use App\Http\Controllers\Api\Admin\ProductGalleryController;
 use App\Http\Controllers\Api\Admin\ProductOptionController;
@@ -143,6 +144,12 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
         Route::get('delivery-areas/{id}', 'show');
         Route::put('delivery-areas/{id}', 'update');
         Route::delete('delivery-areas/{id}', 'destroy');
+    });
+
+    // Payment Gateway Setting Routes
+    Route::controller(PaymentGatewaySettingController::class)->group(function () {
+        Route::get('payment-gateway-setting', 'index');
+        Route::post('payment-gateway-setting/paypal', 'paypalSettingUpdate');
     });
 });
 
