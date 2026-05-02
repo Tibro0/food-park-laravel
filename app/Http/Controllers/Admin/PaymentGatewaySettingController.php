@@ -83,7 +83,7 @@ class PaymentGatewaySettingController extends Controller
         $oldImage = $request->old_stripe_logo_image;
         if ($request->file('stripe_logo')) {
             $request->validate([
-                'stripe_logo' => ['nullable', 'image']
+                'stripe_logo' => ['nullable', 'image', 'max:2048', 'mimes:png']
             ]);
 
             $image = $request->file('stripe_logo');
@@ -132,7 +132,7 @@ class PaymentGatewaySettingController extends Controller
         $oldImage = $request->old_razorpay_logo_image;
         if ($request->file('razorpay_logo')) {
             $request->validate([
-                'razorpay_logo' => ['nullable', 'image']
+                'razorpay_logo' => ['nullable', 'image', 'max:2048', 'mimes:png']
             ]);
 
             $image = $request->file('razorpay_logo');

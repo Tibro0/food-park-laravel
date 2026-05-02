@@ -1,4 +1,5 @@
-<div class="tab-pane fade {{ Session::has('payment_gateway_list_style') && Session::get('payment_gateway_list_style') == 'section_two' ? 'show active' : '' }}" id="stripe-setting" role="tabpanel" aria-labelledby="home-tab4">
+<div class="tab-pane fade {{ Session::has('payment_gateway_list_style') && Session::get('payment_gateway_list_style') == 'section_two' ? 'show active' : '' }}"
+    id="stripe-setting" role="tabpanel" aria-labelledby="home-tab4">
     <div class="card">
         <div class="card-body border">
             <form action="{{ route('admin.stripe-setting.update') }}" method="POST" enctype="multipart/form-data">
@@ -44,7 +45,8 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>Currency Rate ( Per {{ config('settings.site_default_currency') }} ) <span class="text-danger">*</span></label>
+                    <label>Currency Rate ( Per {{ config('settings.site_default_currency') }} ) <span
+                            class="text-danger">*</span></label>
                     <input name="stripe_rate" type="text"
                         class="form-control @error('stripe_rate') is-invalid @enderror"
                         value="{{ @$paymentGateway['stripe_rate'] ?? old('stripe_rate') }}">
@@ -71,7 +73,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>Stripe Logo</label>
+                    <label>Stripe Logo <span class="text-danger">(2MB Maximum) PNG</span></label>
                     <div id="image-preview-2" class="image-preview stripe-preview">
                         <label for="image-upload-2" id="image-label-2">Choose File</label>
                         <input type="file" name="stripe_logo" id="image-upload-2" />

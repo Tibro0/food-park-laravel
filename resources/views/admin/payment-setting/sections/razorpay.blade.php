@@ -73,7 +73,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>Razorpay Logo</label>
+                    <label>Razorpay Logo <span class="text-danger">(2MB Maximum) PNG</span></label>
                     <div id="image-preview-3" class="image-preview razorpay-preview">
                         <label for="image-upload-3" id="image-label-3">Choose File</label>
                         <input type="file" name="razorpay_logo" id="image-upload-3" />
