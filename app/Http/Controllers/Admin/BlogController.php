@@ -183,28 +183,4 @@ class BlogController extends Controller
         $blog->delete();
         return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
-
-    public function blogComment(BlogCommentDataTable $dataTable)
-    {
-        return $dataTable->render('admin.blog.blog-comment.index');
-    }
-
-    public function commentStatusUpdate(string $id)
-    {
-        $comment = BlogComment::findOrFail($id);
-
-        $comment->status = !$comment->status;
-        $comment->save();
-
-        toastr()->success('Updated Successfully');
-        return redirect()->back();
-    }
-
-    public function commentDestroy(string $id)
-    {
-        $comment = BlogComment::findOrFail($id);
-        $comment->delete();
-
-        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
-    }
 }

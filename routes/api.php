@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Admin\AdminDashboardController;
 use App\Http\Controllers\Api\Admin\BlogCategoryController;
+use App\Http\Controllers\Api\Admin\BlogCommentController;
 use App\Http\Controllers\Api\Admin\BlogController;
 use App\Http\Controllers\Api\Admin\CategoryController;
 use App\Http\Controllers\Api\Admin\CouponController;
@@ -190,6 +191,13 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
         Route::get('blog/{id}', 'show');
         Route::post('blog/{id}', 'update');
         Route::delete('blog/{id}', 'destroy');
+    });
+
+    // Blog Comment
+    Route::controller(BlogCommentController::class)->group(function () {
+        Route::get('blogs/comments', 'index');
+        Route::put('blogs/comments/status-change/{id}', 'statusChange');
+        Route::delete('blogs/comments/{id}', 'destroy');
     });
 });
 

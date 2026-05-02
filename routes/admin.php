@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminManagementController;
 use App\Http\Controllers\Admin\AppDownloadSectionController;
 use App\Http\Controllers\Admin\BannerSliderController;
 use App\Http\Controllers\Admin\BlogCategoryController;
+use App\Http\Controllers\Admin\BlogCommentController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChefController;
@@ -139,10 +140,10 @@ Route::controller(CounterController::class)->group(function () {
 Route::resource('blog-category', BlogCategoryController::class);
 
 /** Blog Comment */
-Route::controller(BlogController::class)->group(function () {
-    Route::get('blogs/comments', 'blogComment')->name('blogs.comments.index');
-    Route::get('blogs/comments/{id}', 'commentStatusUpdate')->name('blogs.comments.update');
-    Route::delete('blogs/comments/{id}', 'commentDestroy')->name('blogs.comments.destroy');
+Route::controller(BlogCommentController::class)->group(function () {
+    Route::get('blogs/comments', 'index')->name('blogs.comments.index');
+    Route::get('blogs/comments/{id}', 'updateStatus')->name('blogs.comments.update');
+    Route::delete('blogs/comments/{id}', 'destroy')->name('blogs.comments.destroy');
 });
 
 /** Blogs Routes */
