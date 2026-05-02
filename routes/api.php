@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Admin\AdminDashboardController;
+use App\Http\Controllers\Api\Admin\BlogCategoryController;
 use App\Http\Controllers\Api\Admin\CategoryController;
 use App\Http\Controllers\Api\Admin\CouponController;
 use App\Http\Controllers\Api\Admin\DailyOfferController;
@@ -170,6 +171,15 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
         Route::get('reservations', 'index');
         Route::put('reservations/{id}', 'update');
         Route::delete('reservations/{id}', 'destroy');
+    });
+
+    // Blog Category Routes
+    Route::controller(BlogCategoryController::class)->group(function () {
+        Route::get('blog-categories', 'index');
+        Route::post('blog-categories', 'store');
+        Route::get('blog-categories/{id}', 'show');
+        Route::put('blog-categories/{id}', 'update');
+        Route::delete('blog-categories/{id}', 'destroy');
     });
 });
 
