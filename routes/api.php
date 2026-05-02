@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Admin\AdminDashboardController;
 use App\Http\Controllers\Api\Admin\BlogCategoryController;
+use App\Http\Controllers\Api\Admin\BlogController;
 use App\Http\Controllers\Api\Admin\CategoryController;
 use App\Http\Controllers\Api\Admin\CouponController;
 use App\Http\Controllers\Api\Admin\DailyOfferController;
@@ -180,6 +181,15 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
         Route::get('blog-categories/{id}', 'show');
         Route::put('blog-categories/{id}', 'update');
         Route::delete('blog-categories/{id}', 'destroy');
+    });
+
+    // Blog Routes
+    Route::controller(BlogController::class)->group(function () {
+        Route::get('blog', 'index');
+        Route::post('blog', 'store');
+        Route::get('blog/{id}', 'show');
+        Route::post('blog/{id}', 'update');
+        Route::delete('blog/{id}', 'destroy');
     });
 });
 

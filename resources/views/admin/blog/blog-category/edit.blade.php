@@ -10,8 +10,9 @@
             <h1>Update Blog Categories</h1>
         </div>
         <div class="card card-primary">
-            <div class="card-header">
+            <div class="card-header justify-content-between">
                 <h4>Update Blog Category</h4>
+                <a href="{{ route('admin.blog-category.index') }}" class="btn btn-primary px-5">Back</a>
             </div>
             <div class="card-body">
                 <form action="{{ route('admin.blog-category.update', $category->id) }}" method="POST">

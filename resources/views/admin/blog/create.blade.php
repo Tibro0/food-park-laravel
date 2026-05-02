@@ -16,8 +16,9 @@
             <h1>Create Blog</h1>
         </div>
         <div class="card card-primary">
-            <div class="card-header">
+            <div class="card-header justify-content-between">
                 <h4>Create Blog</h4>
+                <a href="{{ route('admin.blogs.index') }}" class="btn btn-primary px-5">Back</a>
             </div>
             <div class="card-body">
                 <form action="{{ route('admin.blogs.store') }}" method="POST" enctype="multipart/form-data">
@@ -90,7 +91,6 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-
                     <button type="submit" class="btn btn-primary">Create</button>
                 </form>
             </div>

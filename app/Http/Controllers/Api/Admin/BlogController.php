@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api\Admin;
 
-use App\DataTables\BlogCommentDataTable;
-use App\DataTables\BlogDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
-use App\Models\BlogCategory;
 use App\Models\BlogComment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Str;
@@ -19,9 +17,13 @@ class BlogController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(BlogDataTable $dataTable)
+    public function index()
     {
-        return $dataTable->render('admin.blog.index');
+        $blogs = Blog::with('category:id,name')->orderBy('id', 'DESC')->get();
+        return response()->json([
+            'status' => 200,
+            'data' => $blogs
+        ], 200);
     }
 
     /**
@@ -29,8 +31,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        $categories = BlogCategory::all();
-        return view('admin.blog.create', compact('categories'));
+        //
     }
 
     /**
@@ -38,20 +39,28 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(
+        $validator = Validator::make(
+            $request->all(),
             [
-                'image' => ['required', 'image', 'max:2048', 'mimes:png'],
-                'title' => ['required', 'max:255', 'unique:blogs,title'],
-                'category' => ['required'],
-                'description' => ['required'],
-                'seo_title' => ['nullable', 'max:255'],
-                'seo_description' => ['nullable', 'max:255'],
-                'status' => ['required', 'boolean']
+                'image' => 'required|image|max:2048|mimes:png',
+                'title' => 'required|max:255|unique:blogs,title',
+                'category' => 'required|integer',
+                'description' => 'required',
+                'seo_title' => 'nullable|max:255',
+                'seo_description' => 'nullable|max:255',
+                'status' => 'required|boolean',
             ],
             [
                 'category.required' => 'Please Select a Category'
             ]
         );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors(),
+            ], 400);
+        }
 
         if ($request->file('image')) {
             $image = $request->file('image');
@@ -74,9 +83,31 @@ class BlogController extends Controller
             $blog->status = $request->status;
             $blog->save();
 
-            toastr()->success('Created Successfully');
-            return redirect()->route('admin.blogs.index');
+            return response()->json([
+                'status' => 200,
+                'message' => 'Created Successfully!'
+            ], 200);
         }
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $blog = Blog::with('category:id,name')->find($id);
+
+        if ($blog == null) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Blog Not Found!'
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 200,
+            'data' => $blog
+        ], 200);
     }
 
     /**
@@ -84,9 +115,7 @@ class BlogController extends Controller
      */
     public function edit(string $id)
     {
-        $blog = Blog::findOrFail($id);
-        $categories = BlogCategory::all();
-        return view('admin.blog.edit', compact('blog', 'categories'));
+        //
     }
 
     /**
@@ -94,22 +123,39 @@ class BlogController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate(
+        $blog = Blog::with('category:id,name')->find($id);
+
+        if ($blog == null) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Blog Not Found!'
+            ], 404);
+        }
+
+        $validator = Validator::make(
+            $request->all(),
             [
-                'image' => ['nullable', 'image', 'max:2048', 'mimes:png'],
-                'title' => ['required', 'max:255', 'unique:blogs,title,' . $id],
-                'category' => ['required'],
-                'description' => ['required'],
-                'seo_title' => ['nullable', 'max:255'],
-                'seo_description' => ['nullable', 'max:255'],
-                'status' => ['required', 'boolean']
+                'image' => 'nullable|image|max:2048|mimes:png',
+                'title' => 'required|max:255|unique:blogs,title,' . $id,
+                'category' => 'required|integer',
+                'description' => 'required',
+                'seo_title' => 'nullable|max:255',
+                'seo_description' => 'nullable|max:255',
+                'status' => 'required|boolean',
             ],
             [
                 'category.required' => 'Please Select a Category'
             ]
         );
 
-        $oldImage = $request->old_image;
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors(),
+            ], 400);
+        }
+
+        $oldImage = $blog->image;
         if ($request->file('image')) {
             $image = $request->file('image');
             $manager = new ImageManager(new Driver());
@@ -119,7 +165,7 @@ class BlogController extends Controller
             $img->toPng()->save(base_path('public/uploads/blog_image/' . $name_gen));
             $save_url = 'uploads/blog_image/' . $name_gen;
 
-            $blog = Blog::findOrFail($id);
+
             $blog->image = $save_url;
             $blog->title = $request->title;
             $blog->slug = Str::slug($request->title);
@@ -140,10 +186,11 @@ class BlogController extends Controller
                 unlink($oldImage);
             }
 
-            toastr()->success('Updated Successfully');
-            return redirect()->route('admin.blogs.index');
+            return response()->json([
+                'status' => 200,
+                'message' => 'Updated Successfully!'
+            ], 200);
         } else {
-            $blog = Blog::findOrFail($id);
             $blog->title = $request->title;
             $blog->slug = Str::slug($request->title);
             $blog->category_id = $request->category;
@@ -153,8 +200,10 @@ class BlogController extends Controller
             $blog->status = $request->status;
             $blog->save();
 
-            toastr()->success('Updated Successfully');
-            return redirect()->route('admin.blogs.index');
+            return response()->json([
+                'status' => 200,
+                'message' => 'Updated Successfully!'
+            ], 200);
         }
     }
 
@@ -163,11 +212,21 @@ class BlogController extends Controller
      */
     public function destroy(string $id)
     {
-        $blog = Blog::findOrFail($id);
+        $blog = Blog::find($id);
+
+        if ($blog == null) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Blog Not Found!'
+            ], 404);
+        }
 
         $blogComments = BlogComment::where(['blog_id' => $blog->id])->count();
         if ($blogComments) {
-            return response(['status' => 'error', 'message' => 'This Blog Have Some Blog Comments you cant Delete It.']);
+            return response()->json([
+                'status' => 403,
+                'message' => 'This Blog Have Some Blog Comments you cant Delete It.'
+            ], 403);
         }
 
         $defaultImages = [
@@ -181,30 +240,9 @@ class BlogController extends Controller
         }
 
         $blog->delete();
-        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
-    }
-
-    public function blogComment(BlogCommentDataTable $dataTable)
-    {
-        return $dataTable->render('admin.blog.blog-comment.index');
-    }
-
-    public function commentStatusUpdate(string $id)
-    {
-        $comment = BlogComment::findOrFail($id);
-
-        $comment->status = !$comment->status;
-        $comment->save();
-
-        toastr()->success('Updated Successfully');
-        return redirect()->back();
-    }
-
-    public function commentDestroy(string $id)
-    {
-        $comment = BlogComment::findOrFail($id);
-        $comment->delete();
-
-        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
+        return response()->json([
+            'status' => 200,
+            'message' => 'Deleted Successfully!'
+        ], 200);
     }
 }
