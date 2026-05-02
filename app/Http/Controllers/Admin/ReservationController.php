@@ -17,6 +17,11 @@ class ReservationController extends Controller
     public function update(Request $request)
     {
         $reservation = Reservation::findOrFail($request->id);
+
+        $request->validate([
+            'status' => 'required|in:pending,approved,complete,cancel',
+        ]);
+
         $reservation->status = $request->status;
         $reservation->save();
 

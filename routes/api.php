@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\Admin\ProductOptionController;
 use App\Http\Controllers\Api\Admin\ProductReviewController;
 use App\Http\Controllers\Api\Admin\ProductSizeController;
 use App\Http\Controllers\Api\Admin\ProfileController;
+use App\Http\Controllers\Api\Admin\ReservationController;
 use App\Http\Controllers\Api\Admin\ReservationTimeController;
 use App\Http\Controllers\Api\Admin\SliderController;
 use App\Http\Controllers\Api\Auth\AuthController;
@@ -162,6 +163,13 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
         Route::get('reservation-times/{id}', 'show');
         Route::put('reservation-times/{id}', 'update');
         Route::delete('reservation-times/{id}', 'destroy');
+    });
+
+    // Reservation Routes
+    Route::controller(ReservationController::class)->group(function () {
+        Route::get('reservations', 'index');
+        Route::put('reservations/{id}', 'update');
+        Route::delete('reservations/{id}', 'destroy');
     });
 });
 
