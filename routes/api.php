@@ -150,6 +150,7 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
     Route::controller(PaymentGatewaySettingController::class)->group(function () {
         Route::get('payment-gateway-setting', 'index');
         Route::post('payment-gateway-setting/paypal', 'paypalSettingUpdate');
+        Route::post('payment-gateway-setting/stripe', 'stripeSettingUpdate');
     });
 });
 

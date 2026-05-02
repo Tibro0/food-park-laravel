@@ -81,4 +81,63 @@ class PaymentGatewaySettingController extends Controller
             'message' => 'Updated Successfully!'
         ], 200);
     }
+
+    public function stripeSettingUpdate(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'stripe_status' => 'required|boolean',
+            'stripe_country' => 'required',
+            'stripe_currency' => 'required',
+            'stripe_rate' => 'required|numeric',
+            'stripe_api_key' => 'required',
+            'stripe_secret_key' => 'required',
+            'stripe_logo' => 'nullable|image|max:2048|mimes:png',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors()
+            ], 400);
+        }
+
+        $validatedData = $validator->validated();
+
+
+        if ($request->hasFile('stripe_logo')) {
+            $oldLogoEntry = PaymentGatewaySetting::where('key', 'stripe_logo')->first();
+            $oldImagePath = $oldLogoEntry ? $oldLogoEntry->value : null;
+
+            $image = $request->file('stripe_logo');
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+            $manager = new ImageManager(new Driver());
+            $img = $manager->read($image);
+            $img = $img->resize(114, 60);
+            $save_path = public_path('uploads/payment_gateway_logo_image/' . $name_gen);
+            $img->save($save_path, quality: 80);
+            $save_url = 'uploads/payment_gateway_logo_image/' . $name_gen;
+            $validatedData['stripe_logo'] = $save_url;
+
+            $defaultImages = ['frontend/images/pay_7.png'];
+            if ($oldImagePath && !in_array($oldImagePath, $defaultImages) && file_exists(public_path($oldImagePath))) {
+                unlink(public_path($oldImagePath));
+            }
+        }
+
+        foreach ($validatedData as $key => $value) {
+            PaymentGatewaySetting::updateOrCreate(
+                ['key' => $key],
+                ['value' => $value]
+            );
+        }
+
+
+        $settingsService = app(PaymentGatewaySettingService::class);
+        $settingsService->clearCachedSettings();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Updated Successfully!'
+        ], 200);
+    }
 }
