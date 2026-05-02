@@ -39,6 +39,7 @@ class ReservationTimeController extends Controller
         $time = new ReservationTime();
         $time->start_time = $request->start_time;
         $time->end_time = $request->end_time;
+        $time->status = $request->status;
         $time->save();
 
         toastr()->success('Created Successfully!');
@@ -68,9 +69,10 @@ class ReservationTimeController extends Controller
         $time = ReservationTime::findOrFail($id);
         $time->start_time = $request->start_time;
         $time->end_time = $request->end_time;
+        $time->status = $request->status;
         $time->save();
 
-        toastr()->success('Created Successfully!');
+        toastr()->success('Updated Successfully!');
         return redirect()->route('admin.reservation-time.index');
     }
 

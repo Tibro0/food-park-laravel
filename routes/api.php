@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\Admin\ProductOptionController;
 use App\Http\Controllers\Api\Admin\ProductReviewController;
 use App\Http\Controllers\Api\Admin\ProductSizeController;
 use App\Http\Controllers\Api\Admin\ProfileController;
+use App\Http\Controllers\Api\Admin\ReservationTimeController;
 use App\Http\Controllers\Api\Admin\SliderController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use Illuminate\Http\Request;
@@ -152,6 +153,15 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
         Route::post('payment-gateway-setting/paypal', 'paypalSettingUpdate');
         Route::post('payment-gateway-setting/stripe', 'stripeSettingUpdate');
         Route::post('payment-gateway-setting/razorpay', 'razorpaySettingUpdate');
+    });
+
+    // Reservation Time Routes
+    Route::controller(ReservationTimeController::class)->group(function () {
+        Route::get('reservation-times', 'index');
+        Route::post('reservation-times', 'store');
+        Route::get('reservation-times/{id}', 'show');
+        Route::put('reservation-times/{id}', 'update');
+        Route::delete('reservation-times/{id}', 'destroy');
     });
 });
 
