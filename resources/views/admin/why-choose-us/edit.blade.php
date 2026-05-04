@@ -13,8 +13,9 @@
         </div>
 
         <div class="card card-primary">
-            <div class="card-header">
+            <div class="card-header justify-content-between">
                 <h4>Update Why Choose Us Section</h4>
+                <a href="{{ route('admin.why-choose-us.index') }}" class="btn btn-primary px-5">Back</a>
             </div>
             <div class="card-body">
                 <form action="{{ route('admin.why-choose-us.update', $whyChooseUs->id) }}" method="POST">
@@ -54,7 +55,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <button type="submit" class="btn btn-primary">Create</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </form>
             </div>
         </div>

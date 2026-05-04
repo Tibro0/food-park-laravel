@@ -19,6 +19,7 @@ use App\Http\Controllers\Api\Admin\ProfileController;
 use App\Http\Controllers\Api\Admin\ReservationController;
 use App\Http\Controllers\Api\Admin\ReservationTimeController;
 use App\Http\Controllers\Api\Admin\SliderController;
+use App\Http\Controllers\Api\Admin\WhyChooseUsController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -193,11 +194,21 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
         Route::delete('blog/{id}', 'destroy');
     });
 
-    // Blog Comment
+    // Blog Comment Routes
     Route::controller(BlogCommentController::class)->group(function () {
         Route::get('blogs/comments', 'index');
         Route::put('blogs/comments/status-change/{id}', 'statusChange');
         Route::delete('blogs/comments/{id}', 'destroy');
+    });
+
+    // Why Choose Us Routes
+    Route::controller(WhyChooseUsController::class)->group(function () {
+        Route::get('why-choose-us', 'index');
+        Route::post('why-choose-us', 'store');
+        Route::get('why-choose-us/{id}', 'show');
+        Route::put('why-choose-us/{id}', 'update');
+        Route::delete('why-choose-us/{id}', 'destroy');
+        Route::put('why-choose-title-update', 'whyChooseTitleUpdate');
     });
 });
 
