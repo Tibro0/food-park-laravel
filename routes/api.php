@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Admin\AdminDashboardController;
+use App\Http\Controllers\Api\Admin\BannerSliderController;
 use App\Http\Controllers\Api\Admin\BlogCategoryController;
 use App\Http\Controllers\Api\Admin\BlogCommentController;
 use App\Http\Controllers\Api\Admin\BlogController;
@@ -209,6 +210,15 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
         Route::put('why-choose-us/{id}', 'update');
         Route::delete('why-choose-us/{id}', 'destroy');
         Route::put('why-choose-title-update', 'whyChooseTitleUpdate');
+    });
+
+    // Banner Slider Routes
+    Route::controller(BannerSliderController::class)->group(function () {
+        Route::get('banner-slider', 'index');
+        Route::post('banner-slider', 'store');
+        Route::get('banner-slider/{id}', 'show');
+        Route::post('banner-slider/{id}', 'update');
+        Route::delete('banner-slider/{id}', 'destroy');
     });
 });
 
