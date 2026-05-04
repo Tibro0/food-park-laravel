@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Admin\AdminDashboardController;
+use App\Http\Controllers\Api\Admin\AppDownloadSectionController;
 use App\Http\Controllers\Api\Admin\BannerSliderController;
 use App\Http\Controllers\Api\Admin\BlogCategoryController;
 use App\Http\Controllers\Api\Admin\BlogCommentController;
@@ -230,6 +231,12 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
         Route::post('chefs/{id}', 'update');
         Route::delete('chefs/{id}', 'destroy');
         Route::put('chef-title-update', 'chefTitleUpdate');
+    });
+
+    // App Download Routes
+    Route::controller(AppDownloadSectionController::class)->group(function () {
+        Route::get('app-download', 'index');
+        Route::post('app-download', 'store');
     });
 });
 
