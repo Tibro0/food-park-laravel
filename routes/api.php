@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Admin\BlogCategoryController;
 use App\Http\Controllers\Api\Admin\BlogCommentController;
 use App\Http\Controllers\Api\Admin\BlogController;
 use App\Http\Controllers\Api\Admin\CategoryController;
+use App\Http\Controllers\Api\Admin\ChefController;
 use App\Http\Controllers\Api\Admin\CouponController;
 use App\Http\Controllers\Api\Admin\DailyOfferController;
 use App\Http\Controllers\Api\Admin\DeliveryAreaController;
@@ -219,6 +220,16 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
         Route::get('banner-slider/{id}', 'show');
         Route::post('banner-slider/{id}', 'update');
         Route::delete('banner-slider/{id}', 'destroy');
+    });
+
+    // Chef Routes
+    Route::controller(ChefController::class)->group(function () {
+        Route::get('chefs', 'index');
+        Route::post('chefs', 'store');
+        Route::get('chefs/{id}', 'show');
+        Route::post('chefs/{id}', 'update');
+        Route::delete('chefs/{id}', 'destroy');
+        Route::put('chef-title-update', 'chefTitleUpdate');
     });
 });
 

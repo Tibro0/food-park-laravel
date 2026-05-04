@@ -11,8 +11,9 @@
         </div>
 
         <div class="card card-primary">
-            <div class="card-header">
+            <div class="card-header justify-content-between">
                 <h4>Create Chef</h4>
+                <a href="{{ route('admin.chefs.index') }}" class="btn btn-primary px-5">Back</a>
             </div>
             <div class="card-body">
                 <form action="{{ route('admin.chefs.store') }}" method="POST" enctype="multipart/form-data">
@@ -71,7 +72,8 @@
                     </div>
                     <div class="form-group">
                         <label>Web <code>(Leave empty for hide)</code></label>
-                        <input type="text" name="web" value="{{ old('web') }}" class="form-control @error('web') is-invalid @enderror">
+                        <input type="text" name="web" value="{{ old('web') }}"
+                            class="form-control @error('web') is-invalid @enderror">
                         @error('web')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

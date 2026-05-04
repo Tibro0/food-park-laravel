@@ -11,7 +11,6 @@
         <div class="section-header">
             <h1>Why Choose Us Section</h1>
         </div>
-
         <div class="card card-primary">
             <div class="card-header justify-content-between">
                 <h4>Create Why Choose Us Section</h4>

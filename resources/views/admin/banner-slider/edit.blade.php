@@ -11,8 +11,9 @@
         </div>
 
         <div class="card card-primary">
-            <div class="card-header">
+            <div class="card-header justify-content-between">
                 <h4>Update Banner Slider</h4>
+                <a href="{{ route('admin.banner-slider.index') }}" class="btn btn-primary px-5">Back</a>
             </div>
             <div class="card-body">
                 <form action="{{ route('admin.banner-slider.update', $bannerSlider->id) }}" method="POST"

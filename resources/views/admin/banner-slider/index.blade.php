@@ -11,7 +11,6 @@
         <div class="section-header">
             <h1>Banner Slider</h1>
         </div>
-
         <div class="card card-primary">
             <div class="card-header">
                 <h4>All Banner Sliders</h4>

@@ -6,10 +6,10 @@
 
 @section('admin-content')
     <section class="section">
-        <div class="section-header">
+        <div class="section-header justify-content-between">
             <h1>Banner Slider</h1>
+            <a href="{{ route('admin.banner-slider.index') }}" class="btn btn-primary px-5">Back</a>
         </div>
-
         <div class="card card-primary">
             <div class="card-header">
                 <h4>Create Banner Slider</h4>
