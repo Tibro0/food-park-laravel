@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Admin\AboutController;
 use App\Http\Controllers\Api\Admin\AdminDashboardController;
 use App\Http\Controllers\Api\Admin\AppDownloadSectionController;
 use App\Http\Controllers\Api\Admin\BannerSliderController;
@@ -258,13 +259,19 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
         Route::post('counter', 'update');
     });
 
-    // Testimonial Routes
+    // Custom Page Builder Routes
     Route::controller(CustomPageBuilderController::class)->group(function () {
         Route::get('custom-page-builder', 'index');
         Route::post('custom-page-builder', 'store');
         Route::get('custom-page-builder/{id}', 'show');
         Route::put('custom-page-builder/{id}', 'update');
         Route::delete('custom-page-builder/{id}', 'destroy');
+    });
+
+    // About Routes
+    Route::controller(AboutController::class)->group(function () {
+        Route::get('about', 'index');
+        Route::post('about', 'update');
     });
 });
 
