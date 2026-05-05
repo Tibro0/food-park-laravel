@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Admin\CategoryController;
 use App\Http\Controllers\Api\Admin\ChefController;
 use App\Http\Controllers\Api\Admin\CounterController;
 use App\Http\Controllers\Api\Admin\CouponController;
+use App\Http\Controllers\Api\Admin\CustomPageBuilderController;
 use App\Http\Controllers\Api\Admin\DailyOfferController;
 use App\Http\Controllers\Api\Admin\DeliveryAreaController;
 use App\Http\Controllers\Api\Admin\OrderController;
@@ -255,6 +256,15 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
     Route::controller(CounterController::class)->group(function () {
         Route::get('counter', 'index');
         Route::post('counter', 'update');
+    });
+
+    // Testimonial Routes
+    Route::controller(CustomPageBuilderController::class)->group(function () {
+        Route::get('custom-page-builder', 'index');
+        Route::post('custom-page-builder', 'store');
+        Route::get('custom-page-builder/{id}', 'show');
+        Route::put('custom-page-builder/{id}', 'update');
+        Route::delete('custom-page-builder/{id}', 'destroy');
     });
 });
 
