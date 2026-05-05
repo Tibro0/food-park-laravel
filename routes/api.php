@@ -27,6 +27,7 @@ use App\Http\Controllers\Api\Admin\ReservationController;
 use App\Http\Controllers\Api\Admin\ReservationTimeController;
 use App\Http\Controllers\Api\Admin\SliderController;
 use App\Http\Controllers\Api\Admin\TestimonialController;
+use App\Http\Controllers\Api\Admin\TramsAndConditionController;
 use App\Http\Controllers\Api\Admin\WhyChooseUsController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use Illuminate\Http\Request;
@@ -279,6 +280,12 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
     Route::controller(PrivacyPolicyController::class)->group(function () {
         Route::get('privacy-policy', 'index');
         Route::put('privacy-policy', 'update');
+    });
+
+    // Trams And Conditions Routes
+    Route::controller(TramsAndConditionController::class)->group(function () {
+        Route::get('trams-and-conditions', 'index');
+        Route::put('trams-and-conditions', 'update');
     });
 });
 
