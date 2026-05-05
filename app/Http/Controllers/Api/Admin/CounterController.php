@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Counter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 
@@ -13,28 +14,38 @@ class CounterController extends Controller
     public function index()
     {
         $counter = Counter::first();
-        return view('admin.counter.index', compact('counter'));
+        return response()->json([
+            'status' => 200,
+            'data' => $counter
+        ], 200);
     }
 
     public function update(Request $request)
     {
-        $request->validate([
-            'background' => ['nullable', 'image', 'max:2048', 'mimes:png'],
-            'counter_icon_one' => ['required', 'max:255'],
-            'counter_count_one' => ['required', 'numeric'],
-            'counter_name_one' => ['required', 'max:255'],
-            'counter_icon_two' => ['required', 'max:255'],
-            'counter_count_two' => ['required', 'numeric'],
-            'counter_name_two' => ['required', 'max:255'],
-            'counter_icon_three' => ['required', 'max:255'],
-            'counter_count_three' => ['required', 'numeric'],
-            'counter_name_three' => ['required', 'max:255'],
-            'counter_icon_four' => ['required', 'max:255'],
-            'counter_count_four' => ['required', 'numeric'],
-            'counter_name_four' => ['required', 'max:255'],
+        $validator = Validator::make($request->all(), [
+            'background' => 'nullable|image|max:2048|mimes:png',
+            'counter_icon_one' => 'required|max:255',
+            'counter_count_one' => 'required|numeric',
+            'counter_name_one' => 'required|max:255',
+            'counter_icon_two' => 'required|max:255',
+            'counter_count_two' => 'required|numeric',
+            'counter_name_two' => 'required|max:255',
+            'counter_icon_three' => 'required|max:255',
+            'counter_count_three' => 'required|numeric',
+            'counter_name_three' => 'required|max:255',
+            'counter_icon_four' => 'required|max:255',
+            'counter_count_four' => 'required|numeric',
+            'counter_name_four' => 'required|max:255',
         ]);
 
-        $oldImage = $request->old_background;
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors(),
+            ], 400);
+        }
+
+        $oldImage = Counter::first()->background;
         if ($request->file('background')) {
             $image = $request->file('background');
             $manager = new ImageManager(new Driver());
@@ -71,8 +82,10 @@ class CounterController extends Controller
                 unlink($oldImage);
             }
 
-            toastr()->success('Updated Successfully!');
-            return redirect()->back();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Updated Successfully!'
+            ], 200);
         } else {
             Counter::updateOrCreate(
                 ['id' => 1],
@@ -92,8 +105,10 @@ class CounterController extends Controller
                 ]
             );
 
-            toastr()->success('Updated Successfully!');
-            return redirect()->back();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Updated Successfully!'
+            ], 200);
         }
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\Admin\BlogCommentController;
 use App\Http\Controllers\Api\Admin\BlogController;
 use App\Http\Controllers\Api\Admin\CategoryController;
 use App\Http\Controllers\Api\Admin\ChefController;
+use App\Http\Controllers\Api\Admin\CounterController;
 use App\Http\Controllers\Api\Admin\CouponController;
 use App\Http\Controllers\Api\Admin\DailyOfferController;
 use App\Http\Controllers\Api\Admin\DeliveryAreaController;
@@ -248,6 +249,12 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
         Route::post('testimonials/{id}', 'update');
         Route::delete('testimonials/{id}', 'destroy');
         Route::put('testimonial-title-update', 'testimonialTitleUpdate');
+    });
+
+    // Counter Routes
+    Route::controller(CounterController::class)->group(function () {
+        Route::get('counter', 'index');
+        Route::post('counter', 'update');
     });
 });
 
