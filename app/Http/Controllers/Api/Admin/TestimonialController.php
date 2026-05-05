@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api\Admin;
 
-use App\DataTables\TestimonialDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\SectionTitle;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 
@@ -15,11 +15,18 @@ class TestimonialController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(TestimonialDataTable $dataTable)
+    public function index()
     {
         $keys = ['testimonial_top_title', 'testimonial_main_title', 'testimonial_sub_title'];
-        $titles = SectionTitle::whereIn('key', $keys)->pluck('value', 'key');
-        return $dataTable->render('admin.testimonial.index', compact('titles'));
+        $testimonialTitles = SectionTitle::whereIn('key', $keys)->pluck('value', 'key');
+        $testimonials = Testimonial::orderBy('id', 'DESC')->get();
+        return response()->json([
+            'status' => 200,
+            'data' => [
+                'testimonialTitles' => $testimonialTitles,
+                'testimonials' => $testimonials
+            ]
+        ], 200);
     }
 
     /**
@@ -27,7 +34,7 @@ class TestimonialController extends Controller
      */
     public function create()
     {
-        return view('admin.testimonial.create');
+        //
     }
 
     /**
@@ -35,15 +42,22 @@ class TestimonialController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'image' => ['required', 'image', 'max:2048', 'mimes:png'],
-            'name' => ['required', 'max:255'],
-            'title' => ['required', 'max:255'],
-            'rating' => ['required', 'integer', 'max:5'],
-            'review' => ['required', 'max:1000'],
-            'show_at_home' => ['required', 'boolean'],
-            'status' => ['required', 'boolean']
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|image|max:2048|mimes:png',
+            'name' => 'required|max:255',
+            'title' => 'required|max:255',
+            'rating' => 'required|integer|max:5',
+            'review' => 'required|max:1000',
+            'show_at_home' => 'required|boolean',
+            'status' => 'required|boolean',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors(),
+            ], 400);
+        }
 
         if ($request->file('image')) {
             $image = $request->file('image');
@@ -64,9 +78,31 @@ class TestimonialController extends Controller
             $testimonial->status = $request->status;
             $testimonial->save();
 
-            toastr()->success('Created Successfully');
-            return redirect()->route('admin.testimonial.index');
+            return response()->json([
+                'status' => 200,
+                'message' => 'Created Successfully!'
+            ], 200);
         }
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $testimonial = Testimonial::find($id);
+
+        if ($testimonial == null) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Testimonial Not Found!',
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 200,
+            'data' => $testimonial
+        ], 200);
     }
 
     /**
@@ -74,8 +110,7 @@ class TestimonialController extends Controller
      */
     public function edit(string $id)
     {
-        $testimonial = Testimonial::findOrFail($id);
-        return view('admin.testimonial.edit', compact('testimonial'));
+        //
     }
 
     /**
@@ -83,17 +118,33 @@ class TestimonialController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'image' => ['nullable', 'image', 'max:2048', 'mimes:png'],
-            'name' => ['required', 'max:255'],
-            'title' => ['required', 'max:255'],
-            'rating' => ['required', 'integer', 'max:5'],
-            'review' => ['required', 'max:1000'],
-            'show_at_home' => ['required', 'boolean'],
-            'status' => ['required', 'boolean']
+        $testimonial = Testimonial::find($id);
+
+        if ($testimonial == null) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Testimonial Not Found!',
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'image' => 'nullable|image|max:2048|mimes:png',
+            'name' => 'required|max:255',
+            'title' => 'required|max:255',
+            'rating' => 'required|integer|max:5',
+            'review' => 'required|max:1000',
+            'show_at_home' => 'required|boolean',
+            'status' => 'required|boolean',
         ]);
 
-        $oldImage = $request->old_image;
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors(),
+            ], 400);
+        }
+
+        $oldImage = $testimonial->image;
         if ($request->file('image')) {
             $image = $request->file('image');
             $manager = new ImageManager(new Driver());
@@ -103,7 +154,6 @@ class TestimonialController extends Controller
             $img->toPng()->save(base_path('public/uploads/testimonial_image/' . $name_gen));
             $save_url = 'uploads/testimonial_image/' . $name_gen;
 
-            $testimonial = Testimonial::findOrFail($id);
             $testimonial->image = $save_url;
             $testimonial->name = $request->name;
             $testimonial->title = $request->title;
@@ -124,10 +174,11 @@ class TestimonialController extends Controller
                 unlink($oldImage);
             }
 
-            toastr()->success('Updated Successfully');
-            return redirect()->route('admin.testimonial.index');
+            return response()->json([
+                'status' => 200,
+                'message' => 'Updated Successfully!'
+            ], 200);
         } else {
-            $testimonial = Testimonial::findOrFail($id);
             $testimonial->name = $request->name;
             $testimonial->title = $request->title;
             $testimonial->rating = $request->rating;
@@ -136,26 +187,11 @@ class TestimonialController extends Controller
             $testimonial->status = $request->status;
             $testimonial->save();
 
-            toastr()->success('Updated Successfully');
-            return redirect()->route('admin.testimonial.index');
+            return response()->json([
+                'status' => 200,
+                'message' => 'Updated Successfully!'
+            ], 200);
         }
-    }
-
-    public function updateTitle(Request $request)
-    {
-        $validatedData = $request->validate([
-            'testimonial_top_title' => ['max:100'],
-            'testimonial_main_title' => ['max:200'],
-            'testimonial_sub_title' => ['max:500']
-        ]);
-        foreach ($validatedData as $key => $value) {
-            SectionTitle::updateOrCreate(
-                ['key' => $key],
-                ['value' => $value]
-            );
-        }
-        toastr()->success('Updated Successfully!');
-        return redirect()->back();
     }
 
     /**
@@ -163,7 +199,14 @@ class TestimonialController extends Controller
      */
     public function destroy(string $id)
     {
-        $testimonial = Testimonial::findOrFail($id);
+        $testimonial = Testimonial::find($id);
+
+        if ($testimonial == null) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Testimonial Not Found!',
+            ], 404);
+        }
 
         $defaultImages = [
             'frontend/images/comment_img_1.png',
@@ -177,6 +220,40 @@ class TestimonialController extends Controller
         }
 
         $testimonial->delete();
-        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Deleted Successfully!'
+        ], 200);
+    }
+
+    public function testimonialTitleUpdate(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'testimonial_top_title' => 'max:100',
+            'testimonial_main_title' => 'max:200',
+            'testimonial_sub_title' => 'max:500'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors(),
+            ], 400);
+        }
+
+        $validatedData = $validator->validate();
+
+        foreach ($validatedData as $key => $value) {
+            SectionTitle::updateOrCreate(
+                ['key' => $key],
+                ['value' => $value]
+            );
+        }
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Updated Successfully!',
+        ], 200);
     }
 }

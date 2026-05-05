@@ -22,6 +22,7 @@ use App\Http\Controllers\Api\Admin\ProfileController;
 use App\Http\Controllers\Api\Admin\ReservationController;
 use App\Http\Controllers\Api\Admin\ReservationTimeController;
 use App\Http\Controllers\Api\Admin\SliderController;
+use App\Http\Controllers\Api\Admin\TestimonialController;
 use App\Http\Controllers\Api\Admin\WhyChooseUsController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use Illuminate\Http\Request;
@@ -237,6 +238,16 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
     Route::controller(AppDownloadSectionController::class)->group(function () {
         Route::get('app-download', 'index');
         Route::post('app-download', 'store');
+    });
+
+    // Testimonial Routes
+    Route::controller(TestimonialController::class)->group(function () {
+        Route::get('testimonials', 'index');
+        Route::post('testimonials', 'store');
+        Route::get('testimonials/{id}', 'show');
+        Route::post('testimonials/{id}', 'update');
+        Route::delete('testimonials/{id}', 'destroy');
+        Route::put('testimonial-title-update', 'testimonialTitleUpdate');
     });
 });
 
