@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\Admin\CouponController;
 use App\Http\Controllers\Api\Admin\CustomPageBuilderController;
 use App\Http\Controllers\Api\Admin\DailyOfferController;
 use App\Http\Controllers\Api\Admin\DeliveryAreaController;
+use App\Http\Controllers\Api\Admin\NewsLetterController;
 use App\Http\Controllers\Api\Admin\OrderController;
 use App\Http\Controllers\Api\Admin\PaymentGatewaySettingController;
 use App\Http\Controllers\Api\Admin\PrivacyPolicyController;
@@ -293,6 +294,12 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
     Route::controller(ContactController::class)->group(function () {
         Route::get('contact', 'index');
         Route::put('contact', 'update');
+    });
+
+    // News letter Routes
+    Route::controller(NewsLetterController::class)->group(function () {
+        Route::get('news-letter', 'index');
+        Route::post('news-letter', 'sendNewsLetter');
     });
 });
 
