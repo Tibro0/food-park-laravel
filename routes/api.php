@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\Admin\CouponController;
 use App\Http\Controllers\Api\Admin\CustomPageBuilderController;
 use App\Http\Controllers\Api\Admin\DailyOfferController;
 use App\Http\Controllers\Api\Admin\DeliveryAreaController;
+use App\Http\Controllers\Api\Admin\FooterInfoController;
 use App\Http\Controllers\Api\Admin\NewsLetterController;
 use App\Http\Controllers\Api\Admin\OrderController;
 use App\Http\Controllers\Api\Admin\PaymentGatewaySettingController;
@@ -310,6 +311,12 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
         Route::get('social-link/{id}', 'show');
         Route::put('social-link/{id}', 'update');
         Route::delete('social-link/{id}', 'destroy');
+    });
+
+    // Footer info Routes
+    Route::controller(FooterInfoController::class)->group(function () {
+        Route::get('footer-info', 'index');
+        Route::put('footer-info', 'update');
     });
 });
 
