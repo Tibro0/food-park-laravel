@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\Admin\BlogCommentController;
 use App\Http\Controllers\Api\Admin\BlogController;
 use App\Http\Controllers\Api\Admin\CategoryController;
 use App\Http\Controllers\Api\Admin\ChefController;
+use App\Http\Controllers\Api\Admin\ContactController;
 use App\Http\Controllers\Api\Admin\CounterController;
 use App\Http\Controllers\Api\Admin\CouponController;
 use App\Http\Controllers\Api\Admin\CustomPageBuilderController;
@@ -286,6 +287,12 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
     Route::controller(TramsAndConditionController::class)->group(function () {
         Route::get('trams-and-conditions', 'index');
         Route::put('trams-and-conditions', 'update');
+    });
+
+    // Contact Routes
+    Route::controller(ContactController::class)->group(function () {
+        Route::get('contact', 'index');
+        Route::put('contact', 'update');
     });
 });
 
