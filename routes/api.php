@@ -28,6 +28,7 @@ use App\Http\Controllers\Api\Admin\ProfileController;
 use App\Http\Controllers\Api\Admin\ReservationController;
 use App\Http\Controllers\Api\Admin\ReservationTimeController;
 use App\Http\Controllers\Api\Admin\SliderController;
+use App\Http\Controllers\Api\Admin\SocialLinkController;
 use App\Http\Controllers\Api\Admin\TestimonialController;
 use App\Http\Controllers\Api\Admin\TramsAndConditionController;
 use App\Http\Controllers\Api\Admin\WhyChooseUsController;
@@ -300,6 +301,15 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
     Route::controller(NewsLetterController::class)->group(function () {
         Route::get('news-letter', 'index');
         Route::post('news-letter', 'sendNewsLetter');
+    });
+
+    // Chef Routes
+    Route::controller(SocialLinkController::class)->group(function () {
+        Route::get('social-link', 'index');
+        Route::post('social-link', 'store');
+        Route::get('social-link/{id}', 'show');
+        Route::put('social-link/{id}', 'update');
+        Route::delete('social-link/{id}', 'destroy');
     });
 });
 

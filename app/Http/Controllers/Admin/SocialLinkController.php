@@ -31,9 +31,9 @@ class SocialLinkController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'icon' => ['required'],
-            'name' => ['required'],
-            'link' => ['required',],
+            'icon' => ['required', 'max:255'],
+            'name' => ['required', 'max:255'],
+            'link' => ['required', 'url'],
             'status' => ['required', 'boolean']
         ]);
 
@@ -63,9 +63,9 @@ class SocialLinkController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'icon' => ['required'],
-            'name' => ['required'],
-            'link' => ['required',],
+            'icon' => ['required', 'max:255'],
+            'name' => ['required', 'max:255'],
+            'link' => ['required', 'url'],
             'status' => ['required', 'boolean']
         ]);
 
