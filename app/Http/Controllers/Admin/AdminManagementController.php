@@ -88,7 +88,7 @@ class AdminManagementController extends Controller
         $user->role = $request->role;
         $user->save();
 
-        toastr()->success('Created Successfully');
+        toastr()->success('Updated Successfully');
         return redirect()->route('admin.admin-management.index');
     }
 

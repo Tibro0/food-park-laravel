@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Admin\AboutController;
 use App\Http\Controllers\Api\Admin\AdminDashboardController;
+use App\Http\Controllers\Api\Admin\AdminManagementController;
 use App\Http\Controllers\Api\Admin\AppDownloadSectionController;
 use App\Http\Controllers\Api\Admin\BannerSliderController;
 use App\Http\Controllers\Api\Admin\BlogCategoryController;
@@ -304,7 +305,7 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
         Route::post('news-letter', 'sendNewsLetter');
     });
 
-    // Chef Routes
+    // Social Link Routes
     Route::controller(SocialLinkController::class)->group(function () {
         Route::get('social-link', 'index');
         Route::post('social-link', 'store');
@@ -317,6 +318,15 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
     Route::controller(FooterInfoController::class)->group(function () {
         Route::get('footer-info', 'index');
         Route::put('footer-info', 'update');
+    });
+
+    // Social Link Routes
+    Route::controller(AdminManagementController::class)->group(function () {
+        Route::get('admin-management', 'index');
+        Route::post('admin-management', 'store');
+        Route::get('admin-management/{id}', 'show');
+        Route::put('admin-management/{id}', 'update');
+        Route::delete('admin-management/{id}', 'destroy');
     });
 });
 

@@ -11,8 +11,9 @@
         </div>
 
         <div class="card card-primary">
-            <div class="card-header">
+            <div class="card-header justify-content-between">
                 <h4>Update Admin</h4>
+                <a href="{{ route('admin.admin-management.index') }}" class="btn btn-primary px-5">Back</a>
             </div>
             <div class="card-body">
                 <form action="{{ route('admin.admin-management.update', $admin->id) }}" method="POST">
