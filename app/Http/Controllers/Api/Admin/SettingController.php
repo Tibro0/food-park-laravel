@@ -112,8 +112,14 @@ class SettingController extends Controller
             ], 400);
         }
 
-        $oldLogo = Setting::pluck('value', 'key')['logo'];
-        if ($request->file('logo')) {
+        $updated = false;
+
+        // Get all current settings once
+        $settings = Setting::pluck('value', 'key')->toArray();
+
+        // Process Logo
+        if ($request->hasFile('logo')) {
+            $oldLogo = $settings['logo'] ?? null;
             $image = $request->file('logo');
             $manager = new ImageManager(new Driver());
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
@@ -135,24 +141,18 @@ class SettingController extends Controller
                 unlink($oldLogo);
             }
 
-            $settingsService = app(SettingsService::class);
-            $settingsService->clearCachedSettings();
-            Cache::forget('mail_settings');
-
-            return response()->json([
-                'status' => 200,
-                'message' => 'Updated Successfully!'
-            ], 200);
+            $updated = true;
         }
 
-        $oldFootedLogo = Setting::pluck('value', 'key')['footer_logo'];
-        if ($request->file('footer_logo')) {
+        // Process Footer Logo
+        if ($request->hasFile('footer_logo')) {
+            $oldFooterLogo = $settings['footer_logo'] ?? null;
             $image = $request->file('footer_logo');
             $manager = new ImageManager(new Driver());
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
             $img = $img->resize(300, 100);
-            $img->toPng(indexed: true)->save(base_path('public/uploads/logo_image/' . $name_gen));
+            $img->toPng()->save(base_path('public/uploads/logo_image/' . $name_gen));
             $save_url = 'uploads/logo_image/' . $name_gen;
 
             Setting::updateOrCreate(
@@ -164,28 +164,22 @@ class SettingController extends Controller
                 'frontend/images/footer_logo.png',
             ];
 
-            if ($oldFootedLogo && !in_array($oldFootedLogo, $defaultImages) && file_exists($oldFootedLogo)) {
-                unlink($oldFootedLogo);
+            if ($oldFooterLogo && !in_array($oldFooterLogo, $defaultImages) && file_exists($oldFooterLogo)) {
+                unlink($oldFooterLogo);
             }
 
-            $settingsService = app(SettingsService::class);
-            $settingsService->clearCachedSettings();
-            Cache::forget('mail_settings');
-
-            return response()->json([
-                'status' => 200,
-                'message' => 'Updated Successfully!'
-            ], 200);
+            $updated = true;
         }
 
-        $oldFavicon = Setting::pluck('value', 'key')['favicon'];;
-        if ($request->file('favicon')) {
+        // Process Favicon
+        if ($request->hasFile('favicon')) {
+            $oldFavicon = $settings['favicon'] ?? null;
             $image = $request->file('favicon');
             $manager = new ImageManager(new Driver());
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
             $img = $img->resize(35, 35);
-            $img->toPng(indexed: true)->save(base_path('public/uploads/logo_image/' . $name_gen));
+            $img->toPng()->save(base_path('public/uploads/logo_image/' . $name_gen));
             $save_url = 'uploads/logo_image/' . $name_gen;
 
             Setting::updateOrCreate(
@@ -201,18 +195,12 @@ class SettingController extends Controller
                 unlink($oldFavicon);
             }
 
-            $settingsService = app(SettingsService::class);
-            $settingsService->clearCachedSettings();
-            Cache::forget('mail_settings');
-
-            return response()->json([
-                'status' => 200,
-                'message' => 'Updated Successfully!'
-            ], 200);
+            $updated = true;
         }
 
-        $oldBreadcrumb = Setting::pluck('value', 'key')['breadcrumb'];;
-        if ($request->file('breadcrumb')) {
+        // Process Breadcrumb
+        if ($request->hasFile('breadcrumb')) {
+            $oldBreadcrumb = $settings['breadcrumb'] ?? null;
             $image = $request->file('breadcrumb');
             $manager = new ImageManager(new Driver());
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
@@ -234,14 +222,14 @@ class SettingController extends Controller
                 unlink($oldBreadcrumb);
             }
 
+            $updated = true;
+        }
+
+        // Clear cache if any updates were made
+        if ($updated) {
             $settingsService = app(SettingsService::class);
             $settingsService->clearCachedSettings();
             Cache::forget('mail_settings');
-
-            return response()->json([
-                'status' => 200,
-                'message' => 'Updated Successfully!'
-            ], 200);
         }
 
         return response()->json([
