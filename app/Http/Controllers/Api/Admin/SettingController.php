@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use App\Services\SettingsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 
@@ -15,19 +15,32 @@ class SettingController extends Controller
 {
     public function index()
     {
-        return view('admin.setting.index');
+        $settings = Setting::pluck('value', 'key');
+        return response()->json([
+            'status' => 200,
+            'data' => $settings
+        ], 200);
     }
 
     public function updateGeneralSetting(Request $request)
     {
-        $validatedData = $request->validate([
-            'site_name' => ['required', 'max:255'],
-            'site_email' => ['nullable', 'max:255'],
-            'site_phone' => ['nullable', 'max:255'],
-            'site_default_currency' => ['required', 'max:4'],
-            'site_currency_icon' => ['required', 'max:4'],
-            'site_currency_icon_position' => ['required', 'max:255'],
+        $validator = Validator::make($request->all(), [
+            'site_name' => 'required|max:255',
+            'site_email' => 'nullable|max:255',
+            'site_phone' => 'nullable|max:255',
+            'site_default_currency' => 'required|max:4',
+            'site_currency_icon' => 'required|max:4',
+            'site_currency_icon_position' => 'required|max:255|in:left,right',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors(),
+            ], 400);
+        }
+
+        $validatedData = $validator->validate();
 
         foreach ($validatedData as $key => $value) {
             Setting::updateOrCreate(
@@ -39,21 +52,32 @@ class SettingController extends Controller
         $settingsService = app(SettingsService::class);
         $settingsService->clearCachedSettings();
 
-        toastr()->success('Updated Successfully!');
-        return redirect()->back();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Updated Successfully!',
+        ], 200);
     }
 
-    public function UpdateMailSetting(Request $request)
+    public function updateMailSetting(Request $request)
     {
-        $validatedData = $request->validate([
-            'mail_driver' => ['required'],
-            'mail_host' => ['required'],
-            'mail_port' => ['required'],
-            'mail_username' => ['required'],
-            'mail_password' => ['required'],
-            'mail_from_address' => ['required'],
-            'mail_receive_address' => ['required'],
+        $validator = Validator::make($request->all(), [
+            'mail_driver' => 'required',
+            'mail_host' => 'required',
+            'mail_port' => 'required',
+            'mail_username' => 'required',
+            'mail_password' => 'required',
+            'mail_from_address' => 'required',
+            'mail_receive_address' => 'required',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors(),
+            ], 400);
+        }
+
+        $validatedData = $validator->validate();
 
         foreach ($validatedData as $key => $value) {
             Setting::updateOrCreate(
@@ -66,20 +90,29 @@ class SettingController extends Controller
         $settingsService->clearCachedSettings();
         Cache::forget('mail_settings');
 
-        toastr()->success('Updated Successfully!');
-        return redirect()->back();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Updated Successfully!'
+        ], 200);
     }
 
-    public function UpdateLogoSetting(Request $request)
+    public function updateLogoSetting(Request $request)
     {
-        $request->validate([
-            'logo' => ['nullable', 'image', 'max:2048', 'mimes:png'],
-            'footer_logo' => ['nullable', 'image', 'max:2048', 'mimes:png'],
-            'favicon' => ['nullable', 'image', 'max:2048', 'mimes:png'],
-            'breadcrumb' => ['nullable', 'image', 'max:2048', 'mimes:png'],
+        $validator = Validator::make($request->all(), [
+            'logo' => 'nullable|image|max:2048|mimes:png',
+            'footer_logo' => 'nullable|image|max:2048|mimes:png',
+            'favicon' => 'nullable|image|max:2048|mimes:png',
+            'breadcrumb' => 'nullable|image|max:2048|mimes:png',
         ]);
 
-        $oldLogo = $request->old_logo;
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors(),
+            ], 400);
+        }
+
+        $oldLogo = Setting::pluck('value', 'key')['logo'];
         if ($request->file('logo')) {
             $image = $request->file('logo');
             $manager = new ImageManager(new Driver());
@@ -106,11 +139,13 @@ class SettingController extends Controller
             $settingsService->clearCachedSettings();
             Cache::forget('mail_settings');
 
-            toastr()->success('Updated Successfully!');
-            return redirect()->back();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Updated Successfully!'
+            ], 200);
         }
 
-        $oldFootedLogo = $request->old_footer_logo;
+        $oldFootedLogo = Setting::pluck('value', 'key')['footer_logo'];
         if ($request->file('footer_logo')) {
             $image = $request->file('footer_logo');
             $manager = new ImageManager(new Driver());
@@ -137,11 +172,13 @@ class SettingController extends Controller
             $settingsService->clearCachedSettings();
             Cache::forget('mail_settings');
 
-            toastr()->success('Updated Successfully!');
-            return redirect()->back();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Updated Successfully!'
+            ], 200);
         }
 
-        $oldFavicon = $request->old_favicon;
+        $oldFavicon = Setting::pluck('value', 'key')['favicon'];;
         if ($request->file('favicon')) {
             $image = $request->file('favicon');
             $manager = new ImageManager(new Driver());
@@ -168,11 +205,13 @@ class SettingController extends Controller
             $settingsService->clearCachedSettings();
             Cache::forget('mail_settings');
 
-            toastr()->success('Updated Successfully!');
-            return redirect()->back();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Updated Successfully!'
+            ], 200);
         }
 
-        $oldBreadcrumb = $request->old_breadcrumb;
+        $oldBreadcrumb = Setting::pluck('value', 'key')['breadcrumb'];;
         if ($request->file('breadcrumb')) {
             $image = $request->file('breadcrumb');
             $manager = new ImageManager(new Driver());
@@ -199,19 +238,32 @@ class SettingController extends Controller
             $settingsService->clearCachedSettings();
             Cache::forget('mail_settings');
 
-            toastr()->success('Updated Successfully!');
-            return redirect()->back();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Updated Successfully!'
+            ], 200);
         }
 
-        toastr()->success('Updated Successfully!');
-        return redirect()->back();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Updated Successfully!'
+        ], 200);
     }
 
-    public function UpdateAppearanceSetting(Request $request)
+    public function updateAppearanceSetting(Request $request)
     {
-        $validatedData = $request->validate([
-            'site_color' => ['required']
+        $validator = Validator::make($request->all(), [
+            'site_color' => 'required'
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors(),
+            ], 400);
+        }
+
+        $validatedData = $validator->validate();
 
         foreach ($validatedData as $key => $value) {
             Setting::updateOrCreate(
@@ -224,17 +276,28 @@ class SettingController extends Controller
         $settingsService->clearCachedSettings();
         Cache::forget('mail_settings');
 
-        toastr()->success('Updated Successfully!');
-        return redirect()->back();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Updated Successfully!'
+        ], 200);
     }
 
-    public function UpdateSeoSetting(Request $request)
+    public function updateSeoSetting(Request $request)
     {
-        $validatedData = $request->validate([
-            'seo_title' => ['required', 'max:255'],
-            'seo_description' => ['nullable', 'max:600'],
-            'seo_keywords' => ['nullable']
+        $validator = Validator::make($request->all(), [
+            'seo_title' => 'required|max:255',
+            'seo_description' => 'nullable|max:600',
+            'seo_keywords' => 'nullable'
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors(),
+            ], 400);
+        }
+
+        $validatedData = $validator->validate();
 
         foreach ($validatedData as $key => $value) {
             Setting::updateOrCreate(
@@ -247,17 +310,28 @@ class SettingController extends Controller
         $settingsService->clearCachedSettings();
         Cache::forget('mail_settings');
 
-        toastr()->success('Updated Successfully!');
-        return redirect()->back();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Updated Successfully!'
+        ], 200);
     }
 
     public function updateGithubSetting(Request $request)
     {
-        $validatedData = $request->validate([
-            'github_client_id' => ['required'],
-            'github_client_secret' => ['required'],
-            'github_redirect_url' => ['required', 'url'],
+        $validator = Validator::make($request->all(), [
+            'github_client_id' => 'required',
+            'github_client_secret' => 'required',
+            'github_redirect_url' => 'required|url',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors(),
+            ], 400);
+        }
+
+        $validatedData = $validator->validate();
 
         foreach ($validatedData as $key => $value) {
             Setting::updateOrCreate(
@@ -270,17 +344,28 @@ class SettingController extends Controller
         $settingsService->clearCachedSettings();
         Cache::forget('mail_settings');
 
-        toastr()->success('Updated Successfully!');
-        return redirect()->back();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Updated Successfully!'
+        ], 200);
     }
 
     public function updateGoogleSetting(Request $request)
     {
-        $validatedData = $request->validate([
-            'google_client_id' => ['required'],
-            'google_client_secret' => ['required'],
-            'google_redirect_url' => ['required', 'url'],
+        $validator = Validator::make($request->all(), [
+            'google_client_id' => 'required',
+            'google_client_secret' => 'required',
+            'google_redirect_url' => 'required|url',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors(),
+            ], 400);
+        }
+
+        $validatedData = $validator->validate();
 
         foreach ($validatedData as $key => $value) {
             Setting::updateOrCreate(
@@ -293,12 +378,9 @@ class SettingController extends Controller
         $settingsService->clearCachedSettings();
         Cache::forget('mail_settings');
 
-        toastr()->success('Updated Successfully!');
-        return redirect()->back();
-    }
-
-    public function adminSettingListStyle(Request $request)
-    {
-        Session::put('setting_list_style', $request->style);
+        return response()->json([
+            'status' => 200,
+            'message' => 'Updated Successfully!'
+        ], 200);
     }
 }

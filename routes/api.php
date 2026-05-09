@@ -29,6 +29,7 @@ use App\Http\Controllers\Api\Admin\ProductSizeController;
 use App\Http\Controllers\Api\Admin\ProfileController;
 use App\Http\Controllers\Api\Admin\ReservationController;
 use App\Http\Controllers\Api\Admin\ReservationTimeController;
+use App\Http\Controllers\Api\Admin\SettingController;
 use App\Http\Controllers\Api\Admin\SliderController;
 use App\Http\Controllers\Api\Admin\SocialLinkController;
 use App\Http\Controllers\Api\Admin\TestimonialController;
@@ -327,6 +328,18 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
         Route::get('admin-management/{id}', 'show');
         Route::put('admin-management/{id}', 'update');
         Route::delete('admin-management/{id}', 'destroy');
+    });
+
+    /** Setting Routes */
+    Route::controller(SettingController::class)->group(function () {
+        Route::get('setting', 'index');
+        Route::put('general-setting', 'updateGeneralSetting');
+        Route::put('mail-setting', 'updateMailSetting');
+        Route::post('logo-setting', 'updateLogoSetting');
+        Route::put('appearance-setting', 'updateAppearanceSetting');
+        Route::post('seo-setting', 'updateSeoSetting');
+        Route::post('github-setting', 'updateGithubSetting');
+        Route::post('google-setting', 'updateGoogleSetting');
     });
 });
 
