@@ -112,7 +112,7 @@ class PaymentGatewaySettingSeeder extends Seeder
             ],
             [
                 'key' => 'razorpay_logo',
-                'value' => 'frontend/images/pay_8.webp',
+                'value' => 'frontend/images/pay_8.png',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
