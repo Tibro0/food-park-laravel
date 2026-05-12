@@ -36,6 +36,7 @@ use App\Http\Controllers\Api\Admin\TestimonialController;
 use App\Http\Controllers\Api\Admin\TramsAndConditionController;
 use App\Http\Controllers\Api\Admin\WhyChooseUsController;
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\Frontend\ProfileController as FrontendProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -361,6 +362,13 @@ Route::group(['middleware' => ['auth:sanctum', 'apiRole:admin'], 'prefix' => 'ad
 Route::group(['middleware' => ['auth:sanctum', 'apiRole:user'], 'prefix' => 'user'], function () {
     Route::controller(AuthController::class)->group(function () {
         Route::post('logout', 'logout');
+    });
+
+    // User Profile Update Route
+    Route::controller(FrontendProfileController::class)->group(function () {
+        Route::put('profile', 'updateProfile');
+        Route::put('profile/password', 'updatePassword');
+        Route::post('profile/avatar', 'updateAvatar');
     });
 });
 
