@@ -16,7 +16,7 @@ class PaymentGatewaySettingSeeder extends Seeder
         PaymentGatewaySetting::insert([
             [
                 'key' => 'paypal_logo',
-                'value' => 'frontend/images/pay_1.jpg',
+                'value' => 'frontend/images/pay_1.png',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
