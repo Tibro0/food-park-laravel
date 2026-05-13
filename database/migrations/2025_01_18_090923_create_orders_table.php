@@ -22,12 +22,12 @@ return new class extends Migration
             $table->double('grand_total');
             $table->integer('product_qty');
             $table->string('payment_method')->nullable();
-            $table->string('payment_status')->default('pending');
+            $table->enum('payment_status', ['PENDING', 'COMPLETED'])->default('PENDING');
             $table->timestamp('payment_approve_date')->nullable();
             $table->string('transaction_id')->nullable();
             $table->json('coupon_info')->nullable();
             $table->string('currency_name')->nullable();
-            $table->string('order_status')->default('pending');
+            $table->enum('order_status', ['pending', 'in_process', 'delivered', 'declined'])->default('pending');
             $table->foreignId('address_id')->constrained('addresses')->onDelete('cascade');
             $table->timestamps();
         });

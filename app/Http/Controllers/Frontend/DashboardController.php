@@ -21,7 +21,10 @@ class DashboardController extends Controller
         $orders = Order::with(['userAddress'])->where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
         $reviews = ProductRating::with(['user'])->where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
         $wishlist = Wishlist::with(['product'])->where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
-        return view('frontend.dashboard.index', compact('deliveryAreas', 'userAddresses', 'orders', 'reviews',  'wishlist'));
+        $totalOrders = Order::where(['user_id' => Auth::user()->id])->count();
+        $completedOrders = Order::where(['user_id' => Auth::user()->id, 'order_status' => 'delivered'])->count();
+        $cancelOrders = Order::where(['user_id' => Auth::user()->id, 'order_status' => 'declined'])->count();
+        return view('frontend.dashboard.index', compact('deliveryAreas', 'userAddresses', 'orders', 'reviews',  'wishlist', 'totalOrders', 'completedOrders', 'cancelOrders'));
     }
 
     public function userDashboardListStyle(Request $request)
